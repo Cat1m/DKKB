@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BV_Hồng_Hưng_-_Đăng_ký_khám_bệnh_online.iml" filepath="$PROJECT_DIR$/.idea/modules/BV_Hồng_Hưng_-_Đăng_ký_khám_bệnh_online.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BV_Hồng_Hưng_-_Đăng_ký_khám_bệnh_online.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BV_Hồng_Hưng_-_Đăng_ký_khám_bệnh_online.app.iml" />
+    </modules>
+  </component>
+</project>

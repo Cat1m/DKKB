@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BV Hồng Hưng - Đăng ký khám bệnh online</string>
+    <string name="app_hello">Bệnh viện Đa khoa Hồng Hưng xin chào!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username_homepage_login">Username</string>
+    <string name="username_homepage_login_detail">(SĐT dùng để đăng kí)</string>
+    <string name="password_homepage_login">Password</string>
+    <string name="password_homepage_login_detail">(Mật khẩu)</string>
+    <string name="btn_dang_nhap_txt">Đăng nhập</string>
+    <string name="dang_ky_link_text">Đăng ký tài khoản</string>
+    <string name="quen_mat_khau_link_txt">Quên mật khẩu</string>
+</resources>
