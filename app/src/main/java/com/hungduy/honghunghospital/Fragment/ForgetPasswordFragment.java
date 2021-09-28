@@ -1,31 +1,28 @@
 package com.hungduy.honghunghospital.Fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.hungduy.honghunghospital.R;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LoginFragment extends BaseFragment {
-
-    private TextView txtRegister,txtForgetPassword;
+public class ForgetPasswordFragment extends BaseFragment {
 
 
-    public LoginFragment() {
+
+    public ForgetPasswordFragment() {
     }
 
 
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static ForgetPasswordFragment newInstance(String param1, String param2) {
+        ForgetPasswordFragment fragment = new ForgetPasswordFragment();
         Bundle args = new Bundle();
         //args.putString(ARG_PARAM1, param1);
        // args.putString(ARG_PARAM2, param2);
@@ -48,24 +45,10 @@ public class LoginFragment extends BaseFragment {
 
         mapView(view);
 
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     private void mapView(View v) {
-        txtRegister = v.findViewById(R.id.txtRegister);
-        txtForgetPassword = v.findViewById(R.id.txtForgetPassword);
+
     }
 
     @Override
