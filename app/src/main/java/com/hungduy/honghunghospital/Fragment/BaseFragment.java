@@ -12,12 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialog;
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialogListener;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -61,7 +61,7 @@ public  abstract class BaseFragment extends Fragment {
         new FancyGifDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(Mes)
-                .setPositiveBtnBackground(R.color.design_default_color_error)
+                .setPositiveBtnBackground("#FF4081")
                 .setPositiveBtnText("Đồng ý")
                 .setGifResource(gif)
                 .OnPositiveClicked(okclick)

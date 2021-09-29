@@ -9,10 +9,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialog;
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialogListener;
 import com.hungduy.honghunghospital.R;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,7 +41,6 @@ public class UtilityHHH {
     }
 
 
-
     static DateFormat dateFormatwithTime = new SimpleDateFormat("MM/dd/yyyy hh:mm");
     static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static DateFormat dateFormatForUser = new SimpleDateFormat("dd/MM/yyyy");
@@ -68,7 +66,7 @@ public class UtilityHHH {
                                             .setTitle("Thông tin chưa chính xác")
                                             .setMessage("Ngày "+ngay+" không thể "+(dateFormat.parse(ngaybatdau).before(minDate)?"trước ngày "+
                                                     dateFormatForUser.format(minDate):"sau ngày "+ dateFormatForUser.format(maxDate) +"!!"))
-                                            .setPositiveBtnBackground(R.color.design_default_color_on_primary)
+                                            .setPositiveBtnBackground("#FF4081")
                                             .setPositiveBtnText("OK")
                                             .setGifResource(R.drawable.time_shake)
                                             .OnPositiveClicked(new FancyGifDialogListener() {
@@ -117,7 +115,7 @@ public class UtilityHHH {
                                         .setTitle("Thông tin chưa chính xác")
                                         .setMessage("Ngày "+ngay+" không thể "+(dateFormat.parse(ngaybatdau).before(minDate)?"trước ngày "+
                                                 dateFormatForUser.format(minDate):"sau ngày "+ dateFormatForUser.format(maxDate) +"!!"))
-                                        .setPositiveBtnBackground(R.color.design_default_color_on_primary)
+                                        .setPositiveBtnBackground("#FF4081")
                                         .setPositiveBtnText("OK")
                                         .setGifResource(R.drawable.time_shake)
                                         .OnPositiveClicked(new FancyGifDialogListener() {

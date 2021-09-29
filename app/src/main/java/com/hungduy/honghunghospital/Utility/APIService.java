@@ -28,5 +28,11 @@ public interface APIService {
     @POST("getQuanHuyen")
     Call<ResponseModel> getQuanHuyen(@Body get_Token_Ma x);
 
+    @Headers("Content-Type: application/json")
+    @POST("getPhuongXa")
+    Call<ResponseModel> getPhuongXa(@Body get_Token_Ma x);
 
+    @Headers("Content-Type: application/json")
+    @POST("getApKhuPho")
+    Call<ResponseModel> getApKhuPho(@Body get_Token_Ma x);
 }

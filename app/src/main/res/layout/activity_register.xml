@@ -172,7 +172,7 @@
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
-                        android:inputType="textPersonName|textEmailAddress|phone"
+                        android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -233,6 +233,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView"
                             android:layout_width="70dp"
                             android:layout_height="35dp"
                             android:layout_marginStart="5dp"
@@ -262,46 +263,58 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <RadioGroup
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="115dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="1dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
                             <RadioButton
-                                android:id="@+id/radioButton4"
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:fontFamily="@font/myriadpro_semiext"
-                                android:scaleX="0.7"
-                                android:scaleY="0.7"
-                                android:text="Nam"
-                                android:textColor="@color/textColorGreen"
-                                tools:ignore="TouchTargetSizeCheck" />
-
-                            <RadioButton
-                                android:id="@+id/radioButton5"
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:fontFamily="@font/myriadpro_semiext"
-                                android:scaleX="0.7"
-                                android:scaleY="0.7"
-                                android:text="Nữ"
-                                android:textColor="@color/textColorGreen"
-                                tools:ignore="TouchTargetSizeCheck" />
-
-                            <RadioButton
-                                android:id="@+id/radioButton2"
-                                android:layout_width="80dp"
+                                android:id="@+id/chkKhac"
+                                android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:fontFamily="@font/myriadpro_semiext"
                                 android:scaleX="0.7"
                                 android:scaleY="0.7"
                                 android:text="Khác"
                                 android:textColor="@color/textColorGreen"
+                                android:textColorLink="@color/textColorGreen"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/chkNam"
+                                app:layout_constraintTop_toBottomOf="@+id/chkNam"
                                 tools:ignore="TouchTargetSizeCheck" />
 
-                        </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/chkNu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:scaleX="0.7"
+                                android:scaleY="0.7"
+                                android:text="Nữ"
+                                android:textColor="@color/textColorGreen"
+                                app:layout_constraintBottom_toBottomOf="@+id/chkNam"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/chkNam"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+                            <RadioButton
+                                android:id="@+id/chkNam"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:checked="true"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:scaleX="0.7"
+                                android:scaleY="0.7"
+                                android:text="Nam"
+                                android:textColor="@color/textColorGreen"
+                                app:layout_constraintBottom_toTopOf="@+id/chkKhac"
+                                app:layout_constraintEnd_toStartOf="@+id/chkNu"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TouchTargetSizeCheck" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -332,14 +345,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <AutoCompleteTextView
+                        <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtTinhThanh"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="45dp"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:maxLines="1"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
+                            android:paddingRight="8dp"
                             android:textSize="16dp"
+                            app:jrs_multiple="false"
+                            app:jrs_title="Chọn tỉnh thành"
                             tools:ignore="TouchTargetSizeCheck" />
 
                     </LinearLayout>
@@ -359,15 +375,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <AutoCompleteTextView
+                        <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtQuanHuyen"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="45dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:maxLines="1"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:textSize="16dp" />
+                            android:paddingRight="8dp"
+                            android:textSize="16dp"
+                            app:jrs_multiple="false"
+                            app:jrs_title="Chọn quận huyện" />
 
                     </LinearLayout>
 
@@ -386,17 +405,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <EditText
-                            android:id="@+id/txtUsername10"
+                        <jrizani.jrspinner.JRSpinner
+                            android:id="@+id/txtXaPhuong"
                             android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:layout_marginBottom="3dp"
+                            android:layout_height="45dp"
+                            android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
-                            android:ems="10"
-                            android:inputType="textPersonName|textEmailAddress|phone"
+                            android:maxLines="1"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                            android:paddingRight="8dp"
+                            android:textSize="16dp"
+                            app:jrs_multiple="false"
+                            app:jrs_title="Chọn phường xã" />
 
                     </LinearLayout>
 
@@ -415,17 +435,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <EditText
-                            android:id="@+id/txtUsername10"
+                        <jrizani.jrspinner.JRSpinner
+                            android:id="@+id/txtApKhuPho"
                             android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:layout_marginBottom="3dp"
+                            android:layout_height="45dp"
+                            android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
-                            android:ems="10"
-                            android:inputType="textPersonName|textEmailAddress|phone"
+                            android:maxLines="1"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                            android:paddingRight="8dp"
+                            android:textSize="16dp"
+                            app:jrs_multiple="false"
+                            app:jrs_title="Chọn ấp, khu phố" />
 
                     </LinearLayout>
 
@@ -445,13 +466,13 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <EditText
-                            android:id="@+id/txtUsername10"
+                            android:id="@+id/txtDiaChi"
                             android:layout_width="match_parent"
-                            android:layout_height="38dp"
+                            android:layout_height="45dp"
                             android:layout_marginBottom="3dp"
                             android:background="@drawable/shape_edittext_have_focus"
                             android:ems="10"
-                            android:inputType="textPersonName|textEmailAddress|phone"
+                            android:inputType="text"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -474,13 +495,13 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <EditText
-                            android:id="@+id/txtUsername10"
+                            android:id="@+id/txtDiaChi"
                             android:layout_width="match_parent"
-                            android:layout_height="38dp"
+                            android:layout_height="45dp"
                             android:layout_marginBottom="3dp"
                             android:background="@drawable/shape_edittext_have_focus"
                             android:ems="10"
-                            android:inputType="textPersonName|textEmailAddress|phone"
+                            android:inputType="phone"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -497,14 +518,14 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/txtUsername11"
+                        android:id="@+id/txtQuocTich"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
-                        android:inputType="textPersonName|textEmailAddress|phone"
+                        android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -519,14 +540,14 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/txtUsername12"
+                        android:id="@+id/txtCMND"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
-                        android:inputType="textPersonName|textEmailAddress|phone"
+                        android:inputType="number"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -541,14 +562,14 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/txtUsername13"
+                        android:id="@+id/txtMaBHYT"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
-                        android:inputType="textPersonName|textEmailAddress|phone"
+                        android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />

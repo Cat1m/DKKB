@@ -16,12 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialog;
-import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialogListener;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -104,13 +104,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         new FancyGifDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(Mes)
-                .setPositiveBtnBackground(R.color.design_default_color_error)
+                .setPositiveBtnBackground("#FF4081")
                 .setPositiveBtnText("Đồng ý")
                 .setGifResource(gif)
                 .OnPositiveClicked(okclick)
                 .build();
     }
-
+    protected void ThongBao(Activity activity, String title, String Mes, int gif){
+        new FancyGifDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(Mes)
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("Đồng ý")
+                .setGifResource(gif)
+                .build();
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
