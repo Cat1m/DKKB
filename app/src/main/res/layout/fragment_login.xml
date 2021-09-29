@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imgLogoBVHH"
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.512" />
 
@@ -117,7 +117,7 @@
             android:id="@+id/txtUsername"
             android:layout_width="231dp"
             android:layout_height="48dp"
-            android:background="@drawable/shape_login_dobong"
+            android:background="@drawable/shape_edittext_have_focus"
             android:ems="10"
             android:inputType="textPersonName|textEmailAddress|phone"
             android:paddingLeft="20dp"
@@ -154,7 +154,7 @@
             android:id="@+id/txtPassword"
             android:layout_width="231dp"
             android:layout_height="48dp"
-            android:background="@drawable/shape_login_dobong"
+            android:background="@drawable/shape_edittext_have_focus"
             android:ems="10"
             android:inputType="textPassword"
             android:paddingLeft="20dp"

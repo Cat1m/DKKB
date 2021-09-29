@@ -1,12 +1,12 @@
-package com.hungduy.honghunghospital.Model.setModel;
+package com.hungduy.honghunghospital.Model.getModel;
 
-public class BaseSetClass {
-    private String token;
+public class baseGetClass {
+    public String token;
 
-    public BaseSetClass() {
+    public baseGetClass() {
     }
 
-    public BaseSetClass(String token) {
+    public baseGetClass(String token) {
         this.token = token;
     }
 

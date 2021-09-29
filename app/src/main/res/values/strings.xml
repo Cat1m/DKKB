@@ -10,4 +10,22 @@
     <string name="btn_dang_nhap_txt">Đăng nhập</string>
     <string name="dang_ky_link_text">Đăng ký tài khoản</string>
     <string name="quen_mat_khau_link_txt">Quên mật khẩu</string>
+    <string name="txt_resetpassword_detail">Để được hỗ trợ đăng nhập tài khoản,\nAnh/Chị vui lòng nhập số điện thoại đã đăng ký\ntài khoản vào khung bên dưới</string>
+    <string name="txt_sdt_full_string">Số điện thoại</string>
+    <string name="txt_ho_va_ten">Họ và tên(*)</string>
+    <string name="txt_ngay_thang_nam_sinh">Ngày tháng năm sinh(*)</string>
+
+    <!-- overide imagepicker String -->
+    <string name="title_choose_image_provider">Chọn nguồn hình ảnh</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="title_gallery">Thư viện</string>
+    <string name="title_camera">Máy ảnh</string>
+    <!-- uCrop string resource start -->
+    <string name="ucrop_label_original">Ảnh gốc</string>
+    <string name="ucrop_label_edit_photo">Chỉnh sửa ảnh</string>
+    <string name="ucrop_menu_crop">Cắt</string>
+    <string name="ucrop_rotate">Xoay</string>
+    <string name="ucrop_scale">Thu phóng</string>
+    <string name="ucrop_crop">Cắt</string>
+    <!-- uCrop string resource end -->
 </resources>

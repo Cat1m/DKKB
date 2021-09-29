@@ -3,6 +3,9 @@ package com.hungduy.honghunghospital.Utility;
 
 
 import com.hungduy.honghunghospital.Model.ResponseModel;
+import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
+import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
+import com.hungduy.honghunghospital.Model.getModel.get_Token_Ma;
 
 import java.util.ArrayList;
 
@@ -14,13 +17,16 @@ import retrofit2.http.POST;
 
 public interface APIService {
     @Headers("Content-Type: application/json")
-    @GET("getNhomGiaoDich")
-    Call<ResponseModel> getNhomGiaoDich();
+    @POST("getOTP")
+    Call<ResponseModel> getOTP(@Body getOTPModel x);
 
     @Headers("Content-Type: application/json")
-    @GET("getTinhThanh")
-    Call<ResponseModel> getTinhThanh();
+    @POST("getTinhThanh")
+    Call<ResponseModel> getTinhThanh(@Body baseGetClass x);
 
+    @Headers("Content-Type: application/json")
+    @POST("getQuanHuyen")
+    Call<ResponseModel> getQuanHuyen(@Body get_Token_Ma x);
 
 
 }

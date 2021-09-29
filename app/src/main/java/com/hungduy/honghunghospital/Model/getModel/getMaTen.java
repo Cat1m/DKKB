@@ -3,7 +3,7 @@ package com.hungduy.honghunghospital.Model.getModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class getTinhThanh {
+public class getMaTen {
     @SerializedName("ma")
     @Expose
     private String ma;
@@ -11,10 +11,10 @@ public class getTinhThanh {
     @Expose
     private String ten;
 
-    public getTinhThanh() {
+    public getMaTen() {
     }
 
-    public getTinhThanh(String ma, String ten) {
+    public getMaTen(String ma, String ten) {
         this.ma = ma;
         this.ten = ten;
     }

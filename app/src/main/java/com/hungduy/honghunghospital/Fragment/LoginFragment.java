@@ -1,5 +1,6 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hungduy.honghunghospital.Activity.RegisterActivity;
 import com.hungduy.honghunghospital.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +53,8 @@ public class LoginFragment extends BaseFragment {
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getContext(), RegisterActivity.class);
+                startActivity(i);
             }
         });
 

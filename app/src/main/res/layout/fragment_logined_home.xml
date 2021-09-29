@@ -24,21 +24,22 @@
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_hungduymedical" />
+            app:srcCompat="@drawable/logo_clickable" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_hh_xinchao_dobong"
             android:fontFamily="@font/utm_gods_word_r_italic"
             android:gravity="center"
             android:lines="2"
             android:maxLines="2"
-            android:minLines="1"
-            android:padding="6dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="9dp"
             android:text="@string/app_hello"
-            android:textColor="@color/textColorGreen"
-            android:textSize="18sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
@@ -47,11 +48,21 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_honghung" />
+            app:srcCompat="@drawable/user" />
+
+        <TextView
+            android:id="@+id/txtUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/myriadpro_semiext"
+            android:text="Tên user"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -109,7 +120,7 @@
             android:id="@+id/txtData"
             android:layout_width="231dp"
             android:layout_height="48dp"
-            android:background="@drawable/shape_edittext_have_focus"
+            android:background="@drawable/shape_login_dobong"
             android:ems="10"
             android:inputType="textPassword"
             android:paddingLeft="20dp"

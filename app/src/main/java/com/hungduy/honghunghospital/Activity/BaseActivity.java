@@ -21,6 +21,11 @@ import com.hungduy.honghunghospital.FancyGifDialog.FancyGifDialogListener;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected APIService mAPIService;
@@ -30,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected TextView txtTitle;
     protected ImageView btnBack;
     protected String username,password, branchID ,FullName,urlImage,branchName,token;
+    protected String APIKey;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             FullName =(String) BundleLogin.get("FullName");
             urlImage =(String) BundleLogin.get("urlImage");
             token =(String) BundleLogin.get("token");
+        }
+        String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
+        try {
+            APIKey = UtilityHHH.getSha512fromString("HHHApp4P1"+currentYearMonth);
+        }catch (Exception ex){
         }
     }
 
