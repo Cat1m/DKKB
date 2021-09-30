@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BVHồngHưngĐăngKýKhámBệnhOnline">
         <activity
+            android:name=".Activity.LogoActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.RegisterActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />

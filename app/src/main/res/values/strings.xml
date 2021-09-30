@@ -30,5 +30,9 @@
     <string name="btn_home_3">Khai báo y tế \nđể liên hệ công tác</string>
     <string name="btn_home_4">Tra cứu lịch sử khám bệnh</string>
     <string name="btn_home_5">Khai báo y tế \ndành cho nhân viên nội bộ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_dichvu_lienhe_hotline">Nếu chưa tìm được dịch vụ mình quan tâm<br />Anh/Chị có thể liên hệ đến <font color='#00ae89'>
+        hotline bệnh viện<br />0276 3836 991 - 0941 696 939</font><br />để được hỗ trợ kịp thời nhất.</string>
     <!-- uCrop string resource end -->
 </resources>

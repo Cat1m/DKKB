@@ -17,6 +17,8 @@ import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.hungduy.honghunghospital.Fragment.BacSiFragment;
+import com.hungduy.honghunghospital.Fragment.DichVuFragment;
 import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
 import com.hungduy.honghunghospital.R;
@@ -42,6 +44,8 @@ public class MainActivity extends BaseActivity {
 
     private int selected = 1;
     private LoginFragment loginFM;
+    private BacSiFragment BacSiFM;
+    private DichVuFragment DichVuFM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class MainActivity extends BaseActivity {
         btnMainClick();
 
         loginFM = new LoginFragment();
+        BacSiFM = new BacSiFragment();
+        DichVuFM = new DichVuFragment();
         FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
 
         initButtonImage();// load Image to memory for quick response
@@ -98,6 +104,7 @@ public class MainActivity extends BaseActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
                 FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                 clearBtnColor();
                 imgHome.setImageBitmap(homepage_color);
@@ -107,6 +114,8 @@ public class MainActivity extends BaseActivity {
         btnLichBS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),BacSiFM,"");
+                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
                 clearBtnColor();
                 imgLichBS.setImageBitmap(doctor_color);
                 imgLichBS.setTag("1");
@@ -115,6 +124,8 @@ public class MainActivity extends BaseActivity {
         btnDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),DichVuFM,"");
+                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
                 clearBtnColor();
                 imgDichVu.setImageBitmap(services_color);
                 imgDichVu.setTag("1");
