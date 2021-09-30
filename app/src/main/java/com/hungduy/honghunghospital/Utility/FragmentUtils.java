@@ -9,6 +9,8 @@ public class FragmentUtils {
     public static void replaceFragment(int content, FragmentManager frgmanager, Fragment fragment, String tag){
         FragmentTransaction transaction = frgmanager.beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
+      //  transaction.remove(findFragmentByTag(frgmanager,tag));
+
         transaction.replace(content, fragment,tag);
         // Commit the transaction
         transaction.commit();

@@ -17,9 +17,11 @@ import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
+import com.hungduy.honghunghospital.Utility.QLCVScrollView;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -27,7 +29,7 @@ import java.io.ByteArrayOutputStream;
 public class MainActivity extends BaseActivity {
     private LinearLayout btnHome,btnLichBS,btnDichVu,btnTinTuc;
     private ImageView imgHome,imgLichBS,imgDichVu,imgTinTuc;
-    private ScrollView svTrangChu;
+    private LinearLayout svTrangChu;
 
     Bitmap homepage_gray;
     Bitmap doctor_gray;
@@ -39,7 +41,7 @@ public class MainActivity extends BaseActivity {
     Bitmap information_color;
 
     private int selected = 1;
-
+    private LoginFragment loginFM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,8 @@ public class MainActivity extends BaseActivity {
         mapView();
         btnMainClick();
 
-        LoginFragment loginFM = new LoginFragment();
+        loginFM = new LoginFragment();
         FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
-
-
-
-
-
 
         initButtonImage();// load Image to memory for quick response
 
@@ -101,6 +98,7 @@ public class MainActivity extends BaseActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                 clearBtnColor();
                 imgHome.setImageBitmap(homepage_color);
                 imgHome.setTag("1");

@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.hungduy.honghunghospital.Activity.ResetPasswordActivity;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
 import com.hungduy.honghunghospital.R;
@@ -25,11 +25,12 @@ import retrofit2.Response;
 
 public class ForgetPasswordFragment extends BaseFragment {
 
-    private EditText txtData;
-    private Button btnNhapOTP;
-
+    private EditText txtSDT,txtNewPassword,txtReEnterPassword,txtOTPCode;
+    private Button btnLuu;
+    private ConstraintLayout viewGetOTP,viewReset;
 
     public ForgetPasswordFragment() {
+
     }
 
     @Override
@@ -46,13 +47,20 @@ public class ForgetPasswordFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mapView(view);
-        btnNhapOTP.setOnClickListener(new View.OnClickListener() {
+        viewReset.setVisibility(View.INVISIBLE);
+
+        btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAPIService.getOTP(new getOTPModel(APIKey,txtData.getText().toString())).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getOTP(APIKey,new getOTPModel(txtSDT.getText().toString())).enqueue(new Callback<ResponseModel>() {
                     @Override
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-
+                        if(response.isSuccessful()){
+                            if(response.body().getStatus().equals("OK")){
+                                viewGetOTP.setVisibility(View.INVISIBLE);
+                                viewReset.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
 
                     @Override
@@ -62,16 +70,22 @@ public class ForgetPasswordFragment extends BaseFragment {
                 });
 
 
-
-                Intent i = new Intent(getContext(), ResetPasswordActivity.class);
-                startActivity(i);
             }
         });
+
+
+
+
     }
 
     private void mapView(View v) {
-        txtData = v.findViewById(R.id.txtData);
-        btnNhapOTP = v.findViewById(R.id.btnNhapOTP);
+        viewGetOTP = v.findViewById(R.id.viewGetOTP);
+        viewReset = v.findViewById(R.id.viewReset);
+        btnLuu = v.findViewById(R.id.btnLuu);
+        txtSDT = v.findViewById(R.id.txtSDT);
+        txtNewPassword = v.findViewById(R.id.txtNewPassword);
+        txtReEnterPassword = v.findViewById(R.id.txtReEnterPassword);
+        txtOTPCode= v.findViewById(R.id.txtOTPCode);
     }
 
     @Override

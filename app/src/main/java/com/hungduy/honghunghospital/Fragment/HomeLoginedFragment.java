@@ -5,17 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hungduy.honghunghospital.R;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-public class HomeLoginedFragment extends BaseFragment {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    private EditText txtData;
+public class HomeLoginedFragment extends BaseFragment {
+    private TextView txtUser;
+    private CircleImageView imgUser;
 
     public HomeLoginedFragment() {
     }
@@ -35,10 +40,15 @@ public class HomeLoginedFragment extends BaseFragment {
 
         mapView(view);
 
+        txtUser.setText(FullName);
+        if(urlImage != ""){
+            Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
+        }
     }
 
     private void mapView(View v) {
-        txtData = v.findViewById(R.id.txtData);
+        txtUser = v.findViewById(R.id.txtUser);
+        imgUser = v.findViewById(R.id.imgUser);
     }
 
     @Override

@@ -1,23 +1,12 @@
 package com.hungduy.honghunghospital.Model;
 
 public class LoginModel {
-    public String token,username,password;
-    private int branchID;
+    public String username,password;
     public LoginModel() {
     }
-    public LoginModel(String token, String username, String password,int branchID) {
-        this.token = token;
+    public LoginModel(String username, String password) {
         this.username = username;
         this.password = password;
-        this.branchID = branchID;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getUsername() {
@@ -37,6 +26,6 @@ public class LoginModel {
     }
     @Override
     public String toString() {
-        return "{ token:'" + token + "',username:'" + username + "',password:'" + password + "','branchID':'"+branchID+"'}";
+        return "{ username:'" + username + "',password:'" + password + "'}";
     }
 }

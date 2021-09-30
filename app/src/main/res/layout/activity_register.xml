@@ -44,13 +44,13 @@
             android:text="@string/app_hello"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/imgUser"
             app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.512" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imgUser"
             android:layout_width="45dp"
             android:layout_height="35dp"
             android:layout_marginEnd="15dp"
@@ -65,9 +65,9 @@
             android:fontFamily="@font/myriadpro_semiext"
             android:text="Tên user"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintEnd_toEndOf="@+id/imgUser"
+            app:layout_constraintStart_toStartOf="@+id/imgUser"
+            app:layout_constraintTop_toBottomOf="@+id/imgUser" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -479,35 +479,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="125dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="Số điện thoại (*)"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <EditText
-                            android:id="@+id/txtDiaChi"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="@drawable/shape_edittext_have_focus"
-                            android:ems="10"
-                            android:inputType="phone"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
@@ -517,10 +488,10 @@
                         android:textColor="@color/textColorGreen"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <jrizani.jrspinner.JRSpinner
                         android:id="@+id/txtQuocTich"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="53dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
@@ -528,6 +499,8 @@
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        app:jrs_multiple="false"
+                        app:jrs_title="Chọn tỉnh thành"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -542,7 +515,7 @@
                     <EditText
                         android:id="@+id/txtCMND"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="53dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
@@ -564,7 +537,7 @@
                     <EditText
                         android:id="@+id/txtMaBHYT"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="53dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
@@ -585,7 +558,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="170dp"
                         android:layout_margin="13dp"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="10dp">
@@ -597,6 +570,71 @@
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/bhyt" />
                     </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:text="Số điện thoại(*)"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/txtSDT"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"
+                        android:background="@drawable/shape_edittext_have_focus"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:text="Mật khẩu (*)"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/txtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"
+                        android:background="@drawable/shape_edittext_have_focus"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:text="Nhập lại mật khẩu (*)"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/txtReEnterPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"
+                        android:background="@drawable/shape_edittext_have_focus"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

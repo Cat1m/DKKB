@@ -45,8 +45,6 @@ public  abstract class BaseFragment extends Fragment {
             password = getArguments().getString("password");
             FullName = getArguments().getString("FullName");
             urlImage = getArguments().getString("urlImage");
-            branchID = getArguments().getString("branchID");
-            branchName = getArguments().getString("branchName");
             padding = getArguments().getInt("padding");
             token = getArguments().getString("token");
         }
@@ -65,6 +63,16 @@ public  abstract class BaseFragment extends Fragment {
                 .setPositiveBtnText("Đồng ý")
                 .setGifResource(gif)
                 .OnPositiveClicked(okclick)
+                .build();
+    }
+
+    protected void ThongBao(Activity activity, String title, String Mes, int gif){
+        new FancyGifDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(Mes)
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("Đồng ý")
+                .setGifResource(gif)
                 .build();
     }
 

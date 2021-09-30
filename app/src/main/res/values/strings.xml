@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">BV Hồng Hưng - Đăng ký khám bệnh online</string>
     <string name="app_hello">Bệnh viện Đa khoa Hồng Hưng xin chào!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username_homepage_login">Username</string>
     <string name="username_homepage_login_detail">(SĐT dùng để đăng kí)</string>
     <string name="password_homepage_login">Password</string>
@@ -27,5 +25,10 @@
     <string name="ucrop_rotate">Xoay</string>
     <string name="ucrop_scale">Thu phóng</string>
     <string name="ucrop_crop">Cắt</string>
+    <string name="btn_home_1">Khai báo y tế \nĐăng ký khám bệnh\n(hoặc dịch vụ Y tế khác)</string>
+    <string name="btn_home_2">Khai báo y tế giúp\ncho người thân \nhoặc người khác</string>
+    <string name="btn_home_3">Khai báo y tế \nđể liên hệ công tác</string>
+    <string name="btn_home_4">Tra cứu lịch sử khám bệnh</string>
+    <string name="btn_home_5">Khai báo y tế \ndành cho nhân viên nội bộ</string>
     <!-- uCrop string resource end -->
 </resources>

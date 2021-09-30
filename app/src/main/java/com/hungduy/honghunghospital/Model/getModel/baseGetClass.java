@@ -1,20 +1,20 @@
 package com.hungduy.honghunghospital.Model.getModel;
 
 public class baseGetClass {
-    public String token;
+    public String ma;
 
     public baseGetClass() {
     }
 
     public baseGetClass(String token) {
-        this.token = token;
+        this.ma = token;
     }
 
     public String getToken() {
-        return token;
+        return ma;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.ma = token;
     }
 }
