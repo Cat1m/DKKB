@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.R;
@@ -22,10 +24,13 @@ import com.hungduy.honghunghospital.Utility.ApiUtils;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected APIService mAPIService;
@@ -36,6 +41,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected ImageView btnBack;
     protected String username,password, branchID ,FullName,urlImage,branchName,token;
     protected String APIKey;
+    protected Drawable shape_edittext_error ;
+    protected Drawable shape_edittext_have_focus ;
+    private TextView txtUser;
+    private CircleImageView imgUser;
+    protected ImageView imgLogoBVHH;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +70,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             APIKey = UtilityHHH.getSha512fromString("HHHApp4P1"+currentYearMonth);
         }catch (Exception ex){
         }
+        shape_edittext_error = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_error);
+        shape_edittext_have_focus = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_have_focus);
+
+
+
+
     }
 
     @Override
@@ -78,6 +94,38 @@ public abstract class BaseActivity extends AppCompatActivity {
             txtTitle = null;
             btnBack = null;
         }
+        try {
+            txtUser = findViewById(R.id.txtUser);
+            imgUser = findViewById(R.id.imgUser);
+
+            if(!urlImage.isEmpty()){
+                Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
+            }
+
+            if(!FullName.isEmpty()){
+                txtUser.setText(FullName);
+            }else{
+                txtUser.setText("*");
+            }
+
+        }catch (Exception x){
+            txtUser = null;
+            imgUser = null;
+        }
+        try {
+            imgLogoBVHH = findViewById(R.id.imgLogoBVHH);
+            imgLogoBVHH.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getApplicationContext(), LogoActivity.class);
+                    startActivity(i);
+                }
+            });
+        }catch (Exception ex){
+
+        }
+
+
     }
 
     protected boolean getBooleanPreferences(String name, String key){
@@ -123,10 +171,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
-
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
         }
         return super.dispatchTouchEvent(ev);
     }

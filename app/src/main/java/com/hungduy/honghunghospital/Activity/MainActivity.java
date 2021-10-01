@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.hungduy.honghunghospital.Fragment.BacSiFragment;
+import com.hungduy.honghunghospital.Fragment.BaseFragment;
 import com.hungduy.honghunghospital.Fragment.DichVuFragment;
 import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
@@ -66,6 +68,19 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    public void LoginSuccess(String token,String fullname,String urlImage){
+        this.token = token;
+        this.FullName = fullname;
+        this.urlImage = urlImage;
+        Bundle bundle = new Bundle();
+        bundle.putString("FullName", fullname);
+        bundle.putString("urlImage", urlImage);
+        bundle.putString("token", token);
+        BacSiFM.setArguments(bundle);
+        DichVuFM.setArguments(bundle);
+        Log.d(TAG,"Login successs");
+    }
+
     private void initButtonImage() {
         homepage_gray = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.homepage_gray);
         doctor_gray = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.doctor_gray);
@@ -98,14 +113,26 @@ public class MainActivity extends BaseActivity {
             imgTinTuc.setImageBitmap(information_gray);
             imgTinTuc.setTag("0");
         }
+
     }
+
 
     private void btnMainClick() {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
-                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+                if(token.isEmpty()){
+                    svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+                    FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+                }else{
+                    HomeLoginedFragment logined = new HomeLoginedFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("FullName", FullName);
+                    bundle.putString("urlImage", urlImage);
+                    bundle.putString("token", token);
+                    logined.setArguments(bundle);
+                    FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
+                }
                 clearBtnColor();
                 imgHome.setImageBitmap(homepage_color);
                 imgHome.setTag("1");

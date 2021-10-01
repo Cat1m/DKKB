@@ -1,5 +1,6 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.RegisterActivity;
 import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
@@ -36,7 +38,6 @@ public class LoginFragment extends BaseFragment {
     private Button btnLogin;
 
     private String usernamePreferences,passwordPreferences;
-
     public LoginFragment() {
     }
 
@@ -57,7 +58,6 @@ public class LoginFragment extends BaseFragment {
 
         }
     }
-
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -91,7 +91,6 @@ public class LoginFragment extends BaseFragment {
                 }else{
                     Login(txtUsername.getText().toString(),txtPassword.getText().toString());
                 }
-
             }
         });
 
@@ -120,6 +119,10 @@ public class LoginFragment extends BaseFragment {
                             bundle.putString("FullName",u.getFullName());
                             bundle.putString("urlImage",u.getUrlImage());
                             bundle.putString("token",u.getToken());
+
+                            MainActivity activity = (MainActivity) getActivity();
+                            activity.LoginSuccess(u.getToken(),u.getFullName(),u.getUrlImage());
+
                             logined.setArguments(bundle);
                             FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),logined,"");
 

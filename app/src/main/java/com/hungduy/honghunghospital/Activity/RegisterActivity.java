@@ -60,7 +60,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {
-    private ImageView imgLogoBVHH,imgUser,imgBHYT;
+    private ImageView imgLogoBVHH,imgUserAVT,imgBHYT;
     private TextView txtNgaySinh,txtThangSinh,txtNamSinh;
     private EditText txtPassword,txtReEnterPassword,txtHoTen,txtDiaChi,txtSDT,txtCMND,txtMaBHYT;
     private Button btnThoat,btnLuu;
@@ -75,8 +75,6 @@ public class RegisterActivity extends BaseActivity {
 
     private Uri URIimgUser,URIimgBHYT;
 
-    private Drawable shape_edittext_error ;
-    private Drawable shape_edittext_have_focus ;
 
     private String matinhthanh = "";
     private String maquanhuyen = "";
@@ -95,8 +93,6 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         
         mapView();
-        shape_edittext_error = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_error);
-        shape_edittext_have_focus = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_have_focus);
         mAPIService.getTinhThanh(APIKey).enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -192,7 +188,7 @@ public class RegisterActivity extends BaseActivity {
             }
         });
 
-        imgUser.setOnClickListener(new View.OnClickListener() {
+        imgUserAVT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImagePicker.Companion.with(RegisterActivity.this)
@@ -697,7 +693,7 @@ public class RegisterActivity extends BaseActivity {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
                 if (result.getResultCode() == RESULT_OK) {
                     URIimgUser = result.getData().getData();
-                    Picasso.get().load(URIimgUser).into(imgUser);
+                    Picasso.get().load(URIimgUser).into(imgUserAVT);
                 } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                     // Use ImagePicker.Companion.getError(result.getData()) to show an error
                 }
@@ -705,7 +701,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void mapView() {
         imgLogoBVHH = findViewById(R.id.imgLogoBVHH);
-        imgUser = findViewById(R.id.imgUser);
+        imgUserAVT = findViewById(R.id.imgUserAVT);
         txtNgaySinh = findViewById(R.id.txtNgaySinh);
         txtThangSinh = findViewById(R.id.txtThangSinh);
         txtNamSinh = findViewById(R.id.txtNamSinh);

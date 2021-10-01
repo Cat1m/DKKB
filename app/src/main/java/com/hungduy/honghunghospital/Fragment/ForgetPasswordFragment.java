@@ -1,7 +1,10 @@
 package com.hungduy.honghunghospital.Fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
+import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.FragmentUtils;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,8 +32,10 @@ import retrofit2.Response;
 public class ForgetPasswordFragment extends BaseFragment {
 
     private EditText txtSDT,txtNewPassword,txtReEnterPassword,txtOTPCode;
-    private Button btnLuu;
+    private Button btnLuu,btnResetPassword;
     private ConstraintLayout viewGetOTP,viewReset;
+
+    private String phoneNumber = "";
 
     public ForgetPasswordFragment() {
 
@@ -57,8 +65,20 @@ public class ForgetPasswordFragment extends BaseFragment {
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                         if(response.isSuccessful()){
                             if(response.body().getStatus().equals("OK")){
+                                phoneNumber = txtSDT.getText().toString();
                                 viewGetOTP.setVisibility(View.INVISIBLE);
                                 viewReset.setVisibility(View.VISIBLE);
+                            }else if(response.body().getStatus().equals("Exist")){
+                                ThongBao(getActivity(), "Thông báo", response.body().getMessenge(), R.drawable.connection_error, new FancyGifDialogListener() {
+                                    @Override
+                                    public void OnClick() {
+                                        phoneNumber = txtSDT.getText().toString();
+                                        viewGetOTP.setVisibility(View.INVISIBLE);
+                                        viewReset.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }else{
+                                ThongBao(getActivity(),"Đã có lỗi xảy ra",response.body().getMessenge(),R.drawable.connection_error);
                             }
                         }
                     }
@@ -72,11 +92,107 @@ public class ForgetPasswordFragment extends BaseFragment {
 
             }
         });
+        txtOTPCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!txtOTPCode.getText().toString().isEmpty()){
+                    txtOTPCode.setBackground(shape_edittext_have_focus);
+                }
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        txtNewPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(txtNewPassword.getText().toString().isEmpty()){
+                    txtNewPassword.setBackground(shape_edittext_error);
+                    txtReEnterPassword.setBackground(shape_edittext_error);
+                }else{
+                    txtNewPassword.setBackground(shape_edittext_have_focus);
+                    txtReEnterPassword.setBackground(shape_edittext_have_focus);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        txtReEnterPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!txtReEnterPassword.getText().toString().equals(txtNewPassword.getText().toString())){
+                    txtReEnterPassword.setBackground(shape_edittext_error);
+                }else{
+                    txtReEnterPassword.setBackground(shape_edittext_have_focus);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        btnResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtReEnterPassword.getText().toString().equals(txtNewPassword.getText().toString()) && !txtOTPCode.getText().toString().isEmpty())
+                {
+                    mAPIService.ResetPassword(APIKey,new setNewPassword(phoneNumber,txtOTPCode.getText().toString(),
+                            txtReEnterPassword.getText().toString())).enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            if(response.isSuccessful()){
+                                if(response.body().getStatus().equals("OK")){
+                                    ThongBao(getActivity(), "Thành công", "Mật khẩu đã được khôi phục thành công!",
+                                            R.drawable.connection_error, new FancyGifDialogListener() {
+                                        @Override
+                                        public void OnClick() {
+                                            LoginFragment login = new LoginFragment();
+                                            FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),login,"");
+                                        }
+                                    });
+                                }else{
+                                    ThongBao(getActivity(), "Đã có lỗi xảy ra", response.body().getMessenge(),
+                                            R.drawable.connection_error);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                        }
+                    });
+                }else {
+                    txtOTPCode.setBackground(shape_edittext_error);
+                }
+            }
+        });
     }
+
 
     private void mapView(View v) {
         viewGetOTP = v.findViewById(R.id.viewGetOTP);
@@ -86,6 +202,7 @@ public class ForgetPasswordFragment extends BaseFragment {
         txtNewPassword = v.findViewById(R.id.txtNewPassword);
         txtReEnterPassword = v.findViewById(R.id.txtReEnterPassword);
         txtOTPCode= v.findViewById(R.id.txtOTPCode);
+        btnResetPassword = v.findViewById(R.id.btnResetPassword);
     }
 
     @Override

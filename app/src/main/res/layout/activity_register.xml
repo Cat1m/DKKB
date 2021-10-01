@@ -125,7 +125,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imgUser"
+                        android:id="@+id/imgUserAVT"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="1dp"

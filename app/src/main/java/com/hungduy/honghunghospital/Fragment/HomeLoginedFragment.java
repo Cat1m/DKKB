@@ -1,9 +1,11 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.R;
 import com.squareup.picasso.Picasso;
 
@@ -19,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeLoginedFragment extends BaseFragment {
-    private TextView txtUser;
-    private CircleImageView imgUser;
+
+    private Button btn_home_1;
 
     public HomeLoginedFragment() {
     }
@@ -28,9 +31,9 @@ public class HomeLoginedFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
 
-        }
+
+
     }
 
 
@@ -39,21 +42,28 @@ public class HomeLoginedFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mapView(view);
-
-        txtUser.setText(FullName);
-        if(urlImage != ""){
-            Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
-        }
+        btn_home_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), KhaiBaoYTeActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
     }
 
     private void mapView(View v) {
-        txtUser = v.findViewById(R.id.txtUser);
-        imgUser = v.findViewById(R.id.imgUser);
+        btn_home_1 = v.findViewById(R.id.btn_home_1);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         return inflater.inflate(R.layout.fragment_logined_home, container, false);
     }
 }

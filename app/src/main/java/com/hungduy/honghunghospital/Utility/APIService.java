@@ -6,6 +6,7 @@ import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
+import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
 
 import java.util.ArrayList;
@@ -61,4 +62,25 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getOTP")
     Call<ResponseModel> getOTP(@Header("token") String s,@Body getOTPModel otp);
+
+    @Headers("Content-Type: application/json")
+    @POST("ResetPassword")
+    Call<ResponseModel> ResetPassword(@Header("token") String s,@Body setNewPassword otp);
+
+    @Headers("Content-Type: application/json")
+    @POST("getAllActiveDoctor")
+    Call<ResponseModel> getAllActiveDoctor(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDetailActiveDoctor")
+    Call<ResponseModel> getDetailActiveDoctor(@Header("token") String s,@Body baseGetClass get);
+
+    @Headers("Content-Type: application/json")
+    @POST("getLichLamViecBS")
+    Call<ResponseModel> getLichLamViecBS(@Header("token") String s,@Body baseGetClass get);
+
+
+    @Headers("Content-Type: application/json")
+    @POST("getCauHoiKBYT")
+    Call<ResponseModel> getCauHoiKBYT(@Header("token") String s);
 }
