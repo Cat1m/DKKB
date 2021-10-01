@@ -101,21 +101,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/logo_nen" />
 
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@color/textColorGreen"
-                    android:fontFamily="@font/myriadpro_semiboldsemiext"
-                    android:gravity="center"
-                    android:text="Thông tin về một số dịch vụ cơ bản\ntại BVĐK Hồng Hưng"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="0dp"
@@ -174,7 +159,7 @@
                                 android:background="@color/textColorGreen"
                                 android:fontFamily="@font/myriadpro_semiboldsemiext"
                                 android:gravity="center"
-                                android:text="Phần đăng kí khám bệnh\n(Chọn 1 trong 4 hình thức sau)"
+                                android:text="Lý do đến bệnh viện"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,54 +178,23 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <Button
-                            android:id="@+id/btnChonBS"
-                            android:layout_width="300dp"
+                        <EditText
+                            android:id="@+id/editTextTextMultiLine"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/btn_shape_green_light"
-                            android:text="@string/txt_toi_muon_kham_bac_si"
-                            android:textAllCaps="false"
-                            android:textColor="#00796B" />
-
-                        <Button
-                            android:id="@+id/btnChonChuyenKhoa"
-                            android:layout_width="300dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/btn_shape_green_light"
-                            android:text="@string/txt_toi_muon_kham_chuyen_khoa"
-                            android:textAllCaps="false"
-                            android:textColor="@color/textColorGreen" />
-
-                        <Button
-                            android:id="@+id/btnDichVuKhac"
-                            android:layout_width="300dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/btn_shape_green_light"
-                            android:text="@string/txt_toi_muon_dang_ky_dich_vu_khac"
-                            android:textAllCaps="false"
-                            android:textColor="@color/textColorGreen" />
-
-                        <Button
-                            android:id="@+id/btnDuaNguoiThan"
-                            android:layout_width="300dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/btn_shape_green_light"
-                            android:text="Tôi đưa người thân đi khám bệnh/nuôi thăm bệnh"
-                            android:textAllCaps="false"
-                            android:textColor="@color/textColorGreen" />
+                            android:layout_margin="10dp"
+                            android:background="@drawable/card_border_color"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:inputType="textMultiLine"
+                            android:minLines="10"
+                            android:padding="5dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="20dp">
 
                             <Button
                                 android:id="@+id/btnThoat"
@@ -277,7 +231,7 @@
                     android:background="@color/textColorGreen"
                     android:fontFamily="@font/myriadpro_semiboldsemiext"
                     android:gravity="center"
-                    android:text="Phần khai báo y tế\n(Tôi cam đoan những lời khai sau đây là sự thật)"
+                    android:text="@string/txt_title_khai_bao_y_te_cong_tac"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"

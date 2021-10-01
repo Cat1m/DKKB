@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.hungduy.honghunghospital.Activity.BaseActivity;
+import com.hungduy.honghunghospital.Activity.BaseKhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
@@ -65,7 +67,7 @@ public class KhaiBaoYTeAdapter extends RecyclerView.Adapter<KhaiBaoYTeAdapter.Vi
         getCauHoiKhaiBaoYTe ch = cauHoiKhaiBaoYTes.get(position);
         holder.txtCauHoi.setText(ch.getCauhoi());
         holder.btnKhong.setChecked(true);
-        KhaiBaoYTeActivity activitys = (KhaiBaoYTeActivity) this.activity;
+        BaseKhaiBaoYTeActivity activitys = (BaseKhaiBaoYTeActivity) this.activity;
         holder.btnKhong.setTag(ch.getMa());
         holder.btnCo.setTag(ch.getMa());
         holder.btnKhong.setOnClickListener(new View.OnClickListener() {

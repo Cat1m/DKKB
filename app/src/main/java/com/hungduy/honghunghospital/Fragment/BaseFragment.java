@@ -122,13 +122,13 @@ public  abstract class BaseFragment extends Fragment {
             txtUser = view.findViewById(R.id.txtUser);
             imgUser = view.findViewById(R.id.imgUser);
 
-            if(!FullName.isEmpty()){
+            if(FullName != null && !FullName.isEmpty()){
                 txtUser.setText(FullName);
             }else{
                 txtUser.setText("*");
             }
 
-            if(!urlImage.isEmpty()){
+            if(urlImage != null &&!urlImage.isEmpty()){
                 Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
             }
 
@@ -142,6 +142,9 @@ public  abstract class BaseFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), LogoActivity.class);
+                    i.putExtra("FullName",FullName);
+                    i.putExtra("urlImage",urlImage);
+                    i.putExtra("token",token);
                     startActivity(i);
                 }
             });

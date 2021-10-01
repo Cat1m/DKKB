@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
+import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
@@ -27,6 +29,7 @@ import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -98,11 +101,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             txtUser = findViewById(R.id.txtUser);
             imgUser = findViewById(R.id.imgUser);
 
-            if(!urlImage.isEmpty()){
+            if(urlImage != null && !urlImage.isEmpty()){
                 Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
             }
 
-            if(!FullName.isEmpty()){
+            if(FullName != null && !FullName.isEmpty()){
                 txtUser.setText(FullName);
             }else{
                 txtUser.setText("*");
@@ -118,6 +121,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(getApplicationContext(), LogoActivity.class);
+                    i.putExtra("FullName",FullName);
+                    i.putExtra("urlImage",urlImage);
+                    i.putExtra("token",token);
                     startActivity(i);
                 }
             });
@@ -127,6 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     }
+
 
     protected boolean getBooleanPreferences(String name, String key){
         SharedPreferences sharedPreferences = getSharedPreferences(name, MODE_PRIVATE);

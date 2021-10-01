@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imgLogoBVHH"
+                android:id="@+id/imgLogoHH"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,6 @@
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/shape_hh_xinchao_dobong"
                 android:fontFamily="@font/utm_gods_word_r_italic"
@@ -45,18 +44,18 @@
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imgUser"
-                app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
+                app:layout_constraintStart_toEndOf="@+id/imgLogoHH"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.512" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgUser"
                 android:layout_width="45dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/user" />
+                android:src="@drawable/user" />
 
             <TextView
                 android:id="@+id/txtUser"
@@ -66,7 +65,6 @@
                 android:text="Tên user"
                 app:layout_constraintBottom_toBottomOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="@+id/imgUser"
-                app:layout_constraintStart_toStartOf="@+id/imgUser"
                 app:layout_constraintTop_toBottomOf="@+id/imgUser" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -83,4 +83,12 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getCauHoiKBYT")
     Call<ResponseModel> getCauHoiKBYT(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDmChuyenKhoa")
+    Call<ResponseModel> getDmChuyenKhoa(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDichVu")
+    Call<ResponseModel> getDichVu(@Header("token") String s);
 }

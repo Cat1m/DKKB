@@ -32,7 +32,16 @@
     <string name="btn_home_5">Khai báo y tế \ndành cho nhân viên nội bộ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="txt_dichvu_lienhe_hotline">Nếu chưa tìm được dịch vụ mình quan tâm<br />Anh/Chị có thể liên hệ đến <font color='#00ae89'>
-        hotline bệnh viện<br />0276 3836 991 - 0941 696 939</font><br />để được hỗ trợ kịp thời nhất.</string>
+    <string name="txt_dichvu_lienhe_hotline">Nếu chưa tìm được dịch vụ mình quan tâm\n<br/>Anh/Chị có thể liên hệ đến <font color='#00ae89'>
+        hotline bệnh viện\n<br/>0276 3836 991 - 0941 696 939</font><br/>\nđể được hỗ trợ kịp thời nhất.</string>
+    <string name="txt_toi_muon_kham_bac_si">Tôi muốn khám Bác sĩ</string>
+    <string name="txt_toi_muon_kham_chuyen_khoa">Tôi muốn khám/tái khám Chuyên khoa</string>
+    <string name="txt_toi_muon_dang_ky_dich_vu_khac">Tôi muốn đăng ký dịch vụ khác</string>
+    <string name="txt_gia_dich_vu">Giá dịch vụ</string>
+    <string name="txt_title_khai_bao_y_te_noi_bo">Phần khai báo y tế dành cho nhân viên y tế<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
+    <string name="txt_title_khai_bao_y_te_cong_tac">Phần khai báo y tế liên hệ công tác<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
+    <string name="txt_title_khai_bao_y_te_nguoi_than">Thông tin người thân<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
+    <string name="txt_title_khai_bao_y_te">Phần khai báo y tế<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
+    <string name="txt_title_kham_nguoi_than">Phần đăng ký khám bệnh (*)<br/>\n<font face="myriadpro_semiext"><i><small>(Chọn 1 trong 3 hình thức sau)</small></i></font></string>
     <!-- uCrop string resource end -->
 </resources>

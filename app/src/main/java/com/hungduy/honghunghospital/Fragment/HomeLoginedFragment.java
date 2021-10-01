@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
+import com.hungduy.honghunghospital.Activity.KhaiBaoYTeCongTacActivity;
+import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNguoiThanActivity;
+import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNoiBoActivity;
 import com.hungduy.honghunghospital.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeLoginedFragment extends BaseFragment {
 
-    private Button btn_home_1;
+    private Button btn_home_1,btn_home_2,btn_home_3,btn_home_4,btn_home_5;
 
     public HomeLoginedFragment() {
     }
@@ -52,10 +55,47 @@ public class HomeLoginedFragment extends BaseFragment {
                 startActivity(i);
             }
         });
+
+        btn_home_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), KhaiBaoYTeNguoiThanActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
+
+        btn_home_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), KhaiBaoYTeCongTacActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
+
+        btn_home_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), KhaiBaoYTeNoiBoActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
     }
 
     private void mapView(View v) {
         btn_home_1 = v.findViewById(R.id.btn_home_1);
+        btn_home_2 = v.findViewById(R.id.btn_home_2);
+        btn_home_3 = v.findViewById(R.id.btn_home_3);
+        btn_home_4 = v.findViewById(R.id.btn_home_4);
+        btn_home_5 = v.findViewById(R.id.btn_home_5);
     }
 
     @Override

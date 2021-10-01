@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.KhaiBaoYTeNguoiThanActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6fff9"
+            android:paddingLeft="10dp"
+            android:paddingTop="25dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgLogoBVHH"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_clickable" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_hh_xinchao_dobong"
+                android:fontFamily="@font/utm_gods_word_r_italic"
+                android:gravity="center"
+                android:lines="2"
+                android:maxLines="2"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="9dp"
+                android:text="@string/app_hello"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgUser"
+                app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.512" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/myriadpro_semiext"
+                android:text="Tên user"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="@+id/imgUser"
+                app:layout_constraintTop_toBottomOf="@+id/imgUser" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="-15dp"
+            android:background="@drawable/logo_nen"
+            android:paddingBottom="15dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo_nen" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/canh_chim_mot_ben"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:id="@+id/scrollView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    android:overScrollMode="never"
+                    android:scrollbarStyle="@null"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="800dp"
+                        android:orientation="vertical"
+                        android:paddingTop="60dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="@string/txt_ho_va_ten"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/txtHoTen"
+                                android:layout_width="334dp"
+                                android:layout_height="53dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/shape_edittext_have_focus"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="@string/txt_ngay_thang_nam_sinh"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="18sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardView3"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="15dp"
+                                    app:cardCornerRadius="7dp"
+                                    app:cardElevation="5dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                    <TextView
+                                        android:id="@+id/txtNgaySinh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:text="26"
+                                        android:textSize="16sp" />
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardView4"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    app:cardCornerRadius="7dp"
+                                    app:cardElevation="5dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/cardView3"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                    <TextView
+                                        android:id="@+id/txtThangSinh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:text="01"
+                                        android:textSize="16sp" />
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/cardView"
+                                    android:layout_width="70dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    app:cardCornerRadius="7dp"
+                                    app:cardElevation="5dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/cardView4"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                    <TextView
+                                        android:id="@+id/txtNamSinh"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:text="1997"
+                                        android:textSize="16sp" />
+                                </androidx.cardview.widget.CardView>
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Giới tính(*)"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="18sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="115dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginTop="1dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                                    <RadioButton
+                                        android:id="@+id/chkKhac"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="20dp"
+                                        android:fontFamily="@font/myriadpro_semiext"
+                                        android:scaleX="0.7"
+                                        android:scaleY="0.7"
+                                        android:text="Khác"
+                                        android:textColor="@color/textColorGreen"
+                                        android:textColorLink="@color/textColorGreen"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="@+id/chkNam"
+                                        app:layout_constraintTop_toBottomOf="@+id/chkNam"
+                                        tools:ignore="TouchTargetSizeCheck" />
+
+                                    <RadioButton
+                                        android:id="@+id/chkNu"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="20dp"
+                                        android:fontFamily="@font/myriadpro_semiext"
+                                        android:scaleX="0.7"
+                                        android:scaleY="0.7"
+                                        android:text="Nữ"
+                                        android:textColor="@color/textColorGreen"
+                                        app:layout_constraintBottom_toBottomOf="@+id/chkNam"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@+id/chkNam"
+                                        tools:ignore="TouchTargetSizeCheck" />
+
+                                    <RadioButton
+                                        android:id="@+id/chkNam"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="20dp"
+                                        android:checked="true"
+                                        android:fontFamily="@font/myriadpro_semiext"
+                                        android:scaleX="0.7"
+                                        android:scaleY="0.7"
+                                        android:text="Nam"
+                                        android:textColor="@color/textColorGreen"
+                                        app:layout_constraintBottom_toTopOf="@+id/chkKhac"
+                                        app:layout_constraintEnd_toStartOf="@+id/chkNu"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:ignore="TouchTargetSizeCheck" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Địa chỉ thường trú hoặc tạm trú(*)"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Tỉnh/TP (*)"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <jrizani.jrspinner.JRSpinner
+                                    android:id="@+id/txtTinhThanh"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:maxLines="1"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="8dp"
+                                    android:textSize="16dp"
+                                    app:jrs_multiple="false"
+                                    app:jrs_title="Chọn tỉnh thành"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Huyện/Quận (*)"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <jrizani.jrspinner.JRSpinner
+                                    android:id="@+id/txtQuanHuyen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:maxLines="1"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="8dp"
+                                    android:textSize="16dp"
+                                    app:jrs_multiple="false"
+                                    app:jrs_title="Chọn quận huyện" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Xã/Phường (*)"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <jrizani.jrspinner.JRSpinner
+                                    android:id="@+id/txtXaPhuong"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:maxLines="1"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="8dp"
+                                    android:textSize="16dp"
+                                    app:jrs_multiple="false"
+                                    app:jrs_title="Chọn phường xã" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Ấp/Khu phố (*)"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <jrizani.jrspinner.JRSpinner
+                                    android:id="@+id/txtApKhuPho"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:maxLines="1"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="8dp"
+                                    android:textSize="16dp"
+                                    app:jrs_multiple="false"
+                                    app:jrs_title="Chọn ấp, khu phố" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="125dp"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Số nhà, đường"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <EditText
+                                    android:id="@+id/txtDiaChi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:ems="10"
+                                    android:inputType="text"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/textView14"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Mã số thẻ BHYT"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/txtMaBHYT"
+                                android:layout_width="match_parent"
+                                android:layout_height="53dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/shape_edittext_have_focus"
+                                android:ems="10"
+                                android:inputType="text"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/textView39"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:background="@color/textColorGreen"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:gravity="center"
+                                android:text="@string/txt_title_khai_bao_y_te"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/imageView16"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:scaleType="fitStart"
+                                android:src="@drawable/canh_chim_mot_ben"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never"
+                                android:paddingLeft="10dp">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+                        </RelativeLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/textView38"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:background="@color/textColorGreen"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:gravity="center"
+                                android:text="@string/txt_title_kham_nguoi_than"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/imageView15"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:scaleType="fitStart"
+                                android:src="@drawable/canh_chim_mot_ben"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Button
+                            android:id="@+id/btnDichVuKhac2"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/btn_shape_green_light"
+                            android:text="@string/txt_toi_muon_dang_ky_dich_vu_khac"
+                            android:textAllCaps="false"
+                            android:textColor="@color/textColorGreen" />
+
+                        <Button
+                            android:id="@+id/btnChonBS2"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/btn_shape_green_light"
+                            android:text="@string/txt_toi_muon_kham_bac_si"
+                            android:textAllCaps="false"
+                            android:textColor="#00796B" />
+
+                        <Button
+                            android:id="@+id/btnChonChuyenKhoa2"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/btn_shape_green_light"
+                            android:text="@string/txt_toi_muon_kham_chuyen_khoa"
+                            android:textAllCaps="false"
+                            android:textColor="@color/textColorGreen" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btnThoat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="30dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_shape_green"
+                                android:text="Thoát"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white" />
+
+                            <Button
+                                android:id="@+id/btnDangKy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="30dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_shape_blue"
+                                android:text="Đăng ký"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/textColorGreen"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="center"
+                    android:text="@string/txt_title_khai_bao_y_te_nguoi_than"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/canh_chim_mot_ben"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

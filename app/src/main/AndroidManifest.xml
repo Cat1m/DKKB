@@ -20,6 +20,18 @@
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".Activity.KhaiBaoYTeNoiBoActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Activity.KhaiBaoYTeNguoiThanActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Activity.KhaiBaoYTeCongTacActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".Activity.LogoActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />

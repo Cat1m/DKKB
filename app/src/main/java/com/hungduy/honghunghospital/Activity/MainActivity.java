@@ -23,6 +23,7 @@ import com.hungduy.honghunghospital.Fragment.BaseFragment;
 import com.hungduy.honghunghospital.Fragment.DichVuFragment;
 import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
+import com.hungduy.honghunghospital.Fragment.ThongTinFragment;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
 import com.hungduy.honghunghospital.Utility.QLCVScrollView;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity {
     private LoginFragment loginFM;
     private BacSiFragment BacSiFM;
     private DichVuFragment DichVuFM;
+    private ThongTinFragment ThongTinFM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity {
         loginFM = new LoginFragment();
         BacSiFM = new BacSiFragment();
         DichVuFM = new DichVuFragment();
+        ThongTinFM = new ThongTinFragment();
         FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
 
         initButtonImage();// load Image to memory for quick response
@@ -78,6 +81,7 @@ public class MainActivity extends BaseActivity {
         bundle.putString("token", token);
         BacSiFM.setArguments(bundle);
         DichVuFM.setArguments(bundle);
+        ThongTinFM.setArguments(bundle);
         Log.d(TAG,"Login successs");
     }
 
@@ -121,7 +125,7 @@ public class MainActivity extends BaseActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(token.isEmpty()){
+                if(token == null || token.isEmpty()){
                     svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                 }else{
@@ -161,6 +165,8 @@ public class MainActivity extends BaseActivity {
         btnTinTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),ThongTinFM,"");
+                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
                 clearBtnColor();
                 imgTinTuc.setImageBitmap(information_color);
                 imgTinTuc.setTag("1");
