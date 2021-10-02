@@ -70,6 +70,7 @@ public class KhaiBaoYTeAdapter extends RecyclerView.Adapter<KhaiBaoYTeAdapter.Vi
         BaseKhaiBaoYTeActivity activitys = (BaseKhaiBaoYTeActivity) this.activity;
         holder.btnKhong.setTag(ch.getMa());
         holder.btnCo.setTag(ch.getMa());
+        activitys.updateCauTraLoi(new CauHoiKhaiBaoYTeEXT(ch,"Không"));
         holder.btnKhong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,8 +1,10 @@
 package com.hungduy.honghunghospital.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
     private RecyclerView recyclerView;
     private KhaiBaoYTeAdapter KhaiBaoYTeADT;
     private Button btnDangKy,btnThoat;
+    private EditText txtLyDo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +62,25 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
             }
         });
 
-
-
-
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                boolean kq = false;
+                String cautraloi = "";
+                for (CauHoiKhaiBaoYTeEXT s : CauTL){
+                    cautraloi += ",{ m: '"+s.getMa()+"' ,c : '"+ s.getCautraloi() +"'}";
+                    if(s.getCautraloi().equals("Có")){
+                        kq = true;
+                    }
+                }
+                Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                i.putExtra("isTestCovid",kq);
+                i.putExtra("noidungkham"," Anh/Chị đã khai báo y tế thành công");
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("QR","{ obj:'LHCT' ,kbyt:["+cautraloi.substring(1)+"], ld:'"+txtLyDo.getText().toString() +"' }");
+                startActivity(i);
+                finish();
             }
         });
 
@@ -82,6 +97,7 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
         recyclerView = findViewById(R.id.recyclerView);
         btnDangKy = findViewById(R.id.btnDangKy);
         btnThoat = findViewById(R.id.btnThoat);
+        txtLyDo = findViewById(R.id.txtLyDo);
     }
 
 

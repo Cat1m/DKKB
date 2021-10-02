@@ -179,7 +179,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <EditText
-                            android:id="@+id/editTextTextMultiLine"
+                            android:id="@+id/txtLyDo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.KhaiBaoYTeActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6fff9"
+            android:paddingLeft="10dp"
+            android:paddingTop="25dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgLogoBVHH"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_clickable" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_hh_xinchao_dobong"
+                android:fontFamily="@font/utm_gods_word_r_italic"
+                android:gravity="center"
+                android:lines="2"
+                android:maxLines="2"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="9dp"
+                android:text="@string/app_hello"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgUser"
+                app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.512" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/myriadpro_semiext"
+                android:text="Tên user"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="@+id/imgUser"
+                app:layout_constraintTop_toBottomOf="@+id/imgUser" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="-15dp"
+            android:background="@drawable/logo_nen"
+            android:paddingBottom="15dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo_nen" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:id="@+id/scrollView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    android:overScrollMode="never"
+                    android:scrollbarStyle="@null"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="800dp"
+                        android:orientation="vertical"
+                        android:paddingTop="2dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                app:cardBackgroundColor="@color/ColorGreenLight"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="10dp"
+                                app:contentPadding="12dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <ImageView
+                                        android:id="@+id/imgBarCode"
+                                        android:layout_width="250dp"
+                                        android:layout_height="250dp"
+                                        android:background="@color/ColorGreenLight"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:srcCompat="@drawable/logo_honghung" />
+
+                                    <ImageView
+                                        android:id="@+id/imageView20"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        app:layout_constraintBottom_toBottomOf="@+id/imgBarCode"
+                                        app:layout_constraintEnd_toEndOf="@+id/imgBarCode"
+                                        app:layout_constraintStart_toStartOf="@+id/imgBarCode"
+                                        app:layout_constraintTop_toTopOf="@+id/imgBarCode"
+                                        app:srcCompat="@drawable/logo_qr" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/textView40"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:gravity="center"
+                                android:text="Theo thông tin Anh/Chị đã khai báo y tế\nvà đăng ký khám bệnh"
+                                android:textColor="@color/textColorGreen"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardView5" />
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="10dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView40">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/ColorGreenLight"
+                                    android:minHeight="200dp">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:id="@+id/Layout_Sang_Loc"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        tools:visibility="gone">
+
+                                        <ImageView
+                                            android:id="@+id/imageView19"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            app:layout_constraintBottom_toTopOf="@+id/txtKetQua"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:srcCompat="@drawable/icon_covid_test" />
+
+                                        <TextView
+                                            android:id="@+id/txtKetQua"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="10dp"
+                                            android:fontFamily="@font/utm_gods_word_r_italic"
+                                            android:lines="2"
+                                            android:text="Anh/Chị cần phải xét nghiệm Test nhanh\nsàng lọc COVID trước khi vào Bệnh viện."
+                                            android:textColor="@android:color/holo_red_dark"
+                                            app:layout_constraintBottom_toTopOf="@+id/txtKetQua2"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+                                        <TextView
+                                            android:id="@+id/txtKetQua2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="10dp"
+                                            android:fontFamily="@font/utm_gods_word_r_italic"
+                                            android:lines="2"
+                                            android:text="Để góp phần chung tay đẩy lùi dịch bệnh\nrất mong Anh/Chị bỏ qua sự bất tiện này."
+                                            android:textColor="@android:color/holo_red_dark"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent" />
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                    <ImageView
+                                        android:id="@+id/imageView18"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        app:layout_constraintBottom_toTopOf="@+id/txtKetQuaKham"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/Layout_Sang_Loc"
+                                        app:srcCompat="@drawable/icon_tick" />
+
+                                    <TextView
+                                        android:id="@+id/textView42"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/utm_gods_word_r_italic"
+                                        android:text="Xin cảm ơn anh chị"
+                                        android:textColor="@color/textColorGreen"
+                                        android:textSize="18sp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/txtKetQuaKham" />
+
+                                    <TextView
+                                        android:id="@+id/txtKetQuaKham"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:fontFamily="@font/myriadpro_semiext"
+                                        android:gravity="center"
+                                        android:text=" Anh/Chị đã đăng ký\nkhám thành công"
+                                        android:textColor="@color/textColorGreen"
+                                        android:textSize="18sp"
+                                        app:layout_constraintBottom_toTopOf="@+id/textView42"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <Button
+                                android:id="@+id/btnLuu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginBottom="30dp"
+                                android:background="@drawable/btn_shape_green"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="Lưu kết quả"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

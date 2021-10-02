@@ -52,4 +52,7 @@ dependencies {
     implementation 'com.github.jrizani:JRSpinner:1.1.2'
     implementation 'com.github.Shashank02051997:FancyGifDialog-Android:1.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    implementation 'com.google.zxing:core:3.3.0'
 }

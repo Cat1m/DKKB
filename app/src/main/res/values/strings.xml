@@ -38,6 +38,7 @@
     <string name="txt_toi_muon_kham_chuyen_khoa">Tôi muốn khám/tái khám Chuyên khoa</string>
     <string name="txt_toi_muon_dang_ky_dich_vu_khac">Tôi muốn đăng ký dịch vụ khác</string>
     <string name="txt_gia_dich_vu">Giá dịch vụ</string>
+    <string name="txt_xet_nghiem_sang_loc">Anh/Chị cần phải xét nghiệm Test nhanh sàng lọc COVID trước khi vào Bệnh viện.\nĐể góp phần chung tay đẩy lùi dịch bệnh, rất mong Anh/Chị bỏ qua sự bất tiện này.</string>
     <string name="txt_title_khai_bao_y_te_noi_bo">Phần khai báo y tế dành cho nhân viên y tế<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
     <string name="txt_title_khai_bao_y_te_cong_tac">Phần khai báo y tế liên hệ công tác<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
     <string name="txt_title_khai_bao_y_te_nguoi_than">Thông tin người thân<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>

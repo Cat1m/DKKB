@@ -572,7 +572,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <Button
-                            android:id="@+id/btnDichVuKhac2"
+                            android:id="@+id/btnDichVuKhac"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -583,7 +583,7 @@
                             android:textColor="@color/textColorGreen" />
 
                         <Button
-                            android:id="@+id/btnChonBS2"
+                            android:id="@+id/btnChonBS"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -591,10 +591,10 @@
                             android:background="@drawable/btn_shape_green_light"
                             android:text="@string/txt_toi_muon_kham_bac_si"
                             android:textAllCaps="false"
-                            android:textColor="#00796B" />
+                            android:textColor="@color/textColorGreen" />
 
                         <Button
-                            android:id="@+id/btnChonChuyenKhoa2"
+                            android:id="@+id/btnChonChuyenKhoa"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

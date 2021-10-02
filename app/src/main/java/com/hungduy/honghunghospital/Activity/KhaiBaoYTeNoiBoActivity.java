@@ -1,6 +1,7 @@
 package com.hungduy.honghunghospital.Activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -73,7 +74,22 @@ public class KhaiBaoYTeNoiBoActivity extends BaseKhaiBaoYTeActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                boolean kq = false;
+                String cautraloi = "";
+                for (CauHoiKhaiBaoYTeEXT s : CauTL){
+                    cautraloi += ",{ m: '"+s.getMa()+"' ,c : '"+ s.getCautraloi() +"'}";
+                    if(s.getCautraloi().equals("Có")){
+                        kq = true;
+                    }
+                }
+                Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                i.putExtra("isTestCovid",kq);
+                i.putExtra("noidungkham"," Anh/Chị đã khai báo y tế thành công");
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("QR","{ obj:'NB' ,kbyt:["+cautraloi.substring(1)+"]}");
+                startActivity(i);
+                finish();
             }
         });
 

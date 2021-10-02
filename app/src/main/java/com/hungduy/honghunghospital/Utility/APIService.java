@@ -6,7 +6,9 @@ import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
+import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
+import com.hungduy.honghunghospital.Model.setModel.setNguoiThanDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
 
 import java.util.ArrayList;
@@ -91,4 +93,12 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getDichVu")
     Call<ResponseModel> getDichVu(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("setDangKyKham")
+    Call<ResponseModel> setDangKyKham(@Header("token") String s,@Body setDangKyKham w);
+
+    @Headers("Content-Type: application/json")
+    @POST("setDangKyKhamNguoiThan")
+    Call<ResponseModel> setDangKyKhamNguoiThan(@Header("token") String s,@Body setNguoiThanDangKyKham w);
 }

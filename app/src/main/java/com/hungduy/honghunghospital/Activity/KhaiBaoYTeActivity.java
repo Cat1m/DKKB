@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
+import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.R;
 
 import java.util.ArrayList;
@@ -292,7 +294,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                         btnDichVuKhac.setTextColor(getResources().getColor(R.color.white));
                     }
                 });
-                title.setText("Chọn dịch bạn muốn");
+                title.setText("Chọn dịch vụ bạn muốn");
                 txt1.setText("Dịch vụ");
                 negativeBtn.setText("Hủy");
                 positiveBtn.setText("Đồng ý");
@@ -326,14 +328,70 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean found = false;
+                int maloaidangky = 0;
+                getMaTen madangky = new getMaTen();
                 if(bacSi != null){
+                    found =true;
+                    maloaidangky = 1;
+                    madangky = bacSi;
+                    madangky.setTen(" bác sĩ: "+bacSi.getTen());
                     Log.d(TAG,bacSi.getTen());
                 }
                 if(chuyenKhoa != null){
+                    found =true;
+                    maloaidangky = 2;
+                    madangky = chuyenKhoa;
                     Log.d(TAG,chuyenKhoa.getTen());
                 }
                 if(dichVu != null){
+                    found =true;
+                    maloaidangky = 3;
+                    madangky = dichVu;
                     Log.d(TAG,dichVu.getTen());
+                }
+                if(found){
+                    String khaibaoyte = "";
+                    for(CauHoiKhaiBaoYTeEXT c : CauTL){
+                        khaibaoyte += c.getCauhoi() +" : " + c.getCautraloi() + "|";
+                    }
+                    setDangKyKham dkkb = new setDangKyKham("1", khaibaoyte, maloaidangky + "",
+                            madangky.getMa(), "", "");
+                    final getMaTen dv = madangky;
+                    final int maloai = maloaidangky;
+                    mAPIService.setDangKyKham(token,dkkb ).enqueue(new Callback<ResponseModel>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            if(response.isSuccessful()){
+                                if(response.body().getStatus().equals("OK")){
+                                    boolean kq = false;
+                                    for (CauHoiKhaiBaoYTeEXT s : CauTL){
+                                        if(s.getCautraloi().equals("Có")){
+                                            kq = true;
+                                            break;
+                                        }
+                                    }
+                                    if(maloai == 3 && dv.getMa().equals("9") ){
+                                        kq=true;
+                                    }
+                                    Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                                    i.putExtra("isTestCovid",kq);
+                                    i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
+                                    i.putExtra("FullName",FullName);
+                                    i.putExtra("urlImage",urlImage);
+                                    i.putExtra("QR",response.body().getData());
+                                    startActivity(i);
+                                    finish();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                        }
+                    });
+                }else{
+                    ThongBao(KhaiBaoYTeActivity.this,"Đã có lỗi xảy ra","Vui lòng chọn dịch vụ bạn cần !",R.drawable.connection_error);
                 }
             }
         });

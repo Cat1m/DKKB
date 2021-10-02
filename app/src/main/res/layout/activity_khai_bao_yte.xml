@@ -202,7 +202,7 @@
                             android:background="@drawable/btn_shape_green_light"
                             android:text="@string/txt_toi_muon_kham_bac_si"
                             android:textAllCaps="false"
-                            android:textColor="#00796B" />
+                            android:textColor="@color/textColorGreen" />
 
                         <Button
                             android:id="@+id/btnChonChuyenKhoa"
