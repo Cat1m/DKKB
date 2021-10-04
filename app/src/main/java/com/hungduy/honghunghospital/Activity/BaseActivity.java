@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
+import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
@@ -49,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private TextView txtUser;
     private CircleImageView imgUser;
     protected ImageView imgLogoBVHH;
+    protected LocalDB database;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +61,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Intent LoginIntent= getIntent();
         Bundle BundleLogin = LoginIntent.getExtras();
+
+        database = LocalDB.getInstance(getApplicationContext());
+
         if(BundleLogin!=null)
         {
             username =(String) BundleLogin.get("username");
             password =(String) BundleLogin.get("password");
-            branchID =(String) BundleLogin.get("branchID");
-            branchName =(String) BundleLogin.get("branchName");
             FullName =(String) BundleLogin.get("FullName");
             urlImage =(String) BundleLogin.get("urlImage");
             token =(String) BundleLogin.get("token");
