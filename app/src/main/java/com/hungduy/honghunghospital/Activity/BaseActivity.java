@@ -18,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
+import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
+import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
+import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
@@ -52,6 +56,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     private CircleImageView imgUser;
     protected ImageView imgLogoBVHH;
     protected LocalDB database;
+    protected TinhThanhDAO TTdao;
+    protected QuocGiaDAO QGdao;
+    protected QuanHuyenDAO QHdao;
+    protected PhuongXaDAO PXdao;
+    protected KhuPhoDAO KPdao;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +73,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         Bundle BundleLogin = LoginIntent.getExtras();
 
         database = LocalDB.getInstance(getApplicationContext());
+        TTdao = database.tinhThanhDAO();
+        QGdao = database.quocGiaDAO();
+        QHdao = database.quanHuyenDAO();
+        PXdao = database.phuongXaDAO();
+        KPdao = database.khuPhoDAO();
+
 
         if(BundleLogin!=null)
         {
@@ -79,8 +95,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         shape_edittext_error = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_error);
         shape_edittext_have_focus = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_have_focus);
-
-
 
 
     }

@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,6 +33,11 @@ import android.widget.TextView;
 
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Database.Model.KhuPho;
+import com.hungduy.honghunghospital.Database.Model.PhuongXa;
+import com.hungduy.honghunghospital.Database.Model.QuanHuyen;
+import com.hungduy.honghunghospital.Database.Model.QuocGia;
+import com.hungduy.honghunghospital.Database.Model.TinhThanh;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
@@ -46,6 +53,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
@@ -67,11 +75,11 @@ public class RegisterActivity extends BaseActivity {
     private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich;
     private RadioButton chkNam,chkNu,chkKhac;
 
-    private ArrayList<getMaTen> listTinhThanh  = new ArrayList<>();
-    private ArrayList<getMaTen> listQuanHuyen  = new ArrayList<>();
-    private ArrayList<getMaTen> listPhuongXa  = new ArrayList<>();
-    private ArrayList<getMaTen> listApKhuPho  = new ArrayList<>();
-    private ArrayList<getMaTen> listQuocGia  = new ArrayList<>();
+    private ArrayList<TinhThanh> listTinhThanh  = new ArrayList<>();
+    private ArrayList<QuanHuyen> listQuanHuyen  = new ArrayList<>();
+    private ArrayList<PhuongXa> listPhuongXa  = new ArrayList<>();
+    private ArrayList<KhuPho> listApKhuPho  = new ArrayList<>();
+    private ArrayList<QuocGia> listQuocGia  = new ArrayList<>();
 
     private Uri URIimgUser,URIimgBHYT;
 
@@ -93,74 +101,53 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         
         mapView();
-        mAPIService.getTinhThanh(APIKey).enqueue(new Callback<ResponseModel>() {
+
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getMaTen[] g = new Gson().fromJson(response.body().getData(), getMaTen[].class);
-                        if(g.length>0){
-                            listTinhThanh = new ArrayList<getMaTen>(Arrays.asList(g));
-                            Log.d(TAG,"Nhận "+ listTinhThanh.size()+" tỉnh thành");
-                            String[] s = new String[listTinhThanh.size()];
-                            int i=0;
-                            for (getMaTen a: listTinhThanh) {
-                                s[i]=a.getTen();
-                                i++;
-                            }
-                            txtTinhThanh.setItems(s);
-                            return;
-                        }
-                    }
-                }else{
-                    //code != 200
+            public void run() {
+                String[] s = new String[TTdao.getAll().size()];
+                int i=0;
+                for (TinhThanh a: TTdao.getAll()) {
+                    s[i]=a.getTen();
+                    i++;
                 }
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-        });
-
-        mAPIService.getQuocGia(APIKey).enqueue(new Callback<ResponseModel>() {
-            @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getMaTen[] g = new Gson().fromJson(response.body().getData(), getMaTen[].class);
-                        if(g.length>0){
-                            listQuocGia = new ArrayList<getMaTen>(Arrays.asList(g));
-                            Log.d(TAG,"Nhận "+ listQuocGia.size()+" tỉnh thành");
-                            String[] s = new String[listQuocGia.size()];
-                            int i=0;
-                            int vitriVN = 0;
-                            for (getMaTen a: listQuocGia) {
-                                s[i]=a.getTen();
-
-                                if(a.getTen().equals("Việt Nam")){
-                                    vitriVN = i;
-                                    maquoctich = a.getMa();
-                                }
-                                i++;
-
-                            }
-                            txtQuocTich.setItems(s);
-                            txtQuocTich.select(vitriVN);
-                            return;
-                        }
+                listTinhThanh = (ArrayList<TinhThanh>) TTdao.getAll();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtTinhThanh.setItems(s);
                     }
-                }else{
-                    //code != 200
-                }
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
+                });
+                Log.d(TAG,"Nhận "+ listTinhThanh.size()+" tỉnh thành");
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-        });
+        }).start();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[QGdao.getAll().size()];
+                int i=0;
+                int vitriVN = 0;
+                for (QuocGia a: QGdao.getAll()) {
+                    s[i]=a.getTen();
+                    if(a.getTen().equals("Việt Nam")){
+                        vitriVN = i;
+                        maquoctich = a.getMa()+"";
+                    }
+                    i++;
+                }
+                listQuocGia = (ArrayList<QuocGia>) QGdao.getAll();
+                int finalVitriVN = vitriVN;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuocTich.setItems(s);
+                        txtQuocTich.select(finalVitriVN);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listQuocGia.size()+" quốc gia");
+            }
+        }).start();
         txtTinhThanh.setItems(new String[0]);
         txtQuanHuyen.setItems(new String[0]);
         txtXaPhuong.setItems(new String[0]);
@@ -226,7 +213,7 @@ public class RegisterActivity extends BaseActivity {
         txtTinhThanh.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listTinhThanh.get(position).getMa();
+                String code = listTinhThanh.get(position).getMa()+"";
                 if(!matinhthanh.equals(code)){
                     matinhthanh = code;
                     txtQuanHuyen.setItems(new String[0]);
@@ -238,7 +225,7 @@ public class RegisterActivity extends BaseActivity {
                     maquanhuyen = "";
                     maphuongxa = "";
                     maapkhupho = "";
-                    DoDuLieuQuanHuyen(code);
+                    DoDuLieuQuanHuyen(listTinhThanh.get(position).getMa());
                     Log.d(TAG,  matinhthanh +" - " + listTinhThanh.get(position).getTen());
                 }
             }
@@ -247,7 +234,7 @@ public class RegisterActivity extends BaseActivity {
         txtQuanHuyen.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listQuanHuyen.get(position).getMa();
+                String code = listQuanHuyen.get(position).getMa()+"";
                 if(!maquanhuyen.equals(code)){
                     maquanhuyen = code;
                     txtXaPhuong.setItems(new String[0]);
@@ -256,7 +243,7 @@ public class RegisterActivity extends BaseActivity {
                     txtApKhuPho.setText("----");
                     maapkhupho = "";
                     maphuongxa = "";
-                    DoDuLieuXaPhuong(code);
+                    DoDuLieuXaPhuong(listQuanHuyen.get(position).getMa());
                     Log.d(TAG,  maquanhuyen +" - " + listQuanHuyen.get(position).getTen());
                 }
             }
@@ -265,13 +252,13 @@ public class RegisterActivity extends BaseActivity {
         txtXaPhuong.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listPhuongXa.get(position).getMa();
+                String code = listPhuongXa.get(position).getMa()+"";
                 if(!maphuongxa.equals(code)){
                     maphuongxa = code;
                     maapkhupho = "";
                     txtApKhuPho.setItems(new String[0]);
                     txtApKhuPho.setText("----");
-                    DoDuLieuApKhuPho(code);
+                    DoDuLieuApKhuPho(listPhuongXa.get(position).getMa());
                     Log.d(TAG,  maphuongxa +" - " + listPhuongXa.get(position).getTen());
                 }
             }
@@ -280,7 +267,7 @@ public class RegisterActivity extends BaseActivity {
         txtApKhuPho.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listApKhuPho.get(position).getMa();
+                String code = listApKhuPho.get(position).getMa()+"";
                 if(!maapkhupho.equals(code)){
                     maapkhupho = code;
                     Log.d(TAG,  maapkhupho +" - " + listApKhuPho.get(position).getTen());
@@ -291,7 +278,7 @@ public class RegisterActivity extends BaseActivity {
         txtQuocTich.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listQuocGia.get(position).getMa();
+                String code = listQuocGia.get(position).getMa()+"";
                 if(!maquoctich.equals(code)){
                     maquoctich = code;
                     Log.d(TAG,  maquoctich +" - " + listQuocGia.get(position).getTen());
@@ -577,107 +564,77 @@ public class RegisterActivity extends BaseActivity {
         datePickerDialog.show();
     }
 
-    private void DoDuLieuQuanHuyen(String matinhthanh){
-        mAPIService.getQuanHuyen(APIKey,new baseGetClass(matinhthanh)).enqueue(new Callback<ResponseModel>() {
+    private void DoDuLieuQuanHuyen(int matinhthanh){
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getMaTen[] g = new Gson().fromJson(response.body().getData(), getMaTen[].class);
-                        if(g.length>0){
-                            listQuanHuyen.clear();
-                            listQuanHuyen = new ArrayList<getMaTen>(Arrays.asList(g));
-                            Log.d(TAG,"Nhận "+ listQuanHuyen.size()+" quận huyện");
-                            String[] s = new String[listQuanHuyen.size()];
-                            int i=0;
-                            for (getMaTen a: listQuanHuyen) {
-                                s[i]=a.getTen();
-                                i++;
-                            }
-                            txtQuanHuyen.setItems(s);
-                            return;
-                        }
-                    }
-                }else{
-                    //code != 200
+            public void run() {
+                ArrayList<QuanHuyen> qh = (ArrayList<QuanHuyen>) QHdao.getQuanHuyenByTinhThanh(matinhthanh);
+                String[] s = new String[qh.size()];
+                int i=0;
+                for (QuanHuyen a: qh) {
+                    s[i]=a.getTen();
+                    i++;
                 }
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
+                listQuanHuyen = qh;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuanHuyen.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ qh.size()+" quận huyện");
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-        });
+        }).start();
     }
 
-    private void DoDuLieuXaPhuong(String maquanhuyen){
-        mAPIService.getPhuongXa(APIKey,new baseGetClass(maquanhuyen)).enqueue(new Callback<ResponseModel>() {
+    private void DoDuLieuXaPhuong(int maquanhuyen){
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getMaTen[] g = new Gson().fromJson(response.body().getData(), getMaTen[].class);
-                        if(g.length>0){
-                            listPhuongXa.clear();
-                            listPhuongXa = new ArrayList<getMaTen>(Arrays.asList(g));
-                            Log.d(TAG,"Nhận "+ listPhuongXa.size()+" phường xã");
-                            String[] s = new String[listPhuongXa.size()];
-                            int i=0;
-                            for (getMaTen a: listPhuongXa) {
-                                s[i]=a.getTen();
-                                i++;
-                            }
-                            txtXaPhuong.setItems(s);
-                            return;
-                        }
-                    }
-                }else{
-                    //code != 200
+            public void run() {
+                ArrayList<PhuongXa> px = (ArrayList<PhuongXa>) PXdao.getPhuongXaByQuanHuyen(maquanhuyen);
+                String[] s = new String[px.size()];
+                int i=0;
+                for (PhuongXa a: px) {
+                    s[i]=a.getTen();
+                    i++;
                 }
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
+                listPhuongXa = px;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtXaPhuong.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ px.size()+" phường xã");
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-        });
+        }).start();
     }
 
-    private void DoDuLieuApKhuPho(String maapkhupho){
-        mAPIService.getApKhuPho(APIKey,new baseGetClass(maapkhupho)).enqueue(new Callback<ResponseModel>() {
+    private void DoDuLieuApKhuPho(int maqh){
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getMaTen[] g = new Gson().fromJson(response.body().getData(), getMaTen[].class);
-                        if(g.length>0){
-                            txtApKhuPho.setEnabled(true);
-                            listApKhuPho.clear();
-                            listApKhuPho = new ArrayList<getMaTen>(Arrays.asList(g));
-                            Log.d(TAG,"Nhận "+ listApKhuPho.size()+" ấp khu phố");
-                            String[] s = new String[listApKhuPho.size()];
-                            int i=0;
-                            for (getMaTen a: listApKhuPho) {
-                                s[i]=a.getTen();
-                                i++;
-                            }
+            public void run() {
+                ArrayList<KhuPho> kp = (ArrayList<KhuPho>) KPdao.getKhuPhoByQuanHuyen(maqh);
+                String[] s = new String[kp.size()];
+                int i=0;
+                for (KhuPho a: kp) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listApKhuPho = kp;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(kp.size() > 0){
                             txtApKhuPho.setItems(s);
-                            return;
-                        }else{
+                        }else {
                             txtApKhuPho.setEnabled(false);
-                            return;
                         }
                     }
-                }else{
-                    //code != 200
-                }
-                ThongBao(RegisterActivity.this, "Có lỗi xảy ra", "Đã có lỗi xảy ra vui lòng thử lại", R.drawable.connection_error);
+                });
+                Log.d(TAG,"Nhận "+ kp.size()+" phường xã");
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-                ThongBao(RegisterActivity.this,"Có lỗi xảy ra","Đã có lỗi xảy ra vui lòng thử lại",R.drawable.connection_error);
-            }
-        });
+        }).start();
     }
 
     ActivityResultLauncher<Intent> launcherImgBHYT =

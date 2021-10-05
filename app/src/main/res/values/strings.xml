@@ -25,8 +25,8 @@
     <string name="ucrop_rotate">Xoay</string>
     <string name="ucrop_scale">Thu phóng</string>
     <string name="ucrop_crop">Cắt</string>
-    <string name="btn_home_1">Khai báo y tế \nĐăng ký khám bệnh\n(hoặc dịch vụ Y tế khác)</string>
-    <string name="btn_home_2">Khai báo y tế giúp\ncho người thân \nhoặc người khác</string>
+    <string name="btn_home_1">Đăng ký khám bệnh</string>
+    <string name="btn_home_2">Đăng ký khám bệnh cho \nngười thân hoặc người khác</string>
     <string name="btn_home_3">Khai báo y tế \nđể liên hệ công tác</string>
     <string name="btn_home_4">Tra cứu lịch sử khám bệnh</string>
     <string name="btn_home_5">Khai báo y tế \ndành cho nhân viên nội bộ</string>
@@ -44,5 +44,7 @@
     <string name="txt_title_khai_bao_y_te_nguoi_than">Thông tin người thân<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
     <string name="txt_title_khai_bao_y_te">Phần khai báo y tế<br/>\n<font face="myriadpro_semiext"><i><small>(Tôi cam đoan những lời khai sau đây là sự thật)</small></i></font></string>
     <string name="txt_title_kham_nguoi_than">Phần đăng ký khám bệnh (*)<br/>\n<font face="myriadpro_semiext"><i><small>(Chọn 1 trong 3 hình thức sau)</small></i></font></string>
+    <string name="txt_gui_tin_nhan_otp">Một mã OTP đã được gửi đến SDT của Anh/chị\nAnh/Chị vui lòng nhập mã OTP và \nmật khẩu mới vào ô bên dưới. \nNếu không nhận được tin nhắn vui lòng liên hệ tổng đài</string>
+    <string name="txt_lich_lam_viec_cua_bs_trong_tuan">Lịch làm việc của Bác sĩ trong tuần:</string>
     <!-- uCrop string resource end -->
 </resources>

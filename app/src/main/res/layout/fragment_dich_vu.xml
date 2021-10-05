@@ -7,75 +7,20 @@
     tools:context=".Fragment.DichVuFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/include9"
+        layout="@layout/logo_helo_user"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/ColorGreenLight"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="18dp"
+        android:layout_marginTop="-20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgLogoBVHH"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_clickable" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shape_hh_xinchao_dobong"
-            android:fontFamily="@font/utm_gods_word_r_italic"
-            android:gravity="center"
-            android:lines="2"
-            android:maxLines="2"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="9dp"
-            android:text="@string/app_hello"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgUser"
-            app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.512" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgUser"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/user" />
-
-        <TextView
-            android:id="@+id/txtUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/myriadpro_semiext"
-            android:text="Tên user"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/imgUser"
-            app:layout_constraintTop_toBottomOf="@+id/imgUser" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-14dp"
         android:layout_marginBottom="-15dp"
         android:background="@drawable/logo_nen"
         android:paddingBottom="15dp"
@@ -84,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/include9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -109,7 +54,7 @@
 
             <ScrollView
                 android:id="@+id/scrollView2"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:overScrollMode="never"
@@ -120,13 +65,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9"
                 tools:ignore="SpeakableTextPresentCheck">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="60dp"
+                    android:paddingTop="5dp"
                     android:paddingBottom="40dp">
 
                     <TextView
@@ -141,10 +87,11 @@
                     <jrizani.jrspinner.JRSpinner
                         android:id="@+id/txtHoTen"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="10dp"
                         android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_focus"
+                        android:background="@drawable/shape_edttext_focus"
                         android:ems="10"
                         android:hint="Chọn dịch vụ"
                         android:inputType="text"
@@ -153,6 +100,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/textColorGreen"
                         android:textColorHint="@color/textColorGreen"
+                        android:translationZ="5dp"
                         app:jrs_multiple="false"
                         app:jrs_title="Chọn bác sĩ"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -160,10 +108,11 @@
                     <EditText
                         android:id="@+id/txtGiaDV"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:background="@drawable/shape_focus"
+                        android:background="@drawable/shape_edttext_focus"
                         android:ems="10"
                         android:enabled="false"
                         android:fontFamily="@font/myriadpro_semiext"
@@ -171,217 +120,12 @@
                         android:text="@string/txt_gia_dich_vu"
                         android:textAlignment="center"
                         android:textColor="@color/textColorGreen"
+                        android:translationZ="5dp"
                         app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txtOTP"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView25"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:gravity="center"
-                        android:text="Nhóm hình ảnh và thăm dò chức năng\n(Siêu âm, X-quang, CT, MRI, …)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtHoTen2"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:hint="Chọn dịch vụ"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        android:textColorHint="@color/textColorGreen"
-                        app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <EditText
-                        android:id="@+id/txtGiaDV2"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="none"
-                        android:text="@string/txt_gia_dich_vu"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtOTP"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:gravity="center"
-                        android:text="Nhóm dịch vụ tiêm chủng"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtHoTen3"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:hint="Chọn dịch vụ"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        android:textColorHint="@color/textColorGreen"
-                        app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <EditText
-                        android:id="@+id/txtGiaDV3"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="none"
-                        android:text="@string/txt_gia_dich_vu"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtOTP"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:gravity="center"
-                        android:text="Nhóm khám sức khỏe / Gói dịch vụ"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtHoTen4"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:hint="Chọn dịch vụ"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        android:textColorHint="@color/textColorGreen"
-                        app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <EditText
-                        android:id="@+id/txtGiaDV4"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="none"
-                        android:text="@string/txt_gia_dich_vu"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtOTP"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:gravity="center"
-                        android:text="Nhóm dịch vụ khác"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtHoTen5"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:hint="Chọn dịch vụ"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        android:textColorHint="@color/textColorGreen"
-                        app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <EditText
-                        android:id="@+id/txtGiaDV5"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/shape_focus"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="none"
-                        android:text="@string/txt_gia_dich_vu"
-                        android:textAlignment="center"
-                        android:textColor="@color/textColorGreen"
-                        app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtOTP"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:gravity="center"
-                        android:text="@string/txt_dichvu_lienhe_hotline"
-                        android:textSize="14sp" />
 
                 </LinearLayout>
             </ScrollView>

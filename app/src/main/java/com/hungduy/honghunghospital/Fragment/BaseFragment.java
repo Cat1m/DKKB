@@ -18,6 +18,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.Activity.LogoActivity;
+import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
+import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
+import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
+import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
+import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
+import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
@@ -47,6 +53,12 @@ public  abstract class BaseFragment extends Fragment {
     protected ImageView imgLogoBVHH;
     private TextView txtUser;
     private CircleImageView imgUser;
+    protected LocalDB database;
+    protected TinhThanhDAO TTdao;
+    protected QuocGiaDAO QGdao;
+    protected QuanHuyenDAO QHdao;
+    protected PhuongXaDAO PXdao;
+    protected KhuPhoDAO KPdao;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -56,6 +68,14 @@ public  abstract class BaseFragment extends Fragment {
         TAG = this.getClass().getSimpleName();
         shape_edittext_error = AppCompatResources.getDrawable(getActivity().getApplicationContext(), R.drawable.shape_edittext_error);
         shape_edittext_have_focus = AppCompatResources.getDrawable(getActivity(), R.drawable.shape_edittext_have_focus);
+
+        database = LocalDB.getInstance(getContext());
+        TinhThanhDAO TTdao = database.tinhThanhDAO();
+        QuocGiaDAO QGdao = database.quocGiaDAO();
+        QuanHuyenDAO QHdao = database.quanHuyenDAO();
+        PhuongXaDAO PXdao = database.phuongXaDAO();
+        KhuPhoDAO KPdao = database.khuPhoDAO();
+
         if (getArguments() != null) {
             username = getArguments().getString("username");
             password = getArguments().getString("password");

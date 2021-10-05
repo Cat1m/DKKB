@@ -89,9 +89,10 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="4dp"
                             android:layout_weight="50"
-                                android:background="@drawable/curved_shape2"
+                            android:background="@drawable/curved_shape2"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
+                            android:translationZ="5dp"
                             tools:text="Rate" />
 
                         <Button
@@ -104,6 +105,7 @@
                             android:background="@drawable/curved_shape"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
+                            android:translationZ="5dp"
                             tools:text="Ok" />
                     </LinearLayout>
                 </RelativeLayout>

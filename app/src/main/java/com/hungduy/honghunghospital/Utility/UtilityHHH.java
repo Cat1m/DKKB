@@ -13,6 +13,7 @@ import com.hungduy.honghunghospital.R;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
+import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -95,6 +96,17 @@ public class UtilityHHH {
         });
         datePickerDialog.show();
     }
+    public static boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private static void timePicker(Activity a,EditText edtTime,EditText edtEnableNext,Date minDate,Date maxDate,String ngay){
         // Get Current Time
         final Calendar c = Calendar.getInstance();

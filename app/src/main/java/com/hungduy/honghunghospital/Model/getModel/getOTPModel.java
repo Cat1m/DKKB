@@ -6,4 +6,5 @@ public class getOTPModel {
     public getOTPModel(String phonenumber) {
         this.phonenumber = phonenumber;
     }
+
 }

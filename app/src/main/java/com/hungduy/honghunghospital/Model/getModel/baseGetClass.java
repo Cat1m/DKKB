@@ -6,15 +6,15 @@ public class baseGetClass {
     public baseGetClass() {
     }
 
-    public baseGetClass(String token) {
-        this.ma = token;
+    public baseGetClass(String ma) {
+        this.ma = ma;
     }
 
     public String getToken() {
         return ma;
     }
 
-    public void setToken(String token) {
-        this.ma = token;
+    public void setToken(String ma) {
+        this.ma = ma;
     }
 }

@@ -6,76 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeLoginedFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/include11"
+        layout="@layout/logo_helo_user"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
+        android:layout_marginTop="-20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgLogoBVHH"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_clickable" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shape_hh_xinchao_dobong"
-            android:fontFamily="@font/utm_gods_word_r_italic"
-            android:gravity="center"
-            android:lines="2"
-            android:maxLines="2"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="9dp"
-            android:text="@string/app_hello"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgUser"
-            app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.512" />
-
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgUser"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/myriadpro_semiext"
-            android:text="Tên user"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/imgUser"
-            app:layout_constraintTop_toBottomOf="@+id/imgUser" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="fitEnd"
+        android:scaleType="centerCrop"
         android:src="@drawable/canh_chim_nen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/include11" />
 
     <Button
         android:id="@+id/btn_home_2"
@@ -165,30 +110,30 @@
         android:textColor="@color/white"
         android:textScaleX="0.9"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_QR_Code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_home_4" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_QR_Code"
         android:layout_width="68dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="60dp"
         android:background="@drawable/btn_qr"
         android:paddingLeft="5dp"
         android:paddingBottom="5dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textScaleX="0.9"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView28"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_home_5" />
 
     <TextView
+        android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -196,8 +141,9 @@
         android:text="Quét mã QR"
         android:textColor="@color/textColorGreen"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_QR_Code" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

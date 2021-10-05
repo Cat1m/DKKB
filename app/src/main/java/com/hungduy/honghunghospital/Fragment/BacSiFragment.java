@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,14 +59,17 @@ public class BacSiFragment extends BaseFragment {
 
         }
     }
-
+    public String getSafeSubstring(String s, int maxLength){
+        if(!TextUtils.isEmpty(s)){
+            if(s.length() >= maxLength){
+                return s.substring(0, maxLength);
+            }
+        }
+        return s;
+    }
     @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mapView(view);
-        listBS = new ArrayList<>();
-        llvBS = new ArrayList<>();
+    public void onResume() {
+        super.onResume();
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -76,6 +80,9 @@ public class BacSiFragment extends BaseFragment {
                             String[] tenBS = new String[dsBS.length];
                             int i=0;
                             for (getMaTen bs: dsBS ) {
+                                if(txtHoTen.getText().toString().equals(bs.getTen())){
+                                    getDetai(bs.getMa());
+                                }
                                 listBS.add(bs);
                                 tenBS[i] = bs.getTen();
                                 i++;
@@ -92,95 +99,118 @@ public class BacSiFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mapView(view);
+        listBS = new ArrayList<>();
+        llvBS = new ArrayList<>();
+
         LayoutDoctor.setVisibility(View.GONE);
-
-
-
         txtHoTen.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                mAPIService.getDetailActiveDoctor(APIKey,new baseGetClass(listBS.get(position).getMa())).enqueue(new Callback<ResponseModel>() {
-                    @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                LayoutDoctor.setVisibility(View.VISIBLE);
-                                bs = new Gson().fromJson(response.body().getData(),getThongTinBS.class);
-                                if(bs != null){
-                                    Picasso.get().load(bs.getHinhAnh()).placeholder(R.drawable.avatar_user_empty).into(imgDoctor);
-                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                         txtInfoBS.setText(Html.fromHtml(bs.getThongTin(), Html.FROM_HTML_MODE_COMPACT));
-                                    } else {
-                                         txtInfoBS.setText(Html.fromHtml(bs.getThongTin()));
-                                    }
-                                    txtDoctorName.setText(bs.getTenChucDanh() + " " +bs.getTenNhanVien());
-                                }
-                            }else{
-                                LayoutDoctor.setVisibility(View.GONE);
-                                ThongBao(getActivity(),"Đã có lỗi xảy ra",response.body().getMessenge(),R.drawable.connection_error);
+                getDetai(listBS.get(position).getMa());
+            }
+        });
+        txtInfoBS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtInfoBS.getMaxLines() == 4){
+                    txtInfoBS.setMaxLines(50);
+                }else{
+                    txtInfoBS.setMaxLines(4);
+                }
+            }
+        });
+    }
+
+    private void getDetai(String ma){
+        mAPIService.getDetailActiveDoctor(APIKey,new baseGetClass(ma)).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getStatus().equals("OK")){
+                        LayoutDoctor.setVisibility(View.VISIBLE);
+                        bs = new Gson().fromJson(response.body().getData(),getThongTinBS.class);
+                        if(bs != null){
+                            Picasso.get().load(bs.getHinhAnh()).placeholder(R.drawable.avatar_user_empty).into(imgDoctor);
+                            String minStringHtml;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                txtInfoBS.setText(Html.fromHtml(bs.getThongTin(), Html.FROM_HTML_MODE_COMPACT));
+                            } else {
+                                txtInfoBS.setText(Html.fromHtml(bs.getThongTin()));
                             }
+                            txtInfoBS.setMaxLines(4);
+                            txtDoctorName.setText(bs.getTenChucDanh() + " " +bs.getTenNhanVien());
                         }
+                    }else{
+                        LayoutDoctor.setVisibility(View.GONE);
+                        ThongBao(getActivity(),"Đã có lỗi xảy ra",response.body().getMessenge(),R.drawable.connection_error);
                     }
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
-                    }
-                });
-
-                mAPIService.getLichLamViecBS(APIKey,new baseGetClass(listBS.get(position).getMa())).enqueue(new Callback<ResponseModel>() {
-                    @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getLichLamViecBS[] llvs = new Gson().fromJson(response.body().getData(),getLichLamViecBS[].class);
-                                if(llvs.length>0){
-                                    for (getLichLamViecBS llv : llvs) {
-                                        llvBS.add(llv);
-                                        if(llv.getThu() == 1){
-                                            txtT2S.setText(llv.isSang() ? "Có":"");
-                                            txtT2C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 2){
-                                            txtT3S.setText(llv.isSang() ? "Có":"");
-                                            txtT3C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 3){
-                                            txtT4S.setText(llv.isSang() ? "Có":"");
-                                            txtT4C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 4){
-                                            txtT5S.setText(llv.isSang() ? "Có":"");
-                                            txtT5C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 5){
-                                            txtT6S.setText(llv.isSang() ? "Có":"");
-                                            txtT6C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 6){
-                                            txtT7S.setText(llv.isSang() ? "Có":"");
-                                            txtT7C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                        if(llv.getThu() == 0){
-                                            txtT8S.setText(llv.isSang() ? "Có":"");
-                                            txtT8C.setText(llv.isChieu() ? "Có":"");
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
-                    }
-                });
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
 
             }
         });
 
+        mAPIService.getLichLamViecBS(APIKey,new baseGetClass(ma)).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getStatus().equals("OK")){
+                        getLichLamViecBS[] llvs = new Gson().fromJson(response.body().getData(),getLichLamViecBS[].class);
+                        if(llvs.length>0){
+                            for (getLichLamViecBS llv : llvs) {
+                                llvBS.add(llv);
+                                if(llv.getThu() == 1){
+                                    txtT2S.setText(llv.isSang() ? "Có":"");
+                                    txtT2C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 2){
+                                    txtT3S.setText(llv.isSang() ? "Có":"");
+                                    txtT3C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 3){
+                                    txtT4S.setText(llv.isSang() ? "Có":"");
+                                    txtT4C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 4){
+                                    txtT5S.setText(llv.isSang() ? "Có":"");
+                                    txtT5C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 5){
+                                    txtT6S.setText(llv.isSang() ? "Có":"");
+                                    txtT6C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 6){
+                                    txtT7S.setText(llv.isSang() ? "Có":"");
+                                    txtT7C.setText(llv.isChieu() ? "Có":"");
+                                }
+                                if(llv.getThu() == 0){
+                                    txtT8S.setText(llv.isSang() ? "Có":"");
+                                    txtT8C.setText(llv.isChieu() ? "Có":"");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+            }
+        });
     }
+
+
 
     private void mapView(View view) {
         txtHoTen = view.findViewById(R.id.txtHoTen);

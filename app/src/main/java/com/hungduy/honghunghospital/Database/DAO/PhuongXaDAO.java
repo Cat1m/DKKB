@@ -22,8 +22,8 @@ public interface PhuongXaDAO {
     List<PhuongXa> getAll();
 
     @Query("SELECT * FROM PhuongXa where MaTinhThanh= :matinhthanh")
-    PhuongXa getPhuongXaByTinhThanh(int matinhthanh);
+    List<PhuongXa> getPhuongXaByTinhThanh(int matinhthanh);
 
     @Query("SELECT * FROM PhuongXa where MaQuanHuyen= :maquanhuyen")
-    PhuongXa getPhuongXaByQuanHuyen(int maquanhuyen);
+    List<PhuongXa> getPhuongXaByQuanHuyen(int maquanhuyen);
 }

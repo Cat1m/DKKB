@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
         this.token = token;
         this.FullName = fullname;
         this.urlImage = urlImage;
+        svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
         Bundle bundle = new Bundle();
         bundle.putString("FullName", fullname);
         bundle.putString("urlImage", urlImage);
@@ -120,7 +121,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
     private void btnMainClick() {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivity {
                     svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                 }else{
+                    svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
                     HomeLoginedFragment logined = new HomeLoginedFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("FullName", FullName);

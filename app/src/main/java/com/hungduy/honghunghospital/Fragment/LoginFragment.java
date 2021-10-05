@@ -114,14 +114,15 @@ public class LoginFragment extends BaseFragment {
                             setStringPreferences(preferences,"username",username);
                             setStringPreferences(preferences,"password",password);
 
+                            MainActivity activity = (MainActivity) getActivity();
+                            activity.LoginSuccess(u.getToken(),u.getFullName(),u.getUrlImage());
+
                             HomeLoginedFragment logined = new HomeLoginedFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString("FullName",u.getFullName());
                             bundle.putString("urlImage",u.getUrlImage());
                             bundle.putString("token",u.getToken());
 
-                            MainActivity activity = (MainActivity) getActivity();
-                            activity.LoginSuccess(u.getToken(),u.getFullName(),u.getUrlImage());
 
                             logined.setArguments(bundle);
                             FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),logined,"");

@@ -22,6 +22,6 @@ public interface QuanHuyenDAO {
     List<QuanHuyen> getAll();
 
     @Query("SELECT * FROM QuanHuyen where MaTinhThanh= :matinhthanh")
-    QuanHuyen getQuanHuyenByTinhThanh(int matinhthanh);
+    List<QuanHuyen> getQuanHuyenByTinhThanh(int matinhthanh);
 
 }

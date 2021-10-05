@@ -1,6 +1,7 @@
 package com.hungduy.honghunghospital.Utility;
 
 import java.security.cert.CertificateException;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -15,10 +16,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit = null;
+
     public static Retrofit getClient(String baseUrl) {
         if (retrofit==null) {
+            OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                    .connectTimeout(5, TimeUnit.SECONDS)
+                    .readTimeout(5, TimeUnit.SECONDS)
+                    .writeTimeout(5, TimeUnit.SECONDS)
+                    .build();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
+                    .client(okHttpClient)
                    // .client(getUnsafeOkHttpClient().build()) //overide ssl unsafe
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

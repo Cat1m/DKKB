@@ -28,6 +28,9 @@ public class PhuongXa {
         Ten = ten;
     }
 
+    public PhuongXa() {
+    }
+
     public int getMa() {
         return Ma;
     }

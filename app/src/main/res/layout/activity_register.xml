@@ -6,75 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Activity.RegisterActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/include7"
+        layout="@layout/logo_helo_user"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#e6fff9"
-        android:paddingLeft="10dp"
-        android:paddingTop="25dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgLogoBVHH"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_clickable" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shape_hh_xinchao_dobong"
-            android:fontFamily="@font/utm_gods_word_r_italic"
-            android:gravity="center"
-            android:lines="2"
-            android:maxLines="2"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="9dp"
-            android:text="@string/app_hello"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgUser"
-            app:layout_constraintStart_toEndOf="@+id/imgLogoBVHH"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.512" />
-
-        <ImageView
-            android:id="@+id/imgUser"
-            android:layout_width="45dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/user" />
-
-        <TextView
-            android:id="@+id/txtUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/myriadpro_semiext"
-            android:text="Tên user"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/imgUser"
-            app:layout_constraintStart_toStartOf="@+id/imgUser"
-            app:layout_constraintTop_toBottomOf="@+id/imgUser" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-14dp"
         android:layout_marginBottom="-15dp"
         android:background="@drawable/logo_nen"
         android:paddingBottom="15dp"
@@ -83,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/include7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -167,14 +112,17 @@
                     <EditText
                         android:id="@+id/txtHoTen"
                         android:layout_width="334dp"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="5dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -348,12 +296,18 @@
                         <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtTinhThanh"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="8dp"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:fontFamily="@font/myriadpro_semiext"
                             android:maxLines="1"
                             android:paddingLeft="20dp"
                             android:paddingRight="8dp"
                             android:textSize="16dp"
+                            android:translationZ="5dp"
                             app:jrs_multiple="false"
                             app:jrs_title="Chọn tỉnh thành"
                             tools:ignore="TouchTargetSizeCheck" />
@@ -378,13 +332,19 @@
                         <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtQuanHuyen"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:fontFamily="@font/myriadpro_semiext"
                             android:maxLines="1"
                             android:paddingLeft="20dp"
                             android:paddingRight="8dp"
                             android:textSize="16dp"
+                            android:translationZ="5dp"
                             app:jrs_multiple="false"
                             app:jrs_title="Chọn quận huyện" />
 
@@ -408,13 +368,19 @@
                         <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtXaPhuong"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:fontFamily="@font/myriadpro_semiext"
                             android:maxLines="1"
                             android:paddingLeft="20dp"
                             android:paddingRight="8dp"
                             android:textSize="16dp"
+                            android:translationZ="5dp"
                             app:jrs_multiple="false"
                             app:jrs_title="Chọn phường xã" />
 
@@ -438,13 +404,19 @@
                         <jrizani.jrspinner.JRSpinner
                             android:id="@+id/txtApKhuPho"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edittext_have_focus"
+                            android:fontFamily="@font/myriadpro_semiext"
                             android:maxLines="1"
                             android:paddingLeft="20dp"
                             android:paddingRight="8dp"
                             android:textSize="16dp"
+                            android:translationZ="5dp"
                             app:jrs_multiple="false"
                             app:jrs_title="Chọn ấp, khu phố" />
 
@@ -468,13 +440,18 @@
                         <EditText
                             android:id="@+id/txtDiaChi"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="3dp"
+                            android:layout_height="43dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="8dp"
                             android:background="@drawable/shape_edittext_have_focus"
                             android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
                             android:inputType="text"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
+                            android:translationZ="5dp"
                             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     </LinearLayout>
@@ -491,14 +468,17 @@
                     <jrizani.jrspinner.JRSpinner
                         android:id="@+id/txtQuocTich"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         app:jrs_multiple="false"
                         app:jrs_title="Chọn tỉnh thành"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -515,14 +495,17 @@
                     <EditText
                         android:id="@+id/txtCMND"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="number"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -537,14 +520,17 @@
                     <EditText
                         android:id="@+id/txtMaBHYT"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -582,14 +568,17 @@
                     <EditText
                         android:id="@+id/txtSDT"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -604,14 +593,17 @@
                     <EditText
                         android:id="@+id/txtPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="textPassword"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -626,14 +618,17 @@
                     <EditText
                         android:id="@+id/txtReEnterPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
+                        android:layout_margin="6dp"
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edittext_have_focus"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:inputType="textPassword"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
+                        android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <LinearLayout
@@ -651,7 +646,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/btn_shape_green"
                             android:text="Thoát"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:translationZ="5dp" />
 
                         <Button
                             android:id="@+id/btnLuu"
@@ -661,7 +657,8 @@
                             android:layout_weight="1"
                             android:background="@drawable/btn_shape_blue"
                             android:text="Lưu"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:translationZ="5dp" />
                     </LinearLayout>
 
                 </LinearLayout>

@@ -15,4 +15,28 @@ public class UserData {
     @ColumnInfo(name = "ConfigInfo")
     private String ConfigInfo;
 
+    public UserData() {
+    }
+
+    public UserData(@NonNull String configName, String configInfo) {
+        ConfigName = configName;
+        ConfigInfo = configInfo;
+    }
+
+    @NonNull
+    public String getConfigName() {
+        return ConfigName;
+    }
+
+    public void setConfigName(@NonNull String configName) {
+        ConfigName = configName;
+    }
+
+    public String getConfigInfo() {
+        return ConfigInfo;
+    }
+
+    public void setConfigInfo(String configInfo) {
+        ConfigInfo = configInfo;
+    }
 }

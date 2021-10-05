@@ -23,5 +23,5 @@ public interface KhuPhoDAO {
     List<KhuPho> getAll();
 
     @Query("SELECT * FROM KhuPho where MaPhuongXa= :maphuongxa")
-    KhuPho getKhuPhoByQuanHuyen(int maphuongxa);
+    List<KhuPho>  getKhuPhoByQuanHuyen(int maphuongxa);
 }

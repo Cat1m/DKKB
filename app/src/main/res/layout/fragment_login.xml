@@ -57,24 +57,158 @@
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
-        android:layout_height="258dp"
-        android:layout_marginStart="35dp"
+        android:layout_height="200dp"
         android:contentDescription="TODO"
+        android:scaleType="fitEnd"
         android:src="@drawable/toan_canh_bv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="fitEnd"
+        android:scaleType="centerCrop"
         android:src="@drawable/canh_chim_nen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/canh_chim_nen" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:fontFamily="@font/myriadpro_semiext"
+            android:text="@string/username_homepage_login_detail"
+            android:textColor="@color/textColorGreen"
+            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/myriadpro_semiboldsemiext"
+            android:text="@string/username_homepage_login"
+            android:textColor="#009688"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtUsername"
+            app:layout_constraintEnd_toStartOf="@+id/textView16"
+            app:layout_constraintStart_toStartOf="@+id/txtUsername"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="231dp"
+            android:layout_height="43dp"
+            android:background="@drawable/shape_edittext_have_focus"
+            android:ems="10"
+            android:inputType="textPersonName|textEmailAddress|phone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:translationZ="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:fontFamily="@font/myriadpro_semiboldsemiext"
+            android:text="@string/password_homepage_login"
+            android:textColor="#009688"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtPassword"
+            app:layout_constraintEnd_toStartOf="@+id/textView26"
+            app:layout_constraintStart_toStartOf="@+id/txtPassword"
+            app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/myriadpro_semiext"
+            android:text="@string/password_homepage_login_detail"
+            android:textColor="@color/textColorGreen"
+            app:layout_constraintBottom_toBottomOf="@+id/textView25"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="231dp"
+            android:layout_height="43dp"
+            android:background="@drawable/shape_edittext_have_focus"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:translationZ="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="153dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_shape_green"
+            android:elevation="55dp"
+            android:fontFamily="@font/myriadpro_semiboldsemiext"
+            android:text="@string/btn_dang_nhap_txt"
+            android:textColor="@color/white"
+            android:translationZ="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/txtRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/txtRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:fontFamily="@font/myriadpro_semiext"
+            android:padding="10dp"
+            android:text="@string/dang_ky_link_text"
+            android:textColor="@color/textColorGreen"
+            app:layout_constraintBottom_toTopOf="@+id/txtForgetPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+        <TextView
+            android:id="@+id/txtForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/myriadpro_semiext"
+            android:padding="10dp"
+            android:text="@string/quen_mat_khau_link_txt"
+            android:textColor="@color/textColorGreen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtRegister" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -85,7 +219,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        tools:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,35 +229,7 @@
             android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="75dp"
-                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                android:text="@string/username_homepage_login"
-                android:textColor="#009688"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/myriadpro_semiext"
-                android:text="@string/username_homepage_login_detail"
-                android:textColor="@color/textColorGreen" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/txtUsername"
-            android:layout_width="231dp"
-            android:layout_height="48dp"
-            android:background="@drawable/shape_edittext_have_focus"
-            android:ems="10"
-            android:inputType="textPersonName|textEmailAddress|phone"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,68 +238,8 @@
             android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="75dp"
-                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                android:text="@string/password_homepage_login"
-                android:textColor="#009688"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/myriadpro_semiext"
-                android:text="@string/password_homepage_login_detail"
-                android:textColor="@color/textColorGreen" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="231dp"
-            android:layout_height="48dp"
-            android:background="@drawable/shape_edittext_have_focus"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingLeft="20dp"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="153dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_shape_green"
-            android:elevation="55dp"
-            android:fontFamily="@font/myriadpro_semiboldsemiext"
-            android:text="@string/btn_dang_nhap_txt"
-            android:textColor="@color/white"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/txtRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/myriadpro_semiext"
-            android:text="@string/dang_ky_link_text"
-            android:textColor="@color/textColorGreen" />
-
-        <TextView
-            android:id="@+id/txtForgetPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/myriadpro_semiext"
-            android:text="@string/quen_mat_khau_link_txt"
-            android:textColor="@color/textColorGreen" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
