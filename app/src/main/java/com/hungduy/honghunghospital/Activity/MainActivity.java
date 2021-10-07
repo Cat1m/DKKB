@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,12 +25,18 @@ import com.hungduy.honghunghospital.Fragment.DichVuFragment;
 import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
 import com.hungduy.honghunghospital.Fragment.ThongTinFragment;
+import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
 import com.hungduy.honghunghospital.Utility.QLCVScrollView;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
     private LinearLayout btnHome,btnLichBS,btnDichVu,btnTinTuc;
@@ -51,6 +58,8 @@ public class MainActivity extends BaseActivity {
     private DichVuFragment DichVuFM;
     private ThongTinFragment ThongTinFM;
 
+    private boolean FirstRun = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +75,9 @@ public class MainActivity extends BaseActivity {
         FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
 
         initButtonImage();// load Image to memory for quick response
-
-
-
     }
 
-    public void LoginSuccess(String token,String fullname,String urlImage){
+    public void LoginSuccess(String token, String fullname, String urlImage){
         this.token = token;
         this.FullName = fullname;
         this.urlImage = urlImage;
@@ -84,6 +90,28 @@ public class MainActivity extends BaseActivity {
         DichVuFM.setArguments(bundle);
         ThongTinFM.setArguments(bundle);
         Log.d(TAG,"Login successs");
+    }
+
+    @Override
+    public void Connected() {
+        super.Connected();
+        if(!FirstRun){
+            mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
+                @Override
+                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    super.onResponse(call, response);
+                    if(response.isSuccessful() && response.body().getStatus().equals("OK")){
+                        if(token == null || token.isEmpty()) {
+                            loginFM.RetryLogin();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public void setFirstRun(boolean isFirstRun){
+        this.FirstRun = isFirstRun;
     }
 
     private void initButtonImage() {
@@ -135,6 +163,7 @@ public class MainActivity extends BaseActivity {
                     bundle.putString("FullName", FullName);
                     bundle.putString("urlImage", urlImage);
                     bundle.putString("token", token);
+                    bundle.putBoolean("noibo", noibo);
                     logined.setArguments(bundle);
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
                 }

@@ -17,7 +17,10 @@ import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeCongTacActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNguoiThanActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNoiBoActivity;
+import com.hungduy.honghunghospital.Activity.MainActivity;
+import com.hungduy.honghunghospital.Activity.SplashActivity;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.FragmentUtils;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeLoginedFragment extends BaseFragment {
 
-    private Button btn_home_1,btn_home_2,btn_home_3,btn_home_4,btn_home_5;
+    private Button btn_home_1,btn_home_2,btn_home_3,btn_home_4,btn_home_5,btn_home_6;
 
     public HomeLoginedFragment() {
     }
@@ -34,8 +37,6 @@ public class HomeLoginedFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
     }
 
@@ -88,6 +89,25 @@ public class HomeLoginedFragment extends BaseFragment {
                 startActivity(i);
             }
         });
+
+        if(noibo){
+            btn_home_5.setVisibility(View.VISIBLE);
+        }else{
+            btn_home_5.setVisibility(View.GONE);
+        }
+
+        btn_home_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setStringPreferences(preferences, "username", username);
+                setStringPreferences(preferences, "password", password);
+                Intent splash = new Intent(getActivity(), SplashActivity.class);
+                startActivity(splash);
+                getActivity().finish();
+
+            }
+        });
+
     }
 
     private void mapView(View v) {
@@ -96,6 +116,7 @@ public class HomeLoginedFragment extends BaseFragment {
         btn_home_3 = v.findViewById(R.id.btn_home_3);
         btn_home_4 = v.findViewById(R.id.btn_home_4);
         btn_home_5 = v.findViewById(R.id.btn_home_5);
+        btn_home_6 = v.findViewById(R.id.btn_home_6);
     }
 
     @Override

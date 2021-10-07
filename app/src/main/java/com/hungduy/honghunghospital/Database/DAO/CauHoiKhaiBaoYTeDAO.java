@@ -4,28 +4,24 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
-import com.hungduy.honghunghospital.Database.Model.TinhThanh;
+import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Database.Model.UserData;
 
 import java.util.List;
 
 @Dao
-public interface UserDataDAO {
+public interface CauHoiKhaiBaoYTeDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(UserData us);
+    void insert(CauHoiKhaiBaoYTe us);
 
-    @Query("DELETE FROM UserData")
+    @Query("DELETE FROM CauHoiKhaiBaoYTe")
     void deleteAll();
 
-    @Query("SELECT * FROM UserData")
+    @Query("SELECT * FROM CauHoiKhaiBaoYTe")
     List<UserData> getAll();
 
-    @Query("SELECT * FROM UserData where ConfigName = :configname")
-    UserData getConfig(String configname);
-
-
-
+    @Query("SELECT * FROM CauHoiKhaiBaoYTe where id = :id")
+    CauHoiKhaiBaoYTe getCauHoiKhaiBao(int id);
 
 }

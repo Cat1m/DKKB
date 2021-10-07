@@ -18,11 +18,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.Activity.LogoActivity;
+import com.hungduy.honghunghospital.Activity.UpdateUserActivity;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
+import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
@@ -59,6 +61,9 @@ public  abstract class BaseFragment extends Fragment {
     protected QuanHuyenDAO QHdao;
     protected PhuongXaDAO PXdao;
     protected KhuPhoDAO KPdao;
+    protected UserDataDAO USRdao;
+    protected boolean OfflineMode;
+    protected boolean noibo;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -70,11 +75,12 @@ public  abstract class BaseFragment extends Fragment {
         shape_edittext_have_focus = AppCompatResources.getDrawable(getActivity(), R.drawable.shape_edittext_have_focus);
 
         database = LocalDB.getInstance(getContext());
-        TinhThanhDAO TTdao = database.tinhThanhDAO();
-        QuocGiaDAO QGdao = database.quocGiaDAO();
-        QuanHuyenDAO QHdao = database.quanHuyenDAO();
-        PhuongXaDAO PXdao = database.phuongXaDAO();
-        KhuPhoDAO KPdao = database.khuPhoDAO();
+        TTdao = database.tinhThanhDAO();
+        QGdao = database.quocGiaDAO();
+        QHdao = database.quanHuyenDAO();
+        PXdao = database.phuongXaDAO();
+        KPdao = database.khuPhoDAO();
+        USRdao = database.userDataDAO();
 
         if (getArguments() != null) {
             username = getArguments().getString("username");
@@ -83,6 +89,8 @@ public  abstract class BaseFragment extends Fragment {
             urlImage = getArguments().getString("urlImage");
             padding = getArguments().getInt("padding");
             token = getArguments().getString("token");
+            OfflineMode = getArguments().getBoolean("OfflineMode");
+            noibo = getArguments().getBoolean("noibo");
         }
         String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
         try {
@@ -168,6 +176,22 @@ public  abstract class BaseFragment extends Fragment {
                     startActivity(i);
                 }
             });
+        }catch (Exception ex){
+
+        }
+        try{
+            if(!txtUser.getText().toString().isEmpty() && !txtUser.getText().toString().equals("*") ){
+                imgUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getActivity(), UpdateUserActivity.class);
+                        i.putExtra("FullName",FullName);
+                        i.putExtra("urlImage",urlImage);
+                        i.putExtra("token",token);
+                        startActivity(i);
+                    }
+                });
+            }
         }catch (Exception ex){
 
         }

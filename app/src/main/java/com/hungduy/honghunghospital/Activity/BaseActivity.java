@@ -4,14 +4,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,23 +28,31 @@ import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
+import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
+import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
+import com.hungduy.honghunghospital.Utility.ConnectivityStatusReceiver;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected APIService mAPIService;
@@ -61,6 +74,39 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected QuanHuyenDAO QHdao;
     protected PhuongXaDAO PXdao;
     protected KhuPhoDAO KPdao;
+    protected UserDataDAO USRdao;
+    protected TextView txtOfflineMode;
+    protected boolean isConnected;
+    protected boolean noibo;
+    private ConnectivityStatusReceiver connectivityStatusReceiver;
+
+    public void Disconnect(){
+        if(txtOfflineMode != null){
+            txtOfflineMode.setVisibility(View.VISIBLE);
+        }
+        isConnected = false;
+    }
+
+    public void Connected(){
+        if(txtOfflineMode != null) {
+            mAPIService.ping().enqueue(new Callback<ResponseModel>() {
+                @Override
+                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    if(response.isSuccessful() && response.body().getStatus().equals("OK")){
+                        txtOfflineMode.setVisibility(View.GONE);
+                        isConnected = true;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,15 +124,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         QHdao = database.quanHuyenDAO();
         PXdao = database.phuongXaDAO();
         KPdao = database.khuPhoDAO();
-
+        USRdao = database.userDataDAO();
 
         if(BundleLogin!=null)
         {
-            username =(String) BundleLogin.get("username");
-            password =(String) BundleLogin.get("password");
-            FullName =(String) BundleLogin.get("FullName");
-            urlImage =(String) BundleLogin.get("urlImage");
-            token =(String) BundleLogin.get("token");
+            try{
+                username =(String) BundleLogin.get("username");
+                password =(String) BundleLogin.get("password");
+                FullName =(String) BundleLogin.get("FullName");
+                urlImage =(String) BundleLogin.get("urlImage");
+                token =(String) BundleLogin.get("token");
+                noibo = (Boolean) BundleLogin.get("noibo");
+              //  isConnected = (Boolean) BundleLogin.get("isConnected");
+            }catch (Exception ex){
+
+            }
         }
         String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
         try {
@@ -96,25 +148,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         shape_edittext_error = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_error);
         shape_edittext_have_focus = AppCompatResources.getDrawable(getApplicationContext(), R.drawable.shape_edittext_have_focus);
 
+        connectivityStatusReceiver = new ConnectivityStatusReceiver();
+        connectivityStatusReceiver.setActivity(this);
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        try{
-           // txtTitle = findViewById(R.id.txtTitle);
-         //   btnBack = findViewById(R.id.btnBack);
-        //    btnBack.setOnClickListener(new View.OnClickListener() {
-        //        @Override
-       //         public void onClick(View v) {
-     //               finish();
-       //         }
-       //     });
-        }catch (Exception ex){
-            txtTitle = null;
-            btnBack = null;
-        }
         try {
             txtUser = findViewById(R.id.txtUser);
             imgUser = findViewById(R.id.imgUser);
@@ -148,10 +189,50 @@ public abstract class BaseActivity extends AppCompatActivity {
         }catch (Exception ex){
 
         }
+        try{
+            if(!txtUser.getText().toString().isEmpty() && !txtUser.getText().toString().equals("*") ){
+                imgUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getApplicationContext(), UpdateUserActivity.class);
+                        i.putExtra("FullName",FullName);
+                        i.putExtra("urlImage",urlImage);
+                        i.putExtra("token",token);
+                        startActivity(i);
+                    }
+                });
+            }
+        }catch (Exception ex){
 
+        }
 
+        try {
+            txtOfflineMode = findViewById(R.id.txtOfflineMode);
+        }catch (Exception ex){
+
+        }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(connectivityStatusReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (connectivityStatusReceiver != null) {
+            // unregister receiver
+            try{
+                unregisterReceiver(connectivityStatusReceiver);
+            }catch (Exception ex){
+
+            }
+        }
+    }
 
     protected boolean getBooleanPreferences(String name, String key){
         SharedPreferences sharedPreferences = getSharedPreferences(name, MODE_PRIVATE);

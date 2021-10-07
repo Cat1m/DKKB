@@ -3,17 +3,10 @@ package com.hungduy.honghunghospital.Activity;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,13 +14,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -39,8 +30,6 @@ import com.hungduy.honghunghospital.Database.Model.QuanHuyen;
 import com.hungduy.honghunghospital.Database.Model.QuocGia;
 import com.hungduy.honghunghospital.Database.Model.TinhThanh;
 import com.hungduy.honghunghospital.Model.ResponseModel;
-import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
-import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
 import com.hungduy.honghunghospital.R;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
@@ -48,13 +37,9 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Console;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
 import kotlin.Unit;
@@ -74,7 +59,7 @@ public class RegisterActivity extends BaseActivity {
     private Button btnThoat,btnLuu;
     private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich;
     private RadioButton chkNam,chkNu,chkKhac;
-
+    private LinearLayout ViewUpdate;
     private ArrayList<TinhThanh> listTinhThanh  = new ArrayList<>();
     private ArrayList<QuanHuyen> listQuanHuyen  = new ArrayList<>();
     private ArrayList<PhuongXa> listPhuongXa  = new ArrayList<>();
@@ -101,6 +86,8 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         
         mapView();
+        ViewUpdate.setVisibility(View.GONE);
+
 
         new Thread(new Runnable() {
             @Override
@@ -614,7 +601,7 @@ public class RegisterActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ArrayList<KhuPho> kp = (ArrayList<KhuPho>) KPdao.getKhuPhoByQuanHuyen(maqh);
+                ArrayList<KhuPho> kp = (ArrayList<KhuPho>) KPdao.getKhuPhoByPhuongXa(maqh);
                 String[] s = new String[kp.size()];
                 int i=0;
                 for (KhuPho a: kp) {
@@ -680,5 +667,6 @@ public class RegisterActivity extends BaseActivity {
         txtSDT = findViewById(R.id.txtSDT);
         txtCMND = findViewById(R.id.txtCMND);
         txtMaBHYT= findViewById(R.id.txtMaBHYT);
+        ViewUpdate = findViewById(R.id.ViewUpdate);
     }
 }

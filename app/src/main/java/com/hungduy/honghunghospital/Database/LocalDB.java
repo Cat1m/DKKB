@@ -46,6 +46,7 @@ public abstract class LocalDB extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             LocalDB.class, "Local.db")
+                            .createFromAsset("data.db")
                             .fallbackToDestructiveMigration()
                             .build();
                 }

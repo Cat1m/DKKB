@@ -46,5 +46,6 @@
     <string name="txt_title_kham_nguoi_than">Phần đăng ký khám bệnh (*)<br/>\n<font face="myriadpro_semiext"><i><small>(Chọn 1 trong 3 hình thức sau)</small></i></font></string>
     <string name="txt_gui_tin_nhan_otp">Một mã OTP đã được gửi đến SDT của Anh/chị\nAnh/Chị vui lòng nhập mã OTP và \nmật khẩu mới vào ô bên dưới. \nNếu không nhận được tin nhắn vui lòng liên hệ tổng đài</string>
     <string name="txt_lich_lam_viec_cua_bs_trong_tuan">Lịch làm việc của Bác sĩ trong tuần:</string>
+    <string name="txt_offline_mode">Kết nối đến máy chủ bị mất !</string>
     <!-- uCrop string resource end -->
 </resources>

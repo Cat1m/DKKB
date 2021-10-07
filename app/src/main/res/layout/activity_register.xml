@@ -581,90 +581,234 @@
                         android:translationZ="5dp"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-                    <TextView
-                        android:id="@+id/textView2"
+                    <LinearLayout
+                        android:id="@+id/ViewRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Mật khẩu (*)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
+                        android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/txtPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="textPassword"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Mật khẩu (*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Nhập lại mật khẩu (*)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
+                        <EditText
+                            android:id="@+id/txtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="textPassword"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-                    <EditText
-                        android:id="@+id/txtReEnterPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="textPassword"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Nhập lại mật khẩu (*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/txtReEnterPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="textPassword"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <View
+                            android:id="@+id/view14"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ViewUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="horizontal"
-                        android:paddingBottom="20dp">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Mật khẩu (*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/txtOldPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="textPassword"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <Switch
+                            android:id="@+id/swDoiMatKhau"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:padding="5dp"
+                            android:text="Đổi mật khẩu"
+                            android:textColor="@color/textColorGreen" />
+
+                        <LinearLayout
+                            android:id="@+id/viewNewPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/textView30"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Nhập mật khẩu mới (*)"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/txtNewPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="6dp"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/shape_edittext_have_focus"
+                                android:ems="10"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:inputType="textPassword"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:translationZ="5dp"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Nhập lại mật khẩu (*)"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/txtReEnterNewPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="6dp"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/shape_edittext_have_focus"
+                                android:ems="10"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:inputType="textPassword"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:translationZ="5dp"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            <View
+                                android:id="@+id/view15"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp">
 
                         <Button
                             android:id="@+id/btnThoat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn_shape_green"
+                            android:minWidth="130dp"
                             android:text="Thoát"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:translationZ="5dp" />
+                            android:translationZ="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
                             android:id="@+id/btnLuu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:layout_marginBottom="40dp"
                             android:layout_weight="1"
                             android:background="@drawable/btn_shape_blue"
+                            android:minWidth="130dp"
                             android:text="Lưu"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:translationZ="5dp" />
-                    </LinearLayout>
+                            android:translationZ="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnThoat"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                layout="@layout/item_offline_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:translationZ="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

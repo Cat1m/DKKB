@@ -20,13 +20,27 @@ public class UserModel {
     @Expose
     private String appVer;
 
+    @SerializedName("noibo")
+    @Expose
+    private String noibo;
+
     public UserModel() {
     }
 
-    public UserModel(String fullName, String urlImage,String token) {
+    public UserModel(String fullName, String urlImage, String token, String appVer, String noibo) {
         FullName = fullName;
         this.urlImage = urlImage;
         this.token = token;
+        this.appVer = appVer;
+        this.noibo = noibo;
+    }
+
+    public String getNoibo() {
+        return noibo;
+    }
+
+    public void setNoibo(String noibo) {
+        this.noibo = noibo;
     }
 
     public String getFullName() {

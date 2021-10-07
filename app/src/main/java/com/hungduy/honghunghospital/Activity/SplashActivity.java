@@ -81,6 +81,8 @@ public class SplashActivity extends BaseActivity {
         DataPhuongXa = getBooleanPreferences(preferences,"DataQuanHuyen");
         DataApKhuPho = getBooleanPreferences(preferences,"DataApKhuPho");
 
+        boolean FlagDelALL = getBooleanPreferences(preferences,"FlagDelALL");
+
 
         if(!DataTinhThanh){
             mAPIService.getTinhThanh(APIKey).enqueue(new Callback<ResponseModel>() {
@@ -92,12 +94,18 @@ public class SplashActivity extends BaseActivity {
                             Thread a = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    TTdao.deleteAll();
+                                    if(FlagDelALL){
+                                        TTdao.deleteAll();
+                                    }
                                     for(int i=0;i< tinhthanh.length;i++){
-                                        try{
-                                            TTdao.insert(new TinhThanh(Integer.parseInt(tinhthanh[i].getMa()),tinhthanh[i].getTen()));
-                                        }catch (Exception ex){
+                                        int ma =Integer.parseInt(tinhthanh[i].getMa());
+                                        if(TTdao.getTinhThanh(ma) == null){
+                                            try{
+                                                TTdao.insert(new TinhThanh(ma,tinhthanh[i].getTen()));
+                                            }catch (Exception ex){
 
+                                            }
+                                            Log.d(TAG,"Add " + ma);
                                         }
                                     }
                                     SizeDataTinhThanh = tinhthanh.length;
@@ -131,12 +139,18 @@ public class SplashActivity extends BaseActivity {
                             Thread a = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    QGdao.deleteAll();
+                                    if(FlagDelALL){
+                                        QGdao.deleteAll();
+                                    }
                                     for(int i=0;i< tinhthanh.length;i++){
-                                        try{
-                                            QGdao.insert(new QuocGia(Integer.parseInt(tinhthanh[i].getMa()),tinhthanh[i].getTen()));
-                                        }catch (Exception ex){
+                                        int ma =Integer.parseInt(tinhthanh[i].getMa());
+                                        if(QGdao.getQuocGia(ma) == null){
+                                            try{
+                                                QGdao.insert(new QuocGia(Integer.parseInt(tinhthanh[i].getMa()),tinhthanh[i].getTen()));
+                                            }catch (Exception ex){
 
+                                            }
+                                            Log.d(TAG,"Add " + ma);
                                         }
                                     }
                                     SizeDataQuocGia = tinhthanh.length;
@@ -169,13 +183,18 @@ public class SplashActivity extends BaseActivity {
                             Thread a = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    QHdao.deleteAll();
+                                    if(FlagDelALL){
+                                        QHdao.deleteAll();
+                                    }
                                     for(int i=0;i< quanHuyen.length;i++){
-                                        try{
-                                            QHdao.insert(new QuanHuyen(Integer.parseInt(quanHuyen[i].getMa()),
-                                                    Integer.parseInt(quanHuyen[i].getMatinhthanh()),quanHuyen[i].getTen()));
-                                        }catch (Exception ex){
+                                        int ma = Integer.parseInt(quanHuyen[i].getMa());
+                                        if(QHdao.getQuanHuyen(ma) == null){
+                                            try{
+                                                QHdao.insert(new QuanHuyen(ma,Integer.parseInt(quanHuyen[i].getMatinhthanh()),quanHuyen[i].getTen()));
+                                            }catch (Exception ex){
 
+                                            }
+                                            Log.d(TAG,"Add " + ma);
                                         }
                                     }
                                     SizeDataQuanHuyen = quanHuyen.length;
@@ -208,14 +227,21 @@ public class SplashActivity extends BaseActivity {
                             Thread a = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PXdao.deleteAll();
+                                    if(FlagDelALL){
+                                        PXdao.deleteAll();
+                                    }
                                     for(int i=0;i< phuongxa.length;i++){
-                                        try{
-                                            PXdao.insert(new PhuongXa(Integer.parseInt(phuongxa[i].getMa()),
-                                                    Integer.parseInt(phuongxa[i].getMatinhthanh()),
-                                                    Integer.parseInt(phuongxa[i].getMaquanhuyen()),
-                                                    phuongxa[i].getTen()));
-                                        }catch (Exception ex){
+                                        int ma = Integer.parseInt(phuongxa[i].getMa());
+                                        if(PXdao.getPhuongXa(ma) == null){
+                                            try{
+                                                PXdao.insert(new PhuongXa(ma,
+                                                        Integer.parseInt(phuongxa[i].getMatinhthanh()),
+                                                        Integer.parseInt(phuongxa[i].getMaquanhuyen()),
+                                                        phuongxa[i].getTen()));
+                                            }catch (Exception ex){
+                                            }
+                                            Log.d(TAG,"Add " + ma);
+                                        }else {
 
                                         }
                                     }
@@ -249,14 +275,19 @@ public class SplashActivity extends BaseActivity {
                             Thread a = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    KPdao.deleteAll();
+                                    if(FlagDelALL){
+                                        KPdao.deleteAll();
+                                    }
                                     for(int i=0;i< ApKhuPho.length;i++){
-                                        try{
-                                            KPdao.insert(new KhuPho(Integer.parseInt(ApKhuPho[i].getMa()),
-                                                    Integer.parseInt(ApKhuPho[i].getMatinhthanh()),
-                                                    ApKhuPho[i].getTen()));
-                                        }catch (Exception ex){
-
+                                        int ma = Integer.parseInt(ApKhuPho[i].getMa());
+                                        if(KPdao.getKhuPho(ma) == null){
+                                            try{
+                                                KPdao.insert(new KhuPho(ma,
+                                                        Integer.parseInt(ApKhuPho[i].getMatinhthanh()),
+                                                        ApKhuPho[i].getTen()));
+                                            }catch (Exception ex){
+                                            }
+                                            Log.d(TAG,"Add " + ma );
                                         }
                                     }
                                     SizeDataApKhuPho = ApKhuPho.length;
@@ -286,40 +317,11 @@ public class SplashActivity extends BaseActivity {
                 try {
                     Thread.sleep(10000);
                     if(!BreakPoint){
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try{
-                                    new FancyGifDialog.Builder(SplashActivity.this)
-                                            .setTitle("Đã có lỗi xảy ra")
-                                            .setMessage("Không kết nối được với máy chủ. " +
-                                                    "Bạn có muốn tiếp tục với chế độ offline")
-                                            .setPositiveBtnBackground("#FF4081")
-                                            .setPositiveBtnText("Đồng ý")
-                                            .setNegativeBtnBackground("#FF4081")
-                                            .setNegativeBtnText("Hủy")
-                                            .setGifResource( R.drawable.connection_error)
-                                            .OnPositiveClicked(new FancyGifDialogListener() {
-                                                @Override
-                                                public void OnClick() {
-                                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                                    startActivity(intent);
-                                                    BreakPoint = true;
-                                                    finish();
-                                                }
-                                            })
-                                            .OnNegativeClicked(new FancyGifDialogListener() {
-                                                @Override
-                                                public void OnClick() {
-                                                    BreakPoint = true;
-                                                    finish();
-                                                }
-                                            })
-                                            .build();
-                                }catch (Exception ex){
-                                }
-                            }
-                        });
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        intent.putExtra("OfflineMode",true);
+                        startActivity(intent);
+                        BreakPoint = true;
+                        finish();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -332,36 +334,10 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 if(!UtilityHHH.isInternetAvailable()){
                     BreakPoint = true;
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            new FancyGifDialog.Builder(SplashActivity.this)
-                                    .setTitle("Đã có lỗi xảy ra")
-                                    .setMessage("Không kết nối được với máy chủ. " +
-                                            "Bạn có muốn tiếp tục với chế độ offline")
-                                    .setPositiveBtnBackground("#FF4081")
-                                    .setPositiveBtnText("Đồng ý")
-                                    .setNegativeBtnBackground("#FF4081")
-                                    .setNegativeBtnText("Hủy")
-                                    .setGifResource( R.drawable.connection_error)
-                                    .OnPositiveClicked(new FancyGifDialogListener() {
-                                        @Override
-                                        public void OnClick() {
-                                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    })
-                                    .OnNegativeClicked(new FancyGifDialogListener() {
-                                        @Override
-                                        public void OnClick() {
-                                            finish();
-                                        }
-                                    })
-                                    .build();
-
-                        }
-                    });
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("OfflineMode",true);
+                    startActivity(intent);
+                    finish();
                 }
                 Break.start();
                 if(!DataTinhThanh)
@@ -370,7 +346,7 @@ public class SplashActivity extends BaseActivity {
                     while(SizeDataTinhThanh == 0){
                         if(BreakPoint) { break;}
                     }
-                    while (TTdao.getAll().size() != SizeDataTinhThanh) {
+                    while (TTdao.getAll().size() < SizeDataTinhThanh) {
                         if(BreakPoint) { break;}
                     }
                 }
@@ -380,7 +356,7 @@ public class SplashActivity extends BaseActivity {
                     while(SizeDataQuocGia == 0){
                         if(BreakPoint) { break;}
                     }
-                    while (QGdao.getAll().size() != SizeDataQuocGia ) {
+                    while (QGdao.getAll().size() < SizeDataQuocGia ) {
                         if(BreakPoint) { break;}
                     }
                 }
@@ -390,7 +366,7 @@ public class SplashActivity extends BaseActivity {
                     while(SizeDataQuanHuyen == 0){
                         if(BreakPoint) { break;}
                     }
-                    while (QHdao.getAll().size() != SizeDataQuanHuyen) {
+                    while (QHdao.getAll().size() < SizeDataQuanHuyen) {
                         if(BreakPoint) { break;}
                     }
                 }
@@ -400,7 +376,7 @@ public class SplashActivity extends BaseActivity {
                     while(SizeDataPhuongXa == 0){
                         if(BreakPoint) { break;}
                     }
-                    while (PXdao.getAll().size() != SizeDataPhuongXa ) {
+                    while (PXdao.getAll().size() < SizeDataPhuongXa ) {
                         if(BreakPoint) { break;}
                     }
                 }
@@ -410,7 +386,7 @@ public class SplashActivity extends BaseActivity {
                     while(SizeDataApKhuPho == 0){
                         if(BreakPoint) { break;}
                     }
-                    while (KPdao.getAll().size() != SizeDataApKhuPho) {
+                    while (KPdao.getAll().size() < SizeDataApKhuPho) {
                         if(BreakPoint) { break;}
                     }
                 }
@@ -422,6 +398,7 @@ public class SplashActivity extends BaseActivity {
                         @Override
                         public void run() {
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            intent.putExtra("OfflineMode",false);
                             startActivity(intent);
                             finish();
                         }
@@ -431,7 +408,13 @@ public class SplashActivity extends BaseActivity {
         });
         getData.start();
 
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG,"Tỉnh thành "+TTdao.getAll().size()+" - Quốc gia "+QGdao.getAll().size() + " - Quận huyện " +
+                        QHdao.getAll().size() + " - Phường Xã "+PXdao.getAll().size() +" - Ấp Khu Phố "+KPdao.getAll().size());
+            }
+        }).start();
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override

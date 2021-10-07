@@ -10,6 +10,7 @@ import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
 import com.hungduy.honghunghospital.Model.setModel.setNguoiThanDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
+import com.hungduy.honghunghospital.Model.setModel.updateUser;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,10 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getOTP")
     Call<ResponseModel> getOTP(@Body getOTPModel x);
+
+    @Headers("Content-Type: application/json")
+    @POST("ping")
+    Call<ResponseModel> ping();
 
     @Headers("Content-Type: application/json")
     @POST("getQuocGia")
@@ -49,9 +54,18 @@ public interface APIService {
     @POST("getApKhuPho")
     Call<ResponseModel> getApKhuPho(@Header("token") String s,@Body baseGetClass x);
 
+
     @Headers("Content-Type: application/json")
     @POST("setUser")
     Call<ResponseModel> setUser(@Header("token") String s,@Body setUserModel x);
+
+    @Headers("Content-Type: application/json")
+    @POST("getUserbyToken")
+    Call<ResponseModel> getUserbyToken(@Header("token") String s,@Body baseGetClass x);
+
+    @Headers("Content-Type: application/json")
+    @POST("updateUser")
+    Call<ResponseModel> updateUser(@Header("token") String s,@Body updateUser x);
 
     @Multipart
     @POST("ImageUploadFile")

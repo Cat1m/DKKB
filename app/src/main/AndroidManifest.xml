@@ -21,6 +21,10 @@
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".Activity.UpdateUserActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".Activity.KetQuaActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />
