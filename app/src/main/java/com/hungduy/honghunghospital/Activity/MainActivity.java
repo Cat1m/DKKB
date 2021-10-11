@@ -2,11 +2,14 @@ package com.hungduy.honghunghospital.Activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 import com.bumptech.glide.Glide;
 import com.hungduy.honghunghospital.Fragment.BacSiFragment;
@@ -72,7 +77,26 @@ public class MainActivity extends BaseActivity {
         BacSiFM = new BacSiFragment();
         DichVuFM = new DichVuFragment();
         ThongTinFM = new ThongTinFragment();
-        FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+
+        String usernamePreferences = getStringPreferences(preferences,"username");
+        String passwordPreferences = getStringPreferences(preferences,"password");
+        if(!(usernamePreferences.isEmpty() || passwordPreferences.isEmpty())){
+            svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
+            HomeLoginedFragment logined = new HomeLoginedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("FullName", FullName);
+            bundle.putString("urlImage", urlImage);
+            bundle.putString("token", token);
+            logined.setArguments(bundle);
+            FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
+
+
+            logined.Logined(false);
+        }else{
+            FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+        }
+
+
 
         initButtonImage();// load Image to memory for quick response
     }
@@ -91,27 +115,67 @@ public class MainActivity extends BaseActivity {
         ThongTinFM.setArguments(bundle);
         Log.d(TAG,"Login successs");
     }
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Nhấn nút quay lại một lần nữa đển thoát", Toast.LENGTH_SHORT).show();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
     @Override
     public void Connected() {
         super.Connected();
-        if(!FirstRun){
-            mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
-                @Override
-                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                    super.onResponse(call, response);
-                    if(response.isSuccessful() && response.body().getStatus().equals("OK")){
-                        if(token == null || token.isEmpty()) {
+        if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
+            if(token == null || token.isEmpty()){
+                FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+                mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        super.onResponse(call, response);
+                        if(response.isSuccessful() && response.body().getStatus().equals("OK")) {
                             loginFM.RetryLogin();
+                            clearBtnColor();
+                            imgHome.setImageBitmap(homepage_color);
+                            imgHome.setTag("1");
                         }
                     }
+                });
+            }else {
+                try {
+                    BaseFragment baseFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag("");
+                    if (baseFragment != null) {
+                        baseFragment.Connected();
+                    }
+                } catch (Exception ex) {
+                    Log.e(TAG, ex.getMessage());
                 }
-            });
+            }
         }
     }
 
-    public void setFirstRun(boolean isFirstRun){
-        this.FirstRun = isFirstRun;
+    @Override
+    public void Disconnect() {
+        super.Disconnect();
+        try{
+            BaseFragment baseFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag("");
+            if(baseFragment != null){
+                baseFragment.Disconect();
+            }
+        }catch (Exception ex){
+            Log.e(TAG,ex.getMessage());
+        }
+
     }
 
     private void initButtonImage() {
@@ -149,11 +213,19 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
     private void btnMainClick() {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(token == null || token.isEmpty()){
+                String usernamePreferences = getStringPreferences(preferences,"username");
+                String passwordPreferences = getStringPreferences(preferences,"password");
+                if(usernamePreferences.isEmpty() || passwordPreferences.isEmpty()){
                     svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                 }else{
@@ -163,7 +235,6 @@ public class MainActivity extends BaseActivity {
                     bundle.putString("FullName", FullName);
                     bundle.putString("urlImage", urlImage);
                     bundle.putString("token", token);
-                    bundle.putBoolean("noibo", noibo);
                     logined.setArguments(bundle);
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
                 }

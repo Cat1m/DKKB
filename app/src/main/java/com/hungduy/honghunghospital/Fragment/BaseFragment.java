@@ -3,10 +3,15 @@ package com.hungduy.honghunghospital.Fragment;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,16 +24,20 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.Activity.LogoActivity;
 import com.hungduy.honghunghospital.Activity.UpdateUserActivity;
+import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
+import com.hungduy.honghunghospital.Database.DAO.TinTucDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
+import com.hungduy.honghunghospital.Utility.AppConfigString;
+import com.hungduy.honghunghospital.Utility.ConnectivityStatusReceiver;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
@@ -36,6 +45,7 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -62,6 +72,8 @@ public  abstract class BaseFragment extends Fragment {
     protected PhuongXaDAO PXdao;
     protected KhuPhoDAO KPdao;
     protected UserDataDAO USRdao;
+    protected CauHoiKhaiBaoYTeDAO KBYTdao;
+    protected TinTucDAO tinTucDAO;
     protected boolean OfflineMode;
     protected boolean noibo;
 
@@ -81,6 +93,8 @@ public  abstract class BaseFragment extends Fragment {
         PXdao = database.phuongXaDAO();
         KPdao = database.khuPhoDAO();
         USRdao = database.userDataDAO();
+        KBYTdao = database.kbytdao();
+        tinTucDAO = database.tinTucDAO();
 
         if (getArguments() != null) {
             username = getArguments().getString("username");
@@ -97,7 +111,16 @@ public  abstract class BaseFragment extends Fragment {
             APIKey = UtilityHHH.getSha512fromString("HHHApp4P1"+currentYearMonth);
         }catch (Exception ex){
         }
+        noibo = getBooleanPreferences(preferences,"noibo");
+
     }
+
+    public void Connected(){
+
+    };
+    public void Disconect(){
+
+    };
 
     protected void ThongBao(Activity activity, String title, String Mes, int gif, FancyGifDialogListener okclick){
         new FancyGifDialog.Builder(activity)
@@ -158,6 +181,46 @@ public  abstract class BaseFragment extends Fragment {
 
             if(urlImage != null &&!urlImage.isEmpty()){
                 Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
+            }else{
+                String usernamePreferences = getStringPreferences(preferences,"username");
+                String passwordPreferences = getStringPreferences(preferences,"password");
+                if(!(usernamePreferences.isEmpty() || passwordPreferences.isEmpty())){
+                    try {
+                        ContextWrapper cw = new ContextWrapper(getActivity());
+                        File directory = cw.getDir(AppConfigString.ImageDIR, Context.MODE_PRIVATE);
+                        File UserImage = new File(directory, AppConfigString.UserImageName);
+                        Picasso.get().load(UserImage).placeholder(R.drawable.avatar_user_empty).into(imgUser);
+                    } catch (Exception ex) {
+                        Log.d(TAG,ex.getMessage());
+                    }
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String hoten = USRdao.getConfig(AppConfigString.HoTen).getConfigInfo();
+                                if(!hoten.isEmpty() && txtUser.getText().toString().equals("*")){
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtUser.setText(hoten);
+                                            imgUser.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent i = new Intent(getActivity(), UpdateUserActivity.class);
+                                                    i.putExtra("FullName",FullName);
+                                                    i.putExtra("urlImage",urlImage);
+                                                    startActivity(i);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }catch (Exception ex){
+                                Log.e(TAG,ex.getMessage());
+                            }
+                        }
+                    }).start();
+                }
             }
 
         }catch (Exception x){

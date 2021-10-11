@@ -2,6 +2,9 @@ package com.hungduy.honghunghospital.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.SplashActivity;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +44,48 @@ public class HomeLoginedFragment extends BaseFragment {
 
     }
 
+    public void Logined(boolean logined){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (btn_home_1 == null || btn_home_2 == null){
+                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(logined){
+                            btn_home_1.setAlpha(1);
+                            btn_home_2.setAlpha(1);
+                        }else{
+                            btn_home_1.setAlpha(.5F);
+                            btn_home_2.setAlpha(.5F);
+                        }
+                        btn_home_1.setEnabled(logined);
+                        btn_home_2.setEnabled(logined);
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    @Override
+    public void Connected() {
+        super.Connected();
+        btn_home_1.setAlpha(1);
+        btn_home_2.setAlpha(1);
+        btn_home_1.setEnabled(true);
+        btn_home_2.setEnabled(true);
+    }
+
+    @Override
+    public void Disconect() {
+        super.Disconect();
+        btn_home_1.setAlpha(.5f);
+        btn_home_2.setAlpha(.5f);
+        btn_home_1.setEnabled(false);
+        btn_home_2.setEnabled(false);
+    }
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -99,11 +145,16 @@ public class HomeLoginedFragment extends BaseFragment {
         btn_home_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStringPreferences(preferences, "username", username);
-                setStringPreferences(preferences, "password", password);
-                Intent splash = new Intent(getActivity(), SplashActivity.class);
-                startActivity(splash);
-                getActivity().finish();
+                ThongBao(getActivity(), "Đăng xuất", "Bạn có muốn đăng xuất tài khoản ?", R.drawable.connection_error, new FancyGifDialogListener() {
+                    @Override
+                    public void OnClick() {
+                        setStringPreferences(preferences, "username", "");
+                        setStringPreferences(preferences, "password", "");
+                        Intent splash = new Intent(getActivity(), SplashActivity.class);
+                        startActivity(splash);
+                        getActivity().finish();
+                    }
+                });
 
             }
         });
@@ -122,9 +173,6 @@ public class HomeLoginedFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-
         return inflater.inflate(R.layout.fragment_logined_home, container, false);
     }
 }

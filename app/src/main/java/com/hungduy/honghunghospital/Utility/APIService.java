@@ -115,4 +115,8 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("setDangKyKhamNguoiThan")
     Call<ResponseModel> setDangKyKhamNguoiThan(@Header("token") String s,@Body setNguoiThanDangKyKham w);
+
+    @Headers("Content-Type: application/json")
+    @POST("getTinTuc")
+    Call<ResponseModel> getTinTuc(@Header("token") String s);
 }

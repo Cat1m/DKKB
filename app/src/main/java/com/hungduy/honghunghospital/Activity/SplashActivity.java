@@ -39,6 +39,8 @@ import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.getModel.getPhuongXa;
 import com.hungduy.honghunghospital.Model.getModel.getQuanHuyen;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.ServiceSyncDATA;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
@@ -83,6 +85,7 @@ public class SplashActivity extends BaseActivity {
 
         boolean FlagDelALL = getBooleanPreferences(preferences,"FlagDelALL");
 
+        startService(new Intent(this, ServiceSyncDATA.class));
 
         if(!DataTinhThanh){
             mAPIService.getTinhThanh(APIKey).enqueue(new Callback<ResponseModel>() {
@@ -266,9 +269,10 @@ public class SplashActivity extends BaseActivity {
         }
 
         if(!DataApKhuPho){
-            mAPIService.getApKhuPho(APIKey,new baseGetClass("")).enqueue(new Callback<ResponseModel>() {
+            mAPIService.getApKhuPho(APIKey,new baseGetClass("")).enqueue(new CallbackResponse(SplashActivity.this){
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    super.onResponse(call, response);
                     if(response.isSuccessful() && response.body().getStatus().equals("OK")){
                         getApKhuPho[] ApKhuPho = new Gson().fromJson(response.body().getData(),getApKhuPho[].class);
                         if(ApKhuPho.length > 0){
@@ -298,14 +302,7 @@ public class SplashActivity extends BaseActivity {
                             });
                             a.start();
                         }
-                    }else{
-
                     }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                 }
             });
         }
@@ -318,7 +315,6 @@ public class SplashActivity extends BaseActivity {
                     Thread.sleep(10000);
                     if(!BreakPoint){
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        intent.putExtra("OfflineMode",true);
                         startActivity(intent);
                         BreakPoint = true;
                         finish();

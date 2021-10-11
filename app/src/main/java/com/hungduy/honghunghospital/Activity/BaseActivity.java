@@ -3,6 +3,7 @@ package com.hungduy.honghunghospital.Activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,10 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
+import com.hungduy.honghunghospital.Database.DAO.TinTucDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
@@ -36,12 +40,14 @@ import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
+import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.ConnectivityStatusReceiver;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -75,6 +81,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected PhuongXaDAO PXdao;
     protected KhuPhoDAO KPdao;
     protected UserDataDAO USRdao;
+    protected CauHoiKhaiBaoYTeDAO KBYTdao;
+    protected TinTucDAO tinTucDAO;
     protected TextView txtOfflineMode;
     protected boolean isConnected;
     protected boolean noibo;
@@ -85,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             txtOfflineMode.setVisibility(View.VISIBLE);
         }
         isConnected = false;
+
     }
 
     public void Connected(){
@@ -125,6 +134,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         PXdao = database.phuongXaDAO();
         KPdao = database.khuPhoDAO();
         USRdao = database.userDataDAO();
+        KBYTdao = database.kbytdao();
+        tinTucDAO = database.tinTucDAO();
 
         if(BundleLogin!=null)
         {
@@ -134,12 +145,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 FullName =(String) BundleLogin.get("FullName");
                 urlImage =(String) BundleLogin.get("urlImage");
                 token =(String) BundleLogin.get("token");
-                noibo = (Boolean) BundleLogin.get("noibo");
               //  isConnected = (Boolean) BundleLogin.get("isConnected");
             }catch (Exception ex){
 
             }
         }
+        noibo = getBooleanPreferences(preferences,"noibo");
         String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
         try {
             APIKey = UtilityHHH.getSha512fromString("HHHApp4P1"+currentYearMonth);
@@ -153,6 +164,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -162,6 +176,38 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             if(urlImage != null && !urlImage.isEmpty()){
                 Picasso.get().load(urlImage).placeholder(R.drawable.user).into(imgUser);
+            }else {
+                String usernamePreferences = getStringPreferences(preferences,"username");
+                String passwordPreferences = getStringPreferences(preferences,"password");
+                if(!(usernamePreferences.isEmpty() || passwordPreferences.isEmpty())){
+                    try {
+                        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                        File directory = cw.getDir(AppConfigString.ImageDIR, Context.MODE_PRIVATE);
+                        File UserImage = new File(directory, AppConfigString.UserImageName);
+                        Picasso.get().load(UserImage).placeholder(R.drawable.avatar_user_empty).into(imgUser);
+                    } catch (Exception ex) {
+                        Log.d(TAG,ex.getMessage());
+                    }
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                String hoten = USRdao.getConfig(AppConfigString.HoTen).getConfigInfo();
+                                if(!hoten.isEmpty() && txtUser.getText().toString().equals("*")){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtUser.setText(hoten);
+                                        }
+                                    });
+                                }
+                            }catch (Exception ex){
+                                Log.e(TAG,ex.getMessage());
+                            }
+                        }
+                    }).start();
+                }
+
             }
 
             if(FullName != null && !FullName.isEmpty()){

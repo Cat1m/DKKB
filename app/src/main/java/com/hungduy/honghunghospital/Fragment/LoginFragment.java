@@ -109,6 +109,9 @@ public class LoginFragment extends BaseFragment {
     }
 
     public void RetryLogin(){
+        //TODO code dialog show login
+
+
         if(usernamePreferences != ""&& passwordPreferences != ""){
             Login(usernamePreferences,passwordPreferences);
         }
@@ -133,7 +136,7 @@ public class LoginFragment extends BaseFragment {
                             bundle.putString("FullName",u.getFullName());
                             bundle.putString("urlImage",u.getUrlImage());
                             bundle.putString("token",u.getToken());
-                            bundle.putBoolean("noibo",u.getNoibo().equals("1"));
+                            setBooleanPreferences(preferences, "noibo", u.getNoibo().equals("1"));
 
                             logined.setArguments(bundle);
                             FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),logined,"");
@@ -189,8 +192,6 @@ public class LoginFragment extends BaseFragment {
 
                     }
                 }
-                MainActivity activity = (MainActivity) getActivity();
-                activity.setFirstRun(false);
             }
         });
 

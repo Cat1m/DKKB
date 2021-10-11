@@ -6,22 +6,23 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
+import com.hungduy.honghunghospital.Database.Model.TinTuc;
 import com.hungduy.honghunghospital.Database.Model.UserData;
 
 import java.util.List;
 
 @Dao
-public interface CauHoiKhaiBaoYTeDAO {
+public interface TinTucDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(CauHoiKhaiBaoYTe us);
+    void insert(TinTuc us);
 
-    @Query("DELETE FROM CauHoiKhaiBaoYTe")
+    @Query("DELETE FROM TinTuc")
     void deleteAll();
 
-    @Query("SELECT * FROM CauHoiKhaiBaoYTe")
-    List<CauHoiKhaiBaoYTe> getAll();
+    @Query("SELECT * FROM TinTuc ORDER BY id DESC")
+    List<TinTuc> getAll();
 
-    @Query("SELECT * FROM CauHoiKhaiBaoYTe where id = :id")
-    CauHoiKhaiBaoYTe getCauHoiKhaiBao(int id);
+    @Query("SELECT * FROM TinTuc where id = :id")
+    TinTuc getTinTuc(int id);
 
 }

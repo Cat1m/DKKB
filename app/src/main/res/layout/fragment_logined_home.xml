@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include11"
-        layout="@layout/logo_helo_user"
+        layout="@layout/item_logo_helo_user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-20dp"

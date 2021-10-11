@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BVHồngHưngĐăngKýKhámBệnhOnline">
-
+        <service android:enabled="true" android:name=".ServiceSyncDATA">
+        </service>
         <activity
             android:name=".Activity.KhaiBaoYTeActivity"
             android:exported="true"

@@ -114,20 +114,26 @@ public class UpdateUserActivity extends BaseActivity {
     @Override
     public void Connected() {
         super.Connected();
-        mAPIService.ping().enqueue(new Callback<ResponseModel>() {
-            @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful() && response.body().getStatus().equals("OK")){
-                    btnLuu.setEnabled(true);
-                    btnLuu.setAlpha(1f);
+        if(token == null || token.isEmpty()){
+            btnLuu.setEnabled(false);
+            btnLuu.setAlpha(.5f);
+        }else{
+            mAPIService.ping().enqueue(new Callback<ResponseModel>() {
+                @Override
+                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                    if(response.isSuccessful() && response.body().getStatus().equals("OK")){
+                        btnLuu.setEnabled(true);
+                        btnLuu.setAlpha(1f);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResponseModel> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+
     }
 
     @Override
@@ -861,7 +867,7 @@ public class UpdateUserActivity extends BaseActivity {
                 }
                 listQuanHuyen = qh;
                 int finalSelect = select;
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         txtQuanHuyen.setItems(s);
