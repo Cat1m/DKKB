@@ -40,7 +40,9 @@ public class LogoActivity extends BaseActivity {
                     intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                     startActivity(intent);
                 }catch (Exception exx){
-
+                    Intent intent = new Intent(LogoActivity.this,WebviewActivity.class);
+                    intent.putExtra("url","https://goo.gl/maps/Gm4Ce4jmUVtnMtgi7");
+                    startActivity(intent);
                 }
             }
         });
