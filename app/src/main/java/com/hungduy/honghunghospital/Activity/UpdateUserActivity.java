@@ -1,12 +1,9 @@
 package com.hungduy.honghunghospital.Activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +12,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -25,15 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-import com.bumptech.glide.Glide;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Database.Model.DanToc;
 import com.hungduy.honghunghospital.Database.Model.KhuPho;
 import com.hungduy.honghunghospital.Database.Model.PhuongXa;
 import com.hungduy.honghunghospital.Database.Model.QuanHuyen;
@@ -73,7 +68,7 @@ public class UpdateUserActivity extends BaseActivity {
     private TextView txtNgaySinh,txtThangSinh,txtNamSinh;
     private EditText txtNewPassword,txtReEnterNewPassword,txtHoTen,txtDiaChi,txtSDT,txtCMND,txtMaBHYT,txtOldPassword;
     private Button btnThoat,btnLuu;
-    private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich;
+    private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich,txtDanToc;
     private RadioButton chkNam,chkNu,chkKhac;
     private LinearLayout ViewUpdate,viewNewPassword,ViewRegister;
     private Switch swDoiMatKhau;
@@ -83,6 +78,7 @@ public class UpdateUserActivity extends BaseActivity {
     private ArrayList<PhuongXa> listPhuongXa  = new ArrayList<>();
     private ArrayList<KhuPho> listApKhuPho  = new ArrayList<>();
     private ArrayList<QuocGia> listQuocGia  = new ArrayList<>();
+    private ArrayList<DanToc> listDanToc = new ArrayList<>();
 
     private Uri URIimgUser,URIimgBHYT;
 
@@ -100,8 +96,6 @@ public class UpdateUserActivity extends BaseActivity {
 
     private String newimgUserURL = "";
     private String newimgBHYTURL = "";
-
-    private Dialog dialog_loading;
 
 
     @Override
@@ -141,14 +135,6 @@ public class UpdateUserActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        dialog_loading = new Dialog(UpdateUserActivity.this);
-        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (dialog_loading.getWindow() != null)
-            dialog_loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog_loading.setCancelable(false);
-        dialog_loading.setContentView(R.layout.item_loadding);
-        ImageView img = dialog_loading.findViewById(R.id.imgLoading);
-        Glide.with(this).load(getDrawable(R.drawable.loading_color)).placeholder(R.drawable.logo_hungduymedical).into(img);
         dialog_loading.show();
 
         mapView();
@@ -199,6 +185,27 @@ public class UpdateUserActivity extends BaseActivity {
                 Log.d(TAG,"Nhận "+ listQuocGia.size()+" quốc gia");
             }
         }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[dantocDAO.getAll().size()];
+                int i=0;
+                for (DanToc a: dantocDAO.getAll()) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listDanToc = (ArrayList<DanToc>) dantocDAO.getAll();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtDanToc.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listDanToc.size()+" dan toc");
+            }
+        }).start();
+
         txtTinhThanh.setItems(new String[0]);
         txtQuanHuyen.setItems(new String[0]);
         txtXaPhuong.setItems(new String[0]);
@@ -619,6 +626,7 @@ public class UpdateUserActivity extends BaseActivity {
                                             USRdao.insert(new UserData(AppConfigString.MaTheBHYT,usr.getMaTheBHYT()));
                                             USRdao.insert(new UserData(AppConfigString.HinhBHYT,usr.getHinhBHYT()));
                                             USRdao.insert(new UserData(AppConfigString.HinhAnh,usr.getHinhAnh()));
+                                            USRdao.insert(new UserData(AppConfigString.DanToc,usr.getDanToc()));
                                         }
                                     }).start();
                                     txtHoTen.setText(usr.getHoTen());
@@ -674,6 +682,12 @@ public class UpdateUserActivity extends BaseActivity {
                                     txtMaBHYT.setText(usr.getMaTheBHYT());
                                     txtSDT.setText(usr.getUsername());
 
+                                    for(int i=0;i<listDanToc.size();i++){
+                                        if(usr.getDanToc().equals(listDanToc.get(i).getMa()+"")){
+                                            txtDanToc.select(i);
+                                        }
+                                    }
+
                                     dialog_loading.dismiss();
                                     if(!usr.getHinhAnh().isEmpty()){
                                         Picasso.get().load(usr.getHinhAnh()).into(imgUserAVT);
@@ -723,6 +737,7 @@ public class UpdateUserActivity extends BaseActivity {
                             String soBHYT = USRdao.getConfig(AppConfigString.MaTheBHYT).getConfigInfo();
                             String HinhBH = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
                             String hinhanh = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
+                            String dantoc = USRdao.getConfig(AppConfigString.DanToc).getConfigInfo();
                             imgUserURL = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
                             imgBHYTURL = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
                             token = USRdao.getConfig(AppConfigString.Token).getConfigInfo();
@@ -778,6 +793,13 @@ public class UpdateUserActivity extends BaseActivity {
                                         txtCMND.setText(hochieu);
                                         txtMaBHYT.setText(soBHYT);
                                         txtSDT.setText(sdt);
+
+                                        for(int i=0;i<listDanToc.size();i++){
+                                            if(dantoc.equals(listDanToc.get(i).getMa()+"")){
+                                                txtDanToc.select(i);
+                                            }
+                                        }
+
                                         ContextWrapper cw = new ContextWrapper(getApplicationContext());
                                         File directory = cw.getDir(AppConfigString.ImageDIR, Context.MODE_PRIVATE);
                                         File UserImage,BHYTImage;
@@ -812,6 +834,7 @@ public class UpdateUserActivity extends BaseActivity {
         chkNam.setEnabled(false);
         chkNu.setEnabled(false);
         txtSDT.setEnabled(false);
+        txtDanToc.setEnabled(false);
         ViewUpdate.setVisibility(View.VISIBLE);
         ViewRegister.setVisibility(View.GONE);
         viewNewPassword.setVisibility(View.GONE);
@@ -992,13 +1015,14 @@ public class UpdateUserActivity extends BaseActivity {
         txtXaPhuong = findViewById(R.id.txtXaPhuong);
         txtApKhuPho = findViewById(R.id.txtApKhuPho);
         txtQuocTich = findViewById(R.id.txtQuocTich);
+        txtDanToc = findViewById(R.id.txtDanToc);
         chkNam = findViewById(R.id.chkNam);
         chkNu = findViewById(R.id.chkNu);
         chkKhac = findViewById(R.id.chkKhac);
         txtNewPassword = findViewById(R.id.txtNewPassword);
         txtReEnterNewPassword = findViewById(R.id.txtReEnterNewPassword);
         btnLuu = findViewById(R.id.btnLuu);
-        txtHoTen = findViewById(R.id.txtHoTen);
+        txtHoTen = findViewById(R.id.txtNhomDV);
         txtDiaChi = findViewById(R.id.txtDiaChi);
         txtSDT = findViewById(R.id.txtSDT);
         txtCMND = findViewById(R.id.txtCMND);

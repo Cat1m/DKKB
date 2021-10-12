@@ -47,10 +47,14 @@ public class getUser {
     @Expose
     private String hinhBHYT;
 
+    @SerializedName("DanToc")
+    @Expose
+    private String DanToc;
+
     public getUser() {
     }
 
-    public getUser(String username, String hinhAnh, String hoTen, String ngaySinh, Integer gioiTinh, Integer maTinh, Integer maHuyen, Integer maPhuongXa, Integer maApKhuPho, String soNha, Integer quocTich, String hoChieu, String maTheBHYT, String hinhBHYT) {
+    public getUser(String username, String hinhAnh, String hoTen, String ngaySinh, Integer gioiTinh, Integer maTinh, Integer maHuyen, Integer maPhuongXa, Integer maApKhuPho, String soNha, Integer quocTich, String hoChieu, String maTheBHYT, String hinhBHYT, String danToc) {
         this.username = username;
         this.hinhAnh = hinhAnh;
         this.hoTen = hoTen;
@@ -65,6 +69,15 @@ public class getUser {
         this.hoChieu = hoChieu;
         this.maTheBHYT = maTheBHYT;
         this.hinhBHYT = hinhBHYT;
+        DanToc = danToc;
+    }
+
+    public String getDanToc() {
+        return DanToc;
+    }
+
+    public void setDanToc(String danToc) {
+        DanToc = danToc;
     }
 
     public String getUsername() {

@@ -87,7 +87,7 @@
                             android:textSize="18sp" />
 
                         <EditText
-                            android:id="@+id/txtHoTen"
+                            android:id="@+id/txtNhomDV"
                             android:layout_width="334dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
@@ -261,169 +261,51 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="125dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Tỉnh/TP (*)"
+                                android:text="Cùng địa chỉ với tôi: "
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <jrizani.jrspinner.JRSpinner
-                                android:id="@+id/txtTinhThanh"
+                            <RadioGroup
                                 android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="8dp"
-                                android:background="@drawable/shape_edittext_have_focus"
-                                android:maxLines="1"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="8dp"
-                                android:textSize="16dp"
-                                android:translationZ="5dp"
-                                app:jrs_multiple="false"
-                                app:jrs_title="Chọn tỉnh thành"
-                                tools:ignore="TouchTargetSizeCheck" />
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/btnCo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:checked="true"
+                                    android:text="Có"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="12sp" />
+
+                                <RadioButton
+                                    android:id="@+id/btnKhong"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Không"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="12sp" />
+                            </RadioGroup>
 
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/viewDiaChi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="125dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Huyện/Quận (*)"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <jrizani.jrspinner.JRSpinner
-                                android:id="@+id/txtQuanHuyen"
+                            <include
+                                layout="@layout/item_location"
                                 android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="8dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/shape_edittext_have_focus"
-                                android:maxLines="1"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="8dp"
-                                android:textSize="16dp"
-                                android:translationZ="5dp"
-                                app:jrs_multiple="false"
-                                app:jrs_title="Chọn quận huyện" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="125dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Xã/Phường (*)"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <jrizani.jrspinner.JRSpinner
-                                android:id="@+id/txtXaPhuong"
-                                android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="8dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/shape_edittext_have_focus"
-                                android:maxLines="1"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="8dp"
-                                android:textSize="16dp"
-                                android:translationZ="5dp"
-                                app:jrs_multiple="false"
-                                app:jrs_title="Chọn phường xã" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="125dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Ấp/Khu phố (*)"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <jrizani.jrspinner.JRSpinner
-                                android:id="@+id/txtApKhuPho"
-                                android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="8dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/shape_edittext_have_focus"
-                                android:maxLines="1"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="8dp"
-                                android:textSize="16dp"
-                                android:translationZ="5dp"
-                                app:jrs_multiple="false"
-                                app:jrs_title="Chọn ấp, khu phố" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="125dp"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Số nhà, đường"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <EditText
-                                android:id="@+id/txtDiaChi"
-                                android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginBottom="8dp"
-                                android:background="@drawable/shape_edittext_have_focus"
-                                android:ems="10"
-                                android:inputType="text"
-                                android:paddingLeft="20dp"
-                                android:paddingRight="8dp"
-                                android:translationZ="5dp"
-                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
 
                         <TextView
@@ -532,18 +414,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <Button
-                        android:id="@+id/btnDichVuKhac"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_shape_green_light"
-                        android:text="@string/txt_toi_muon_dang_ky_dich_vu_khac"
-                        android:textAllCaps="false"
-                        android:textColor="@color/textColorGreen"
-                        android:translationZ="5dp" />
-
-                    <Button
                         android:id="@+id/btnChonBS"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
@@ -563,6 +433,18 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/btn_shape_green_light"
                         android:text="@string/txt_toi_muon_kham_chuyen_khoa"
+                        android:textAllCaps="false"
+                        android:textColor="@color/textColorGreen"
+                        android:translationZ="5dp" />
+
+                    <Button
+                        android:id="@+id/btnDichVuKhac"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btn_shape_green_light"
+                        android:text="@string/txt_toi_muon_dang_ky_dich_vu_khac"
                         android:textAllCaps="false"
                         android:textColor="@color/textColorGreen"
                         android:translationZ="5dp" />

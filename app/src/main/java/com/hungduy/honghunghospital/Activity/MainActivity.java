@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Database.Model.UserData;
 import com.hungduy.honghunghospital.Fragment.BacSiFragment;
 import com.hungduy.honghunghospital.Fragment.BaseFragment;
 import com.hungduy.honghunghospital.Fragment.DichVuFragment;
@@ -31,10 +33,14 @@ import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
 import com.hungduy.honghunghospital.Fragment.ThongTinFragment;
 import com.hungduy.honghunghospital.Model.ResponseModel;
+import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
+import com.hungduy.honghunghospital.Model.getModel.getUser;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
 import com.hungduy.honghunghospital.Utility.QLCVScrollView;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -81,22 +87,18 @@ public class MainActivity extends BaseActivity {
         String usernamePreferences = getStringPreferences(preferences,"username");
         String passwordPreferences = getStringPreferences(preferences,"password");
         if(!(usernamePreferences.isEmpty() || passwordPreferences.isEmpty())){
-            svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
             HomeLoginedFragment logined = new HomeLoginedFragment();
             Bundle bundle = new Bundle();
             bundle.putString("FullName", FullName);
             bundle.putString("urlImage", urlImage);
             bundle.putString("token", token);
             logined.setArguments(bundle);
-            FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
-
-
+            FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
+            svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
             logined.Logined(false);
         }else{
             FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
         }
-
-
 
         initButtonImage();// load Image to memory for quick response
     }
@@ -114,6 +116,61 @@ public class MainActivity extends BaseActivity {
         DichVuFM.setArguments(bundle);
         ThongTinFM.setArguments(bundle);
         Log.d(TAG,"Login successs");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mAPIService.getUserbyToken(APIKey, new baseGetClass(token)).enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful() && response.body().getStatus().equals("OK")) {
+                            getUser usr = new Gson().fromJson(response.body().getData(), getUser.class);
+                            if (usr != null) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        USRdao.insert(new UserData(AppConfigString.Username, usr.getUsername()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhAnh, usr.getHinhAnh()));
+                                        USRdao.insert(new UserData(AppConfigString.HoTen, usr.getHoTen()));
+                                        USRdao.insert(new UserData(AppConfigString.NgaySinh, usr.getNgaySinh()));
+                                        USRdao.insert(new UserData(AppConfigString.GioiTinh, usr.getGioiTinh() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.MaTinh, usr.getMaTinh() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.MaHuyen, usr.getMaHuyen() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.MaPhuongXa, usr.getMaPhuongXa() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.MaApKhuPho, usr.getMaApKhuPho() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.SoNha, usr.getSoNha()));
+                                        USRdao.insert(new UserData(AppConfigString.QuocTich, usr.getQuocTich() + ""));
+                                        USRdao.insert(new UserData(AppConfigString.HoChieu, usr.getHoChieu()));
+                                        USRdao.insert(new UserData(AppConfigString.MaTheBHYT, usr.getMaTheBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhBHYT, usr.getHinhBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.Token, token));
+                                        USRdao.insert(new UserData(AppConfigString.DanToc,usr.getDanToc()));
+                                    }
+                                }).start();
+                                if (!usr.getHinhAnh().isEmpty()) {
+                                    Picasso.get().load(usr.getHinhAnh()).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.UserImageName));
+                                }
+                                if (!usr.getHinhBHYT().isEmpty()) {
+                                    Picasso.get().load(usr.getHinhBHYT()).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.BHYTImageName));
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+
+                    }
+                });
+
+
+            }
+        }).start();
+
     }
     boolean doubleBackToExitPressedOnce = false;
 
@@ -216,7 +273,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+        String usernamePreferences = getStringPreferences(preferences,"username");
+        String passwordPreferences = getStringPreferences(preferences,"password");
+        if(usernamePreferences.isEmpty() || passwordPreferences.isEmpty()) {
+            svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+        }else{
+            svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
+        }
     }
 
     private void btnMainClick() {

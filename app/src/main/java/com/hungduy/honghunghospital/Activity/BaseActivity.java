@@ -2,11 +2,14 @@ package com.hungduy.honghunghospital.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,8 +28,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
+import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
@@ -83,9 +90,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected UserDataDAO USRdao;
     protected CauHoiKhaiBaoYTeDAO KBYTdao;
     protected TinTucDAO tinTucDAO;
+    protected BacSiDAO bacSiDAO;
+    protected DanTocDAO dantocDAO;
     protected TextView txtOfflineMode;
     protected boolean isConnected;
     protected boolean noibo;
+    protected Dialog dialog_loading;
     private ConnectivityStatusReceiver connectivityStatusReceiver;
 
     public void Disconnect(){
@@ -136,6 +146,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         USRdao = database.userDataDAO();
         KBYTdao = database.kbytdao();
         tinTucDAO = database.tinTucDAO();
+        bacSiDAO = database.bacSiDAO();
+        dantocDAO = database.danTocDAO();
+
+        dialog_loading = new Dialog(this);
+        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog_loading.getWindow() != null)
+            dialog_loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_loading.setCancelable(false);
+        dialog_loading.setContentView(R.layout.item_loadding);
+        ImageView img = dialog_loading.findViewById(R.id.imgLoading);
+        Glide.with(this).load(getDrawable(R.drawable.loading_color)).placeholder(R.drawable.logo_hungduymedical).into(img);
 
         if(BundleLogin!=null)
         {

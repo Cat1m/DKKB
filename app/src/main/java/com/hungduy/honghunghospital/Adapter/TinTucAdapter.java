@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungduy.honghunghospital.Activity.BaseKhaiBaoYTeActivity;
+import com.hungduy.honghunghospital.Activity.LogoActivity;
+import com.hungduy.honghunghospital.Activity.WebviewActivity;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getTinTuc;
@@ -67,9 +69,9 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 if(view.getTag().equals(tintuc.getMa())){
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(tintuc.getUrl()));
-                    activity.startActivity(i);
+                    Intent intent = new Intent(activity, WebviewActivity.class);
+                    intent.putExtra("url",tintuc.getUrl());
+                    activity.startActivity(intent);
                 }
             }
         });

@@ -15,11 +15,12 @@ public class setNguoiThanDangKyKham {
     private String MaDangKyKham;
     private String SoNha;
     private String SoTheBH;
+    private String MaDanToc;
 
     public setNguoiThanDangKyKham() {
     }
 
-    public setNguoiThanDangKyKham(String hoten, String ngaysinh, String gioitinh, String tinh, String quanhuyen, String xaphuong, String apkhupho, String cungDiaChi, String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String soNha, String soTheBH) {
+    public setNguoiThanDangKyKham(String hoten, String ngaysinh, String gioitinh, String tinh, String quanhuyen, String xaphuong, String apkhupho, String cungDiaChi, String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String soNha, String soTheBH, String maDanToc) {
         this.hoten = hoten;
         this.ngaysinh = ngaysinh;
         this.gioitinh = gioitinh;
@@ -27,13 +28,22 @@ public class setNguoiThanDangKyKham {
         this.quanhuyen = quanhuyen;
         this.xaphuong = xaphuong;
         this.apkhupho = apkhupho;
-        this.CungDiaChi = cungDiaChi;
+        CungDiaChi = cungDiaChi;
         MaMucDich = maMucDich;
         KhaiBaoYTe = khaiBaoYTe;
         MaLoaiDangKy = maLoaiDangKy;
         MaDangKyKham = maDangKyKham;
         SoNha = soNha;
         SoTheBH = soTheBH;
+        MaDanToc = maDanToc;
+    }
+
+    public String getMaDanToc() {
+        return MaDanToc;
+    }
+
+    public void setMaDanToc(String maDanToc) {
+        MaDanToc = maDanToc;
     }
 
     public String getHoten() {

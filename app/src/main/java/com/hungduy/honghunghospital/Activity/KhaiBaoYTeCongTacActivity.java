@@ -2,6 +2,7 @@ package com.hungduy.honghunghospital.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
+import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 
 import java.util.ArrayList;
 
@@ -36,31 +39,55 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
         mapView();
         cauHoiKhaiBaoYTes = new ArrayList<>();
         CauTL = new ArrayList<>();
-        mAPIService.getCauHoiKBYT(APIKey).enqueue(new Callback<ResponseModel>() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        KhaiBaoYTeADT = new KhaiBaoYTeAdapter(cauHoiKhaiBaoYTes, getApplicationContext(), KhaiBaoYTeCongTacActivity.this);
+        recyclerView.setAdapter(KhaiBaoYTeADT);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(),getCauHoiKhaiBaoYTe[].class);
-                        if(cauhois.length > 0){
-                            int i=0;
-                            for (getCauHoiKhaiBaoYTe a: cauhois) {
-                                cauHoiKhaiBaoYTes.add(a);
-                                CauTL.add(new CauHoiKhaiBaoYTeEXT(a,"Không"));
-                            }
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            KhaiBaoYTeADT = new KhaiBaoYTeAdapter(cauHoiKhaiBaoYTes,getApplicationContext(), KhaiBaoYTeCongTacActivity.this);
-                            recyclerView.setAdapter(KhaiBaoYTeADT);
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                        }
+            public void run() {
+                cauHoiKhaiBaoYTes.clear();
+                CauTL.clear();
+                if (KBYTdao.getAll().size() > 0) {
+                    for(CauHoiKhaiBaoYTe ch : KBYTdao.getAll()){
+                        cauHoiKhaiBaoYTes.add(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""));
+                        CauTL.add(new CauHoiKhaiBaoYTeEXT(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""), "Không"));
                     }
+                    KhaiBaoYTeADT.notifyDataSetChanged();
+                    Log.d(TAG,"Data local !!!");
+                } else {
+                    mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeCongTacActivity.this){
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            super.onResponse(call, response);
+                            if (response.body().getStatus().equals("OK")) {
+                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                                if (cauhois.length > 0) {
+                                    int i = 0;
+                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                        cauHoiKhaiBaoYTes.add(a);
+                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                                }catch (Exception ex){
+                                                }
+                                            }
+                                        }).start();
+                                    }
+                                }
+                                KhaiBaoYTeADT.notifyDataSetChanged();
+                            }
+                        }
+                    });
                 }
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
+        }).start();
 
-            }
-        });
 
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override

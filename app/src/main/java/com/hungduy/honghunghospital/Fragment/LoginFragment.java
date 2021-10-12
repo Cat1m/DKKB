@@ -1,7 +1,10 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,16 +12,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.RegisterActivity;
+import com.hungduy.honghunghospital.Activity.UpdateUserActivity;
 import com.hungduy.honghunghospital.Database.Model.UserData;
 import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
@@ -29,6 +37,8 @@ import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -102,18 +112,18 @@ public class LoginFragment extends BaseFragment {
         usernamePreferences = getStringPreferences(preferences,"username");
         passwordPreferences = getStringPreferences(preferences,"password");
 
+
         if(usernamePreferences != ""&& passwordPreferences != ""){
             Login(usernamePreferences,passwordPreferences);
+            dialog_loading.show();
         }
 
     }
 
     public void RetryLogin(){
-        //TODO code dialog show login
-
-
         if(usernamePreferences != ""&& passwordPreferences != ""){
             Login(usernamePreferences,passwordPreferences);
+            dialog_loading.show();
         }
     }
 
@@ -123,14 +133,14 @@ public class LoginFragment extends BaseFragment {
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 super.onResponse(call, response);
                 if (response.body().getStatus().equals("OK")){
+                    dialog_loading.show();
+                    MainActivity activity = (MainActivity) getActivity();
                     UserModel u = new Gson().fromJson(response.body().getData(), UserModel.class);
                     if(u != null){
                         try {
                             setStringPreferences(preferences, "username", username);
                             setStringPreferences(preferences, "password", password);
-                            MainActivity activity = (MainActivity) getActivity();
 
-                            activity.LoginSuccess(u.getToken(),u.getFullName(),u.getUrlImage());
                             HomeLoginedFragment logined = new HomeLoginedFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString("FullName",u.getFullName());
@@ -139,50 +149,15 @@ public class LoginFragment extends BaseFragment {
                             setBooleanPreferences(preferences, "noibo", u.getNoibo().equals("1"));
 
                             logined.setArguments(bundle);
+                            activity.LoginSuccess(u.getToken(),u.getFullName(),u.getUrlImage());
+
+
+
                             FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),logined,"");
                         }catch (Exception ex){
 
                         }
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mAPIService.getUserbyToken(APIKey,new baseGetClass(u.getToken())).enqueue(new Callback<ResponseModel>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                        if (response.isSuccessful() && response.body().getStatus().equals("OK")) {
-                                            getUser usr = new Gson().fromJson(response.body().getData(), getUser.class);
-                                            if (usr != null) {
-                                                new Thread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        USRdao.insert(new UserData(AppConfigString.Username, usr.getUsername()));
-                                                        USRdao.insert(new UserData(AppConfigString.HinhAnh, usr.getHinhAnh()));
-                                                        USRdao.insert(new UserData(AppConfigString.HoTen, usr.getHoTen()));
-                                                        USRdao.insert(new UserData(AppConfigString.NgaySinh, usr.getNgaySinh()));
-                                                        USRdao.insert(new UserData(AppConfigString.GioiTinh, usr.getGioiTinh() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.MaTinh, usr.getMaTinh() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.MaHuyen, usr.getMaHuyen() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.MaPhuongXa, usr.getMaPhuongXa() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.MaApKhuPho, usr.getMaApKhuPho() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.SoNha, usr.getSoNha()));
-                                                        USRdao.insert(new UserData(AppConfigString.QuocTich, usr.getQuocTich() + ""));
-                                                        USRdao.insert(new UserData(AppConfigString.HoChieu, usr.getHoChieu()));
-                                                        USRdao.insert(new UserData(AppConfigString.MaTheBHYT, usr.getMaTheBHYT()));
-                                                        USRdao.insert(new UserData(AppConfigString.HinhBHYT, usr.getHinhBHYT()));
-                                                        USRdao.insert(new UserData(AppConfigString.Token, u.getToken()));
-                                                    }
-                                                }).start();
-                                            }
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
-                                    }
-                                });
-                            }
-                        }).start();
                     }
                 }else{
                     try{
@@ -192,6 +167,8 @@ public class LoginFragment extends BaseFragment {
 
                     }
                 }
+
+                dialog_loading.dismiss();
             }
         });
 

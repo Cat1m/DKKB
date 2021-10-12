@@ -63,126 +63,126 @@
             <ImageView
                 android:id="@+id/imageView10"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView31"
-                app:layout_constraintEnd_toStartOf="@+id/textView31"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView31"
+                android:layout_height="0dp"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/txtDiaChi"
+                app:layout_constraintEnd_toStartOf="@+id/txtDiaChi"
+                app:layout_constraintStart_toStartOf="@+id/textView36"
+                app:layout_constraintTop_toTopOf="@+id/txtDiaChi"
                 app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/icon_dia_chi" />
 
             <TextView
-                android:id="@+id/textView31"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtDiaChi"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:layout_marginTop="48dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:maxLines="2"
+                android:padding="5dp"
                 android:text="187 Phạm Văn Đồng, Hoà Thành, Tây Ninh"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView10"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
             <ImageView
                 android:id="@+id/imageView11"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView32"
-                app:layout_constraintEnd_toStartOf="@+id/textView32"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtSDT"
+                app:layout_constraintEnd_toStartOf="@+id/txtSDT"
                 app:layout_constraintStart_toStartOf="@+id/imageView10"
-                app:layout_constraintTop_toTopOf="@+id/textView32"
+                app:layout_constraintTop_toTopOf="@+id/txtSDT"
                 app:srcCompat="@drawable/icon_dien_thoai" />
 
             <TextView
-                android:id="@+id/textView32"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtSDT"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:padding="5dp"
                 android:text="(0276) 3836 991 – 0941 696 939"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDiaChi" />
 
             <ImageView
                 android:id="@+id/imageView12"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView33"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEmail"
                 app:layout_constraintStart_toStartOf="@+id/imageView10"
-                app:layout_constraintTop_toTopOf="@+id/textView33"
+                app:layout_constraintTop_toTopOf="@+id/txtEmail"
                 app:srcCompat="@drawable/icon_mail" />
 
             <TextView
-                android:id="@+id/textView33"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtEmail"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:padding="5dp"
                 android:text=" info@honghunghospital.com.vn"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView32" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSDT" />
 
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView34"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtWebsite"
                 app:layout_constraintStart_toStartOf="@+id/imageView10"
-                app:layout_constraintTop_toTopOf="@+id/textView34"
+                app:layout_constraintTop_toTopOf="@+id/txtWebsite"
                 app:srcCompat="@drawable/icon_web" />
 
             <TextView
-                android:id="@+id/textView34"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtWebsite"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:padding="5dp"
                 android:text="www.honghunghospital.com.vn"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView13"
-                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
             <ImageView
                 android:id="@+id/imageView14"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView35"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtFacebook"
                 app:layout_constraintStart_toStartOf="@+id/imageView10"
-                app:layout_constraintTop_toTopOf="@+id/textView35"
+                app:layout_constraintTop_toTopOf="@+id/txtFacebook"
                 app:srcCompat="@drawable/icon_facebook" />
 
             <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtFacebook"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:padding="5dp"
                 android:text="Hong Hung Hospital"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+                app:layout_constraintTop_toBottomOf="@+id/txtWebsite" />
 
             <TextView
                 android:id="@+id/textView36"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/myriadpro_semiext"
+                android:fontFamily="@font/myriadpro_semiextit"
+                android:gravity="center"
+                android:maxLines="2"
                 android:text="© Bản quyền thuộc Bệnh viện Đa khoa Hồng Hưng."
                 android:textColor="@color/textColorGreen"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                app:layout_constraintTop_toBottomOf="@+id/txtFacebook" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

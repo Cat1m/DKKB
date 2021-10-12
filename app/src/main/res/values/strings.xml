@@ -32,8 +32,8 @@
     <string name="btn_home_5">Khai báo y tế \ndành cho nhân viên nội bộ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="txt_dichvu_lienhe_hotline">Nếu chưa tìm được dịch vụ mình quan tâm\n<br/>Anh/Chị có thể liên hệ đến <font color='#00ae89'>
-        hotline bệnh viện\n<br/>0276 3836 991 - 0941 696 939</font><br/>\nđể được hỗ trợ kịp thời nhất.</string>
+    <string name="txt_dichvu_lienhe_hotline">Nếu chưa tìm được dịch vụ mình quan tâm\n\n<br/><br/>Anh/Chị có thể liên hệ đến <font color='#00ae89'>
+        hotline bệnh viện\n\n<br/><br/>0276 3836 991 - 0941 696 939</font><br/><br/>\n\nđể được hỗ trợ kịp thời nhất.</string>
     <string name="txt_toi_muon_kham_bac_si">Tôi muốn khám Bác sĩ</string>
     <string name="txt_toi_muon_kham_chuyen_khoa">Tôi muốn khám/tái khám Chuyên khoa</string>
     <string name="txt_toi_muon_dang_ky_dich_vu_khac">Tôi muốn đăng ký dịch vụ khác</string>
@@ -47,5 +47,7 @@
     <string name="txt_gui_tin_nhan_otp">Một mã OTP đã được gửi đến SDT của Anh/chị\nAnh/Chị vui lòng nhập mã OTP và \nmật khẩu mới vào ô bên dưới. \nNếu không nhận được tin nhắn vui lòng liên hệ tổng đài</string>
     <string name="txt_lich_lam_viec_cua_bs_trong_tuan">Lịch làm việc của Bác sĩ trong tuần:</string>
     <string name="txt_offline_mode">Kết nối đến máy chủ bị mất !</string>
+    <string name="txt_chon_khoan_thoi_gian_tra_cuu_lich_su_kham">Chọn khoảng thời gian\ntra cứu lịch sử khám bệnh</string>
+    <string name="txt_thong_tin_lich_su_kham_chua_benh">Thông tin: Lịch sử khám chữa bệnh</string>
     <!-- uCrop string resource end -->
 </resources>

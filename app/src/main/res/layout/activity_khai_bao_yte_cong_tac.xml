@@ -69,12 +69,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="60dp">
+                    android:paddingBottom="20dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
                         android:overScrollMode="never"
                         android:paddingLeft="10dp">
 
@@ -119,10 +120,11 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/card_border_color"
                         android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
                         android:minLines="10"
-                        android:padding="5dp"
+                        android:padding="8dp"
                         android:translationZ="5dp" />
 
                     <LinearLayout

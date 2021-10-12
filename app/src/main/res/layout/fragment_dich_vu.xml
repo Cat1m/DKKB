@@ -79,13 +79,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:gravity="center"
-                        android:text="Nhóm xét nghiệm"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
+                        android:text="▶ Phần 1: Chọn NHÓM DỊCH VỤ Y TẾ"
+                        android:textColor="@color/textColorGreen" />
 
                     <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtHoTen"
+                        android:id="@+id/txtNhomDV"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
@@ -93,7 +91,7 @@
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edttext_focus"
                         android:ems="10"
-                        android:hint="Chọn dịch vụ"
+                        android:hint="Chọn nhóm dịch vụ"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
@@ -105,27 +103,83 @@
                         app:jrs_title="Chọn bác sĩ"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-                    <EditText
-                        android:id="@+id/txtGiaDV"
+                    <TextView
+                        android:id="@+id/textView37"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:text="▶ Phần 2: Chọn TÊN DỊCH VỤ Y TẾ CỤ THỂ"
+                        android:textColor="@color/textColorGreen" />
+
+                    <jrizani.jrspinner.JRSpinner
+                        android:id="@+id/txtNhomDV2"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:layout_gravity="center"
                         android:layout_margin="10dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edttext_focus"
                         android:ems="10"
-                        android:enabled="false"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="none"
-                        android:text="@string/txt_gia_dich_vu"
+                        android:hint="Tên dịch vụ"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/textColorGreen"
+                        android:textColorHint="@color/textColorGreen"
                         android:translationZ="5dp"
-                        app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtOTP"
+                        app:jrs_multiple="false"
+                        app:jrs_title="Chọn bác sĩ"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView41"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Giá dịch vụ"
+                            android:textColor="@color/textColorGreen" />
+
+                        <EditText
+                            android:id="@+id/txtTuNgay"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_margin="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_edttext_focus"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="none"
+                            android:text="@string/txt_gia_dich_vu"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColorGreen"
+                            android:translationZ="5dp"
+                            app:layout_constraintBottom_toTopOf="@+id/txtSDT2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtOTP"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView43"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/myriadpor_semiboldextit"
+                        android:gravity="center"
+                        android:text="@string/txt_dichvu_lienhe_hotline" />
 
                 </LinearLayout>
             </ScrollView>

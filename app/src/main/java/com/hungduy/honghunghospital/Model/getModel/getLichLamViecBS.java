@@ -14,7 +14,6 @@ public class getLichLamViecBS {
     @Expose
     private boolean chieu;
 
-
     public getLichLamViecBS() {
     }
 

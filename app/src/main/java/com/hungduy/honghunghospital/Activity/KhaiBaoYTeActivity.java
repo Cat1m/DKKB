@@ -18,12 +18,16 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
+import com.hungduy.honghunghospital.Database.Model.BacSi;
+import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
+import com.hungduy.honghunghospital.Database.Model.KhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 
 import java.util.ArrayList;
 
@@ -55,31 +59,54 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
         listBS = new ArrayList<>();
         listDMCK = new ArrayList<>();
         listDV = new ArrayList<>();
-        mAPIService.getCauHoiKBYT(APIKey).enqueue(new Callback<ResponseModel>() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        KhaiBaoYTeADT = new KhaiBaoYTeAdapter(cauHoiKhaiBaoYTes, getApplicationContext(), KhaiBaoYTeActivity.this);
+        recyclerView.setAdapter(KhaiBaoYTeADT);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("OK")){
-                        getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(),getCauHoiKhaiBaoYTe[].class);
-                        if(cauhois.length > 0){
-                            int i=0;
-                            for (getCauHoiKhaiBaoYTe a: cauhois) {
-                                cauHoiKhaiBaoYTes.add(a);
-                                CauTL.add(new CauHoiKhaiBaoYTeEXT(a,"Không"));
-                            }
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            KhaiBaoYTeADT = new KhaiBaoYTeAdapter(cauHoiKhaiBaoYTes,getApplicationContext(),KhaiBaoYTeActivity.this);
-                            recyclerView.setAdapter(KhaiBaoYTeADT);
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                        }
+            public void run() {
+                cauHoiKhaiBaoYTes.clear();
+                CauTL.clear();
+                if (KBYTdao.getAll().size() > 0) {
+                    for(CauHoiKhaiBaoYTe ch : KBYTdao.getAll()){
+                        cauHoiKhaiBaoYTes.add(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""));
+                        CauTL.add(new CauHoiKhaiBaoYTeEXT(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""), "Không"));
                     }
+                    KhaiBaoYTeADT.notifyDataSetChanged();
+                    Log.d(TAG,"Data local !!!");
+                } else {
+                    mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            super.onResponse(call, response);
+                            if (response.body().getStatus().equals("OK")) {
+                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                                if (cauhois.length > 0) {
+                                    int i = 0;
+                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                        cauHoiKhaiBaoYTes.add(a);
+                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                                }catch (Exception ex){
+                                                }
+                                            }
+                                        }).start();
+                                    }
+                                }
+                                KhaiBaoYTeADT.notifyDataSetChanged();
+                            }
+                        }
+                    });
                 }
             }
-            @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
-
-            }
-        });
+        }).start();
 
         btnChonBS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,33 +123,45 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                mAPIService.getAllActiveDoctor(APIKey).enqueue(new Callback<ResponseModel>() {
+
+                new Thread(new Runnable() {
                     @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                if(dsBS.length > 0){
-                                    listBS.clear();
-                                    String[] tenBS = new String[dsBS.length];
-                                    int i=0;
-                                    for (getMaTen bs: dsBS ) {
-                                        listBS.add(bs);
-                                        tenBS[i] = bs.getTen();
-                                        i++;
-                                    }
-                                    txtBS.setItems(tenBS);
-                                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
-                                }
+                    public void run() {
+                        if(bacSiDAO.getAll().size() > 0){
+                            String[] tenBS = new String[bacSiDAO.getAll().size()];
+                            int i=0;
+                            for(BacSi bs : bacSiDAO.getAll()){
+                                listBS.add(new getMaTen(bs.getID()+"", bs.getTen()));
+                                tenBS[i] = bs.getTen();
+                                i++;
                             }
+                            txtBS.setItems(tenBS);
+                            Log.d(TAG,"localData");
+                        }else{
+                            mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
+                                @Override
+                                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                    super.onResponse(call, response);
+                                    if(response.body().getStatus().equals("OK")){
+                                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                                        if(dsBS.length > 0){
+                                            listBS.clear();
+                                            String[] tenBS = new String[dsBS.length];
+                                            int i=0;
+                                            for (getMaTen bs: dsBS ) {
+                                                listBS.add(bs);
+                                                tenBS[i] = bs.getTen();
+                                                i++;
+                                            }
+                                            txtBS.setItems(tenBS);
+                                            Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                                        }
+                                    }
+                                }
+                            });
                         }
                     }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
-                    }
-                });
+                }).start();
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
@@ -177,31 +216,25 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                mAPIService.getDmChuyenKhoa(APIKey).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
                     @Override
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                if(dsBS.length > 0){
-                                    listDMCK.clear();
-                                    String[] tenBS = new String[dsBS.length];
-                                    int i=0;
-                                    for (getMaTen bs: dsBS ) {
-                                        listDMCK.add(bs);
-                                        tenBS[i] = bs.getTen();
-                                        i++;
-                                    }
-                                    txtBS.setItems(tenBS);
-                                    Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                        super.onResponse(call, response);
+                        if(response.body().getStatus().equals("OK")){
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                            if(dsBS.length > 0){
+                                listDMCK.clear();
+                                String[] tenBS = new String[dsBS.length];
+                                int i=0;
+                                for (getMaTen bs: dsBS ) {
+                                    listDMCK.add(bs);
+                                    tenBS[i] = bs.getTen();
+                                    i++;
                                 }
+                                txtBS.setItems(tenBS);
+                                Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
                             }
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                     }
                 });
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
@@ -324,6 +357,17 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
             }
         });
 
+        btnDuaNguoiThan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), KhaiBaoYTeNguoiThanActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+                finish();
+            }
+        });
 
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override

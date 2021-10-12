@@ -21,7 +21,7 @@ public interface BacSiDAO {
     @Query("SELECT * FROM bacsi ")
     List<BacSi> getAll();
 
-    @Query("SELECT * FROM TinTuc where id = :id")
+    @Query("SELECT * FROM bacsi where id = :id")
     BacSi getBacSi(int id);
 
 }

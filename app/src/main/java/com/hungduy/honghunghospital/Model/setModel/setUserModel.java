@@ -6,6 +6,7 @@ public class setUserModel {
     private String gioitinh;
     private String tinh;
     private String quanhuyen;
+    private String madantoc;
     private String xaphuong;
     private String apkhupho;
     private String quoctich;
@@ -36,6 +37,14 @@ public class setUserModel {
         this.bhyt = bhyt;
         this.imgUser = imgUser;
         this.imgBHYT = imgBHYT;
+    }
+
+    public String getDantoc() {
+        return madantoc;
+    }
+
+    public void setDantoc(String dantoc) {
+        this.madantoc = dantoc;
     }
 
     public String getImgUser() {

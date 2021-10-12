@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Database.Model.DanToc;
 import com.hungduy.honghunghospital.Database.Model.KhuPho;
 import com.hungduy.honghunghospital.Database.Model.PhuongXa;
 import com.hungduy.honghunghospital.Database.Model.QuanHuyen;
@@ -57,14 +58,15 @@ public class RegisterActivity extends BaseActivity {
     private TextView txtNgaySinh,txtThangSinh,txtNamSinh;
     private EditText txtPassword,txtReEnterPassword,txtHoTen,txtDiaChi,txtSDT,txtCMND,txtMaBHYT;
     private Button btnThoat,btnLuu;
-    private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich;
+    private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich,txtDanToc;
     private RadioButton chkNam,chkNu,chkKhac;
     private LinearLayout ViewUpdate;
-    private ArrayList<TinhThanh> listTinhThanh  = new ArrayList<>();
-    private ArrayList<QuanHuyen> listQuanHuyen  = new ArrayList<>();
-    private ArrayList<PhuongXa> listPhuongXa  = new ArrayList<>();
-    private ArrayList<KhuPho> listApKhuPho  = new ArrayList<>();
-    private ArrayList<QuocGia> listQuocGia  = new ArrayList<>();
+    private ArrayList<TinhThanh> listTinhThanh = new ArrayList<>();
+    private ArrayList<QuanHuyen> listQuanHuyen = new ArrayList<>();
+    private ArrayList<PhuongXa> listPhuongXa = new ArrayList<>();
+    private ArrayList<KhuPho> listApKhuPho = new ArrayList<>();
+    private ArrayList<QuocGia> listQuocGia = new ArrayList<>();
+    private ArrayList<DanToc> listDanToc = new ArrayList<>();
 
     private Uri URIimgUser,URIimgBHYT;
 
@@ -74,6 +76,7 @@ public class RegisterActivity extends BaseActivity {
     private String maphuongxa = "";
     private String maapkhupho = "";
     private String maquoctich = "";
+    private String madantoc = "";
 
     private String gioitinh = "0";
 
@@ -135,6 +138,34 @@ public class RegisterActivity extends BaseActivity {
                 Log.d(TAG,"Nhận "+ listQuocGia.size()+" quốc gia");
             }
         }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[dantocDAO.getAll().size()];
+                int i=0;
+                int vitriKinh = 0;
+                for (DanToc a: dantocDAO.getAll()) {
+                    s[i]=a.getTen();
+                    if(a.getTen().equals("Kinh")){
+                        vitriKinh = i;
+                        madantoc = a.getMa()+"";
+                    }
+                    i++;
+                }
+                listDanToc = (ArrayList<DanToc>) dantocDAO.getAll();
+                int finalVitriKinh = vitriKinh;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtDanToc.setItems(s);
+                        txtDanToc.select(finalVitriKinh);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listDanToc.size()+" dan toc");
+            }
+        }).start();
+
         txtTinhThanh.setItems(new String[0]);
         txtQuanHuyen.setItems(new String[0]);
         txtXaPhuong.setItems(new String[0]);
@@ -271,6 +302,17 @@ public class RegisterActivity extends BaseActivity {
                     Log.d(TAG,  maquoctich +" - " + listQuocGia.get(position).getTen());
                 }
 
+            }
+        });
+
+        txtDanToc.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listDanToc.get(position).getMa()+"";
+                if(!madantoc.equals(code)){
+                    madantoc = code;
+                    Log.d(TAG,  madantoc +" - " + listDanToc.get(position).getTen());
+                }
             }
         });
 
@@ -480,6 +522,7 @@ public class RegisterActivity extends BaseActivity {
                                     "/"+txtThangSinh.getText().toString()+"/"+txtNamSinh.getText().toString(),gioitinh,matinhthanh
                                     ,maquanhuyen,maphuongxa,maapkhupho,maquoctich,txtSDT.getText().toString(),txtPassword.getText().toString(),
                                     txtDiaChi.getText().toString(),txtCMND.getText().toString(),txtMaBHYT.getText().toString(),imgUserURL,imgBHYTURL);
+                            u.setDantoc(madantoc);
                             mAPIService.setUser(APIKey,u).enqueue(new Callback<ResponseModel>() {
                                 @Override
                                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -656,13 +699,14 @@ public class RegisterActivity extends BaseActivity {
         txtXaPhuong = findViewById(R.id.txtXaPhuong);
         txtApKhuPho = findViewById(R.id.txtApKhuPho);
         txtQuocTich = findViewById(R.id.txtQuocTich);
+        txtDanToc = findViewById(R.id.txtDanToc);
         chkNam = findViewById(R.id.chkNam);
         chkNu = findViewById(R.id.chkNu);
         chkKhac = findViewById(R.id.chkKhac);
         txtPassword = findViewById(R.id.txtPassword);
         txtReEnterPassword = findViewById(R.id.txtReEnterPassword);
         btnLuu = findViewById(R.id.btnLuu);
-        txtHoTen = findViewById(R.id.txtHoTen);
+        txtHoTen = findViewById(R.id.txtNhomDV);
         txtDiaChi = findViewById(R.id.txtDiaChi);
         txtSDT = findViewById(R.id.txtSDT);
         txtCMND = findViewById(R.id.txtCMND);

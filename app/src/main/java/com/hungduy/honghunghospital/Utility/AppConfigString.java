@@ -17,6 +17,7 @@ public class AppConfigString {
     public static final String MaTheBHYT ="MaTheBHYT";
     public static final String HinhBHYT ="HinhBHYT";
     public static final String ImageDIR ="imgDIR";
+    public static final String DanToc ="DanToc";
     public static final String UserImageName ="user.png";
     public static final String BHYTImageName ="bhyt.png";
 }

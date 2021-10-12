@@ -75,7 +75,7 @@
                     android:textSize="18sp" />
 
                 <jrizani.jrspinner.JRSpinner
-                    android:id="@+id/txtHoTen"
+                    android:id="@+id/txtNhomDV"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -162,22 +162,62 @@
                     app:cardElevation="10dp">
 
                     <TextView
+                        android:id="@+id/txtXemThem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:text="[Xem Thêm]"
+                        android:textSize="10sp"
+                        tools:visibility="gone" />
+
+                    <TextView
                         android:id="@+id/txtInfoBS"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
+                        android:fontFamily="@font/myriadpro_semiext"
                         android:maxLines="4"
                         android:padding="10dp" />
+
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/myriadpro_semiboldsemiext"
                     android:text="@string/txt_lich_lam_viec_cua_bs_trong_tuan"
                     android:textColor="@color/textColorGreen"
                     android:textSize="18sp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/btnTuanNay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:text="Tuần này"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/btnTuanSau"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:text="Tuần sau"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="12sp" />
+                </RadioGroup>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -195,35 +235,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tabLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tabIndicatorColor="#FFF"
-                            app:tabSelectedTextColor="@color/textColorGreen">
-
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Tuần này" />
-
-                            <com.google.android.material.tabs.TabItem
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Tuần sau" />
-                        </com.google.android.material.tabs.TabLayout>
-
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/card_border_color"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+                            app:layout_constraintStart_toStartOf="parent">
 
                             <TextView
                                 android:id="@+id/txtT2S"

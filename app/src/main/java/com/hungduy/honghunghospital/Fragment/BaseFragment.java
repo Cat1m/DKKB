@@ -3,16 +3,20 @@ package com.hungduy.honghunghospital.Fragment;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,10 +25,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.Activity.LogoActivity;
 import com.hungduy.honghunghospital.Activity.UpdateUserActivity;
+import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
+import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
@@ -74,8 +81,11 @@ public  abstract class BaseFragment extends Fragment {
     protected UserDataDAO USRdao;
     protected CauHoiKhaiBaoYTeDAO KBYTdao;
     protected TinTucDAO tinTucDAO;
+    protected BacSiDAO bacSiDAO;
+    protected DanTocDAO dantocDAO;
     protected boolean OfflineMode;
     protected boolean noibo;
+    protected Dialog dialog_loading;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -95,6 +105,17 @@ public  abstract class BaseFragment extends Fragment {
         USRdao = database.userDataDAO();
         KBYTdao = database.kbytdao();
         tinTucDAO = database.tinTucDAO();
+        bacSiDAO = database.bacSiDAO();
+        dantocDAO = database.danTocDAO();
+
+        dialog_loading = new Dialog(getActivity());
+        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog_loading.getWindow() != null)
+            dialog_loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_loading.setCancelable(false);
+        dialog_loading.setContentView(R.layout.item_loadding);
+        ImageView img = dialog_loading.findViewById(R.id.imgLoading);
+        Glide.with(this).load(getResources().getDrawable(R.drawable.loading_color)).placeholder(R.drawable.logo_hungduymedical).into(img);
 
         if (getArguments() != null) {
             username = getArguments().getString("username");

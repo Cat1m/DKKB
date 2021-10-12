@@ -119,4 +119,18 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getTinTuc")
     Call<ResponseModel> getTinTuc(@Header("token") String s);
+
+
+    @Headers("Content-Type: application/json")
+    @POST("getPreferencesKey")
+    Call<ResponseModel> getPreferencesKey(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDanToc")
+    Call<ResponseModel> getDanToc(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getLoaiDichVu")
+    Call<ResponseModel> getLoaiDichVu(@Header("token") String s);
+
 }

@@ -22,8 +22,10 @@ import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNguoiThanActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNoiBoActivity;
 import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.SplashActivity;
+import com.hungduy.honghunghospital.Activity.TraCuuActivity;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
@@ -125,6 +127,17 @@ public class HomeLoginedFragment extends BaseFragment {
             }
         });
 
+        btn_home_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), TraCuuActivity.class);
+                i.putExtra("FullName",FullName);
+                i.putExtra("urlImage",urlImage);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
+
         btn_home_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,17 +158,24 @@ public class HomeLoginedFragment extends BaseFragment {
         btn_home_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ThongBao(getActivity(), "Đăng xuất", "Bạn có muốn đăng xuất tài khoản ?", R.drawable.connection_error, new FancyGifDialogListener() {
-                    @Override
-                    public void OnClick() {
-                        setStringPreferences(preferences, "username", "");
-                        setStringPreferences(preferences, "password", "");
-                        Intent splash = new Intent(getActivity(), SplashActivity.class);
-                        startActivity(splash);
-                        getActivity().finish();
-                    }
-                });
-
+                new FancyGifDialog.Builder(getActivity())
+                        .setTitle("Đăng xuất")
+                        .setMessage("Bạn có muốn đăng xuất tài khoản ?")
+                        .setPositiveBtnBackground("#FF4081")
+                        .setPositiveBtnText("Đồng ý")
+                        .setNegativeBtnText("Hủy")
+                        .setGifResource(R.drawable.searching)
+                        .OnPositiveClicked(new FancyGifDialogListener() {
+                            @Override
+                            public void OnClick() {
+                                setStringPreferences(preferences, "username", "");
+                                setStringPreferences(preferences, "password", "");
+                                Intent splash = new Intent(getActivity(), SplashActivity.class);
+                                startActivity(splash);
+                                getActivity().finish();
+                            }
+                        })
+                        .build();
             }
         });
 
