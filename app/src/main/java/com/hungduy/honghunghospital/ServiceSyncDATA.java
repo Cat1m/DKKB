@@ -20,7 +20,9 @@ import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
 import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
+import com.hungduy.honghunghospital.Database.DAO.DichVuDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
+import com.hungduy.honghunghospital.Database.DAO.LoaiDichVuDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
@@ -31,21 +33,28 @@ import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.Database.Model.BacSi;
 import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Database.Model.DanToc;
+import com.hungduy.honghunghospital.Database.Model.DichVu;
 import com.hungduy.honghunghospital.Database.Model.KhuPho;
+import com.hungduy.honghunghospital.Database.Model.LoaiDichVu;
 import com.hungduy.honghunghospital.Database.Model.TinTuc;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getApKhuPho;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
+import com.hungduy.honghunghospital.Model.getModel.getDichVu;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
+import com.hungduy.honghunghospital.Model.getModel.getNhomDichVu;
 import com.hungduy.honghunghospital.Model.getModel.getTinTuc;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -66,6 +75,8 @@ public class ServiceSyncDATA extends Service {
     private PhuongXaDAO PXdao;
     private KhuPhoDAO KPdao;
     private UserDataDAO USRdao;
+    private DichVuDAO dichvuDAO;
+    private LoaiDichVuDAO loaiDichVuDAO;
     private CauHoiKhaiBaoYTeDAO KBYTdao;
     private TinTucDAO tinTucDAO;
     private BacSiDAO bacSiDAO;
@@ -123,6 +134,10 @@ public class ServiceSyncDATA extends Service {
         tinTucDAO = database.tinTucDAO();
         bacSiDAO = database.bacSiDAO();
         dantocDAO = database.danTocDAO();
+        dichvuDAO = database.dichVuDAO();
+        loaiDichVuDAO = database.loaiDichVuDAO();
+
+        String dateNOW= new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
 
         //service Update Location run one
         String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
@@ -130,6 +145,9 @@ public class ServiceSyncDATA extends Service {
             APIKey = UtilityHHH.getSha512fromString("HHHApp4P1"+currentYearMonth);
         }catch (Exception ex){
         }
+
+
+
 
         mAPIService = ApiUtils.getAPIService();// register API services
 
@@ -154,6 +172,11 @@ public class ServiceSyncDATA extends Service {
             @Override
             public void run() {
                 while (PreferencesKey.equals("-1")) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 forceUpdate = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean(PreferencesKey,true);
                 SharedPreferences.Editor edit = getSharedPreferences("preferences", MODE_PRIVATE).edit();
@@ -164,9 +187,6 @@ public class ServiceSyncDATA extends Service {
                 Log.d(TAG,"ForceUpdate " + forceUpdate + " - key" + PreferencesKey);
             }
         }).start();
-
-
-
 
     }
 
@@ -246,6 +266,45 @@ public class ServiceSyncDATA extends Service {
                             }
                             Log.d(TAG,"Get data dan toc");
                         }
+                    }
+                }).start();
+            }
+        });
+
+        mAPIService.getLoaiDichVu(APIKey).enqueue(new CallBack(){
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                super.onResponse(call, response);
+                getNhomDichVu[] loaidv = new Gson().fromJson(response.body().getData(), getNhomDichVu[].class);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if((loaidv.length > loaiDichVuDAO.getAll().size() && loaidv.length > 0) || forceUpdate){
+                            loaiDichVuDAO.deleteAll();
+                            for(getNhomDichVu a : loaidv){
+                                loaiDichVuDAO.insert(new LoaiDichVu(Integer.parseInt(a.getMa()),a.getTen(),a.getDonvi()));
+                            }
+                            Log.d(TAG,"Get data loai dich vu");
+                        }
+                    }
+                }).start();
+            }
+        });
+
+        mAPIService.getDichVu(APIKey).enqueue(new CallBack(){
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                super.onResponse(call, response);
+                getDichVu[] dv = new Gson().fromJson(response.body().getData(),getDichVu[].class);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if((dv.length > dichvuDAO.getAll().size() && dv.length > 0) || forceUpdate ){
+                            for (getDichVu a : dv){
+                                dichvuDAO.insert(new DichVu(Integer.parseInt(a.getMa()),Integer.parseInt(a.getMaloai()),a.getTen(),a.getGia()));
+                            }
+                        }
+                        Log.d(TAG,"Get data dich vu");
                     }
                 }).start();
             }

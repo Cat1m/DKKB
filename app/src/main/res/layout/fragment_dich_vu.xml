@@ -100,7 +100,7 @@
                         android:textColorHint="@color/textColorGreen"
                         android:translationZ="5dp"
                         app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
+                        app:jrs_title="Chọn nhóm dịch vụ"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <TextView
@@ -112,7 +112,7 @@
                         android:textColor="@color/textColorGreen" />
 
                     <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtNhomDV2"
+                        android:id="@+id/txtDichVu"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
@@ -120,7 +120,7 @@
                         android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_edttext_focus"
                         android:ems="10"
-                        android:hint="Tên dịch vụ"
+                        android:hint="Chọn dịch vụ"
                         android:inputType="text"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
@@ -129,7 +129,7 @@
                         android:textColorHint="@color/textColorGreen"
                         android:translationZ="5dp"
                         app:jrs_multiple="false"
-                        app:jrs_title="Chọn bác sĩ"
+                        app:jrs_title="Chọn dịch vụ"
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <LinearLayout
@@ -148,7 +148,7 @@
                             android:textColor="@color/textColorGreen" />
 
                         <EditText
-                            android:id="@+id/txtTuNgay"
+                            android:id="@+id/txtGiaDichVu"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_margin="10dp"

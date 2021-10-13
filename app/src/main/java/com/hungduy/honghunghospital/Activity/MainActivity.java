@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
     private DichVuFragment DichVuFM;
     private ThongTinFragment ThongTinFM;
 
-    private boolean FirstRun = true;
+    private boolean Connected = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,19 +195,24 @@ public class MainActivity extends BaseActivity {
         super.Connected();
         if(getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)){
             if(token == null || token.isEmpty()){
-                FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
-                mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
-                    @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        super.onResponse(call, response);
-                        if(response.isSuccessful() && response.body().getStatus().equals("OK")) {
-                            loginFM.RetryLogin();
-                            clearBtnColor();
-                            imgHome.setImageBitmap(homepage_color);
-                            imgHome.setTag("1");
+                String usernamePreferences = getStringPreferences(preferences,"username");
+                String passwordPreferences = getStringPreferences(preferences,"password");
+                if(!(usernamePreferences.isEmpty() && passwordPreferences.isEmpty())){
+                    FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
+                    mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
+                        @Override
+                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                            super.onResponse(call, response);
+                            if(response.isSuccessful() && response.body().getStatus().equals("OK")) {
+                                loginFM.RetryLogin();
+                                clearBtnColor();
+                                imgHome.setImageBitmap(homepage_color);
+                                imgHome.setTag("1");
+                                Connected = true;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }else {
                 try {
                     BaseFragment baseFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag("");
@@ -224,6 +229,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void Disconnect() {
         super.Disconnect();
+        Connected = false;
         try{
             BaseFragment baseFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag("");
             if(baseFragment != null){
@@ -298,6 +304,7 @@ public class MainActivity extends BaseActivity {
                     bundle.putString("FullName", FullName);
                     bundle.putString("urlImage", urlImage);
                     bundle.putString("token", token);
+                    bundle.putBoolean("OfflineMode",!Connected);
                     logined.setArguments(bundle);
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
                 }

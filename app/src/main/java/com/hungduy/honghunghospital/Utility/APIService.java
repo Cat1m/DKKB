@@ -104,9 +104,6 @@ public interface APIService {
     @POST("getDmChuyenKhoa")
     Call<ResponseModel> getDmChuyenKhoa(@Header("token") String s);
 
-    @Headers("Content-Type: application/json")
-    @POST("getDichVu")
-    Call<ResponseModel> getDichVu(@Header("token") String s);
 
     @Headers("Content-Type: application/json")
     @POST("setDangKyKham")
@@ -120,7 +117,6 @@ public interface APIService {
     @POST("getTinTuc")
     Call<ResponseModel> getTinTuc(@Header("token") String s);
 
-
     @Headers("Content-Type: application/json")
     @POST("getPreferencesKey")
     Call<ResponseModel> getPreferencesKey(@Header("token") String s);
@@ -132,5 +128,13 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getLoaiDichVu")
     Call<ResponseModel> getLoaiDichVu(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDichVu")
+    Call<ResponseModel> getDichVu(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDichVuByMa")
+    Call<ResponseModel> getDichVuByMa(@Header("token") String s,@Body baseGetClass x);
 
 }

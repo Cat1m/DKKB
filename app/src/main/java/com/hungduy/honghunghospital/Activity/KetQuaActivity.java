@@ -31,6 +31,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
+import com.hungduy.honghunghospital.Database.Model.KetQuaLuu;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
@@ -57,6 +58,8 @@ public class KetQuaActivity extends BaseActivity {
     private boolean isTestCovid =false;
     private TextView txtKetQuaKham;
     private String noidungkham = "";
+    private String dv = "";
+    private int loai;
     private ImageView imgBarCode;
     private String QR="";
     @Override
@@ -70,6 +73,8 @@ public class KetQuaActivity extends BaseActivity {
         {
             isTestCovid =(boolean) bundle.get("isTestCovid");
             noidungkham =(String) bundle.get("noidungkham");
+            dv = (String) bundle.get("dv");
+            loai = (int) bundle.get("loai");
             QR = (String) bundle.get("QR");
         }
         mapView();
@@ -90,8 +95,18 @@ public class KetQuaActivity extends BaseActivity {
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                takeScreenshot();
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ketQuaLuuDAO.insert(new KetQuaLuu(QR,noidungkham,isTestCovid? 1:0,loai));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        });
+                    }
+                }).start();
             }
         });
 
@@ -106,46 +121,8 @@ public class KetQuaActivity extends BaseActivity {
 
         }
     }
-    private void takeScreenshot() {
-        Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-        } catch (Throwable e) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace();
-        }
-    }
-
-
-    public Bitmap screenShot(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
-                view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
-    }
 
     public  void CreateQRCode(String qrCodeData, String charset, Map hintMap, int qrCodeheight, int qrCodewidth){
-
-
         try {
             //generating qr code in bitmatrix type
             BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset),
@@ -177,25 +154,6 @@ public class KetQuaActivity extends BaseActivity {
         }catch (Exception er){
             Log.e("QrGenerate",er.getMessage());
         }
-    }
-
-    public Bitmap mergeBitmaps(Bitmap overlay, Bitmap bitmap) {
-
-        int height = bitmap.getHeight();
-        int width = bitmap.getWidth();
-
-        Bitmap combined = Bitmap.createBitmap(width, height, bitmap.getConfig());
-        Canvas canvas = new Canvas(combined);
-        int canvasWidth = canvas.getWidth();
-        int canvasHeight = canvas.getHeight();
-
-        canvas.drawBitmap(bitmap, new Matrix(), null);
-
-        int centreX = (canvasWidth  - overlay.getWidth()) /2;
-        int centreY = (canvasHeight - overlay.getHeight()) /2 ;
-        canvas.drawBitmap(overlay, centreX, centreY, null);
-
-        return combined;
     }
 
     private void mapView() {

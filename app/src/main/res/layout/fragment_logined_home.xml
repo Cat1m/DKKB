@@ -146,7 +146,23 @@
                     android:textColor="@color/white"
                     android:textScaleX="0.9"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_home_7" />
+
+                <Button
+                    android:id="@+id/btn_home_7"
+                    android:layout_width="350dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/btn_home_5"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Lịch sử lưu kết quả"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textScaleX="0.9"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_home_5" />
 
@@ -154,7 +170,7 @@
                     android:id="@+id/btn_QR_Code"
                     android:layout_width="68dp"
                     android:layout_height="68dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="18dp"
                     android:background="@drawable/btn_qr"
                     android:paddingLeft="5dp"
                     android:paddingBottom="5dp"

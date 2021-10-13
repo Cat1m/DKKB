@@ -420,7 +420,9 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                                     }
                                     Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                                     i.putExtra("isTestCovid",kq);
-                                    i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
+                                    i.putExtra("noidungkham"," Anh/Chị đã đăng ký khám " + dv.getTen() + " <br/> thành công");
+                                    i.putExtra("dv",dv.getTen());
+                                    i.putExtra("loai",1);
                                     i.putExtra("FullName",FullName);
                                     i.putExtra("urlImage",urlImage);
                                     i.putExtra("QR",response.body().getData());

@@ -32,7 +32,9 @@ import com.hungduy.honghunghospital.Activity.UpdateUserActivity;
 import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
+import com.hungduy.honghunghospital.Database.DAO.DichVuDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
+import com.hungduy.honghunghospital.Database.DAO.LoaiDichVuDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuocGiaDAO;
@@ -40,6 +42,7 @@ import com.hungduy.honghunghospital.Database.DAO.TinTucDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
+import com.hungduy.honghunghospital.Database.Model.DichVu;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
@@ -83,6 +86,8 @@ public  abstract class BaseFragment extends Fragment {
     protected TinTucDAO tinTucDAO;
     protected BacSiDAO bacSiDAO;
     protected DanTocDAO dantocDAO;
+    protected DichVuDAO dichvuDAO;
+    protected LoaiDichVuDAO loaiDichVuDAO;
     protected boolean OfflineMode;
     protected boolean noibo;
     protected Dialog dialog_loading;
@@ -107,6 +112,8 @@ public  abstract class BaseFragment extends Fragment {
         tinTucDAO = database.tinTucDAO();
         bacSiDAO = database.bacSiDAO();
         dantocDAO = database.danTocDAO();
+        dichvuDAO = database.dichVuDAO();
+        loaiDichVuDAO = database.loaiDichVuDAO();
 
         dialog_loading = new Dialog(getActivity());
         dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -33,6 +33,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
+import com.hungduy.honghunghospital.Database.DAO.KetQuaLuuDAO;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
 import com.hungduy.honghunghospital.Database.DAO.PhuongXaDAO;
 import com.hungduy.honghunghospital.Database.DAO.QuanHuyenDAO;
@@ -92,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected TinTucDAO tinTucDAO;
     protected BacSiDAO bacSiDAO;
     protected DanTocDAO dantocDAO;
+    protected KetQuaLuuDAO ketQuaLuuDAO;
     protected TextView txtOfflineMode;
     protected boolean isConnected;
     protected boolean noibo;
@@ -148,6 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         tinTucDAO = database.tinTucDAO();
         bacSiDAO = database.bacSiDAO();
         dantocDAO = database.danTocDAO();
+        ketQuaLuuDAO = database.ketQuaLuuDAO();
 
         dialog_loading = new Dialog(this);
         dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
