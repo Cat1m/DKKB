@@ -7,6 +7,7 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
 import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
+import com.hungduy.honghunghospital.Model.setModel.setKhaiBao;
 import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
 import com.hungduy.honghunghospital.Model.setModel.setNguoiThanDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
@@ -137,4 +138,7 @@ public interface APIService {
     @POST("getDichVuByMa")
     Call<ResponseModel> getDichVuByMa(@Header("token") String s,@Body baseGetClass x);
 
+    @Headers("Content-Type: application/json")
+    @POST("setKhaiBao")
+    Call<ResponseModel> setKhaiBao(@Header("token") String s,@Body setKhaiBao x);
 }

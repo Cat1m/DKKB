@@ -60,24 +60,38 @@ public class KetQuaActivity extends BaseActivity {
     private String noidungkham = "";
     private String dv = "";
     private int loai;
+    private boolean isReview;
     private ImageView imgBarCode;
     private String QR="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua);
+        mapView();
 
         Intent LoginIntent= getIntent();
         Bundle bundle = LoginIntent.getExtras();
         if(bundle!=null)
         {
-            isTestCovid =(boolean) bundle.get("isTestCovid");
-            noidungkham =(String) bundle.get("noidungkham");
-            dv = (String) bundle.get("dv");
-            loai = (int) bundle.get("loai");
-            QR = (String) bundle.get("QR");
+            try{
+                isTestCovid =(boolean) bundle.get("isTestCovid");
+                noidungkham =(String) bundle.get("noidungkham");
+                QR = (String) bundle.get("QR");
+                loai = (int) bundle.get("loai");
+            }catch (Exception exx){
+
+            }
+            try {
+                isReview = (boolean) bundle.get("isReview");
+            }catch (Exception e){
+                isReview = false;
+            }
+
+            if(isReview){
+                btnLuu.setVisibility(View.GONE);
+            }
+
         }
-        mapView();
 
 
         if(!noidungkham.isEmpty()){

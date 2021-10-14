@@ -56,8 +56,14 @@ public class CallbackResponse implements Callback<ResponseModel> {
                 }catch (Exception ex){
                     Log.d("CallBack",ex.getMessage());
                 }
+            }else{
+                success(response);
             }
         }
+    }
+
+    public void success(Response<ResponseModel> response){
+
     }
 
     @Override

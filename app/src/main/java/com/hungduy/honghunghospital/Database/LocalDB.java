@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
+import com.hungduy.honghunghospital.Database.DAO.BacSiDetailDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
 import com.hungduy.honghunghospital.Database.DAO.DichVuDAO;
@@ -22,6 +23,7 @@ import com.hungduy.honghunghospital.Database.DAO.TinTucDAO;
 import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.Model.BacSi;
+import com.hungduy.honghunghospital.Database.Model.BacSiDetail;
 import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Database.Model.DanToc;
 import com.hungduy.honghunghospital.Database.Model.DichVu;
@@ -51,7 +53,8 @@ import java.util.concurrent.Executors;
         DanToc.class,
         LoaiDichVu.class,
         DichVu.class,
-        KetQuaLuu.class
+        KetQuaLuu.class,
+        BacSiDetail.class
 }, version = 1)
 public abstract class LocalDB extends RoomDatabase {
     private static volatile LocalDB INSTANCE;
@@ -69,6 +72,7 @@ public abstract class LocalDB extends RoomDatabase {
     public abstract DichVuDAO dichVuDAO();
     public abstract LoaiDichVuDAO loaiDichVuDAO();
     public abstract KetQuaLuuDAO ketQuaLuuDAO();
+    public abstract BacSiDetailDAO bacSiDetailDAO();
 
 
     private static final int NUMBER_OF_THREADS = 4;

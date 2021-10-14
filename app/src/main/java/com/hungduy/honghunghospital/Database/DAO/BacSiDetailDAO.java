@@ -6,26 +6,26 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.hungduy.honghunghospital.Database.Model.KetQuaLuu;
+import com.hungduy.honghunghospital.Database.Model.BacSiDetail;
 import com.hungduy.honghunghospital.Database.Model.TinhThanh;
 
 import java.util.List;
 
 @Dao
-public interface KetQuaLuuDAO {
+public interface BacSiDetailDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(KetQuaLuu kq);
+    void insert(BacSiDetail bs);
 
     @Update()
-    void update(KetQuaLuu kq);
+    void update(BacSiDetail bs);
 
-    @Query("DELETE FROM KetQuaLuu")
+    @Query("DELETE FROM ChiTietBacSi")
     void deleteAll();
 
-    @Query("SELECT * FROM KetQuaLuu Order by ma ")
-    List<KetQuaLuu> getAll();
+    @Query("SELECT * FROM ChiTietBacSi")
+    List<BacSiDetail> getAll();
 
 
-    @Query("SELECT * FROM KetQuaLuu where ma= :ma Limit 1")
-    KetQuaLuu getKetQuaLuu(int ma);
+    @Query("SELECT * FROM ChiTietBacSi where MaBS= :ma Limit 1")
+    BacSiDetail getChiTietBS(int ma);
 }

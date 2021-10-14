@@ -201,20 +201,19 @@ public class MainActivity extends BaseActivity {
                     FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
                     mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            super.onResponse(call, response);
-                            if(response.isSuccessful() && response.body().getStatus().equals("OK")) {
-                                loginFM.RetryLogin();
-                                clearBtnColor();
-                                imgHome.setImageBitmap(homepage_color);
-                                imgHome.setTag("1");
-                                Connected = true;
-                            }
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
+                            loginFM.RetryLogin();
+                            clearBtnColor();
+                            imgHome.setImageBitmap(homepage_color);
+                            imgHome.setTag("1");
+                            Connected = true;
                         }
                     });
                 }
             }else {
                 try {
+                    Connected = true;
                     BaseFragment baseFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag("");
                     if (baseFragment != null) {
                         baseFragment.Connected();
@@ -254,6 +253,8 @@ public class MainActivity extends BaseActivity {
         imgLichBS.setTag("0");
         imgDichVu.setTag("0");
         imgTinTuc.setTag("0");
+
+
     }
 
     private void clearBtnColor(){
@@ -305,6 +306,7 @@ public class MainActivity extends BaseActivity {
                     bundle.putString("urlImage", urlImage);
                     bundle.putString("token", token);
                     bundle.putBoolean("OfflineMode",!Connected);
+                    Log.d(TAG, "onClick: connection " + Connected);
                     logined.setArguments(bundle);
                     FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),logined,"");
                 }

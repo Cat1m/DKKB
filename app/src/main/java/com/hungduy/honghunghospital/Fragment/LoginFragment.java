@@ -129,9 +129,10 @@ public class LoginFragment extends BaseFragment {
 
     private void Login(String username,String password){
         mAPIService.login(APIKey,new LoginModel(username,password)).enqueue(new CallbackResponse(getActivity()){
+
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 if (response.body().getStatus().equals("OK")){
                     dialog_loading.show();
                     MainActivity activity = (MainActivity) getActivity();
@@ -167,7 +168,6 @@ public class LoginFragment extends BaseFragment {
 
                     }
                 }
-
                 dialog_loading.dismiss();
             }
         });

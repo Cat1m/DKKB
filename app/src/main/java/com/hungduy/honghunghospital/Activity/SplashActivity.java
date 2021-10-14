@@ -271,37 +271,35 @@ public class SplashActivity extends BaseActivity {
         if(!DataApKhuPho){
             mAPIService.getApKhuPho(APIKey,new baseGetClass("")).enqueue(new CallbackResponse(SplashActivity.this){
                 @Override
-                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                    super.onResponse(call, response);
-                    if(response.isSuccessful() && response.body().getStatus().equals("OK")){
-                        getApKhuPho[] ApKhuPho = new Gson().fromJson(response.body().getData(),getApKhuPho[].class);
-                        if(ApKhuPho.length > 0){
-                            Thread a = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(FlagDelALL){
-                                        KPdao.deleteAll();
-                                    }
-                                    for(int i=0;i< ApKhuPho.length;i++){
-                                        int ma = Integer.parseInt(ApKhuPho[i].getMa());
-                                        if(KPdao.getKhuPho(ma) == null){
-                                            try{
-                                                KPdao.insert(new KhuPho(ma,
-                                                        Integer.parseInt(ApKhuPho[i].getMatinhthanh()),
-                                                        ApKhuPho[i].getTen()));
-                                            }catch (Exception ex){
-                                            }
-                                            Log.d(TAG,"Add " + ma );
+                public void success(Response<ResponseModel> response) {
+                    super.success(response);
+                    getApKhuPho[] ApKhuPho = new Gson().fromJson(response.body().getData(),getApKhuPho[].class);
+                    if(ApKhuPho.length > 0){
+                        Thread a = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(FlagDelALL){
+                                    KPdao.deleteAll();
+                                }
+                                for(int i=0;i< ApKhuPho.length;i++){
+                                    int ma = Integer.parseInt(ApKhuPho[i].getMa());
+                                    if(KPdao.getKhuPho(ma) == null){
+                                        try{
+                                            KPdao.insert(new KhuPho(ma,
+                                                    Integer.parseInt(ApKhuPho[i].getMatinhthanh()),
+                                                    ApKhuPho[i].getTen()));
+                                        }catch (Exception ex){
                                         }
-                                    }
-                                    SizeDataApKhuPho = ApKhuPho.length;
-                                    if(KPdao.getAll().size() == ApKhuPho.length){
-                                        setBooleanPreferences(preferences,"DataApKhuPho",true);
+                                        Log.d(TAG,"Add " + ma );
                                     }
                                 }
-                            });
-                            a.start();
-                        }
+                                SizeDataApKhuPho = ApKhuPho.length;
+                                if(KPdao.getAll().size() == ApKhuPho.length){
+                                    setBooleanPreferences(preferences,"DataApKhuPho",true);
+                                }
+                            }
+                        });
+                        a.start();
                     }
                 }
             });

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hungduy.honghunghospital.Activity.KetQuaActivity;
 import com.hungduy.honghunghospital.Activity.WebviewActivity;
 import com.hungduy.honghunghospital.Database.DAO.KetQuaLuuDAO;
 import com.hungduy.honghunghospital.Database.Model.KetQuaLuu;
@@ -59,20 +60,36 @@ public class LichSuLuuKetQuaAdapter extends RecyclerView.Adapter<LichSuLuuKetQua
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         KetQuaLuu kq = ketQuaLuus.get(position);
         String title = "";
-        if(kq.getLoai() == 1){
-            title = "Đăng kí khám bệnh";
+        switch (kq.getLoai()){
+            case 1:
+                title = "Đăng kí khám bệnh";
+                break;
+            case 2:
+                title = "Liên hệ công tác";
+                break;
+            case 3:
+                title = "Đăng kí cho người thân";
+                break;
+            case 4:
+                title = "Khai báo y tế nội bộ";
+                break;
+            default:
+                title = "Không xác định";
+                break;
         }
         holder.txtTitle.setText(title);
-        holder.txtNoiDung.setText(kq.getKetQua());
+        holder.txtNoiDung.setText(kq.getKetQua().replace("<br/>",""));
         holder.btnChiTiet.setTag(kq.getMaQR());
         holder.btnChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(view.getTag().equals(kq.getMaQR())){
-                    Intent intent = new Intent(activity, KetQuaLuuDAO.class);
-
-
-                    activity.startActivity(intent);
+                    Intent i = new Intent(activity, KetQuaActivity.class);
+                    i.putExtra("isTestCovid", kq.getTestNhanh() == 1);
+                    i.putExtra("noidungkham",kq.getKetQua());
+                    i.putExtra("QR",kq.getMaQR());
+                    i.putExtra("isReview",true);
+                    activity.startActivity(i);
                 }
             }
         });

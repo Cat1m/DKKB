@@ -28,6 +28,7 @@ public class KetQuaLuuActivity extends BaseActivity {
     private ArrayList<KetQuaLuu> ketQuaLuus;
     private LichSuLuuKetQuaAdapter lichSuLuuKetQuaAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,6 @@ public class KetQuaLuuActivity extends BaseActivity {
         mapView();
 
         ketQuaLuus = new ArrayList<>();
-
 
         new Thread(new Runnable() {
             @Override

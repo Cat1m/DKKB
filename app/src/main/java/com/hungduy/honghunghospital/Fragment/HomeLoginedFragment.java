@@ -77,8 +77,12 @@ public class HomeLoginedFragment extends BaseFragment {
         super.Connected();
         btn_home_1.setAlpha(1);
         btn_home_2.setAlpha(1);
+        btn_home_3.setAlpha(1);
+        btn_home_5.setAlpha(1);
         btn_home_1.setEnabled(true);
         btn_home_2.setEnabled(true);
+        btn_home_3.setEnabled(true);
+        btn_home_5.setEnabled(true);
     }
 
     @Override
@@ -86,8 +90,12 @@ public class HomeLoginedFragment extends BaseFragment {
         super.Disconect();
         btn_home_1.setAlpha(.5f);
         btn_home_2.setAlpha(.5f);
+        btn_home_3.setAlpha(.5f);
+        btn_home_5.setAlpha(.5f);
         btn_home_1.setEnabled(false);
         btn_home_2.setEnabled(false);
+        btn_home_3.setEnabled(false);
+        btn_home_5.setEnabled(false);
     }
 
     @Override

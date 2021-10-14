@@ -426,6 +426,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(txtHoTen.getText().toString().isEmpty() ||txtPassword.getText().toString().isEmpty()
+                        || txtPassword.getText().toString().length()<8 ||  txtReEnterPassword.getText().toString().length() <8
                         || txtReEnterPassword.getText().toString().isEmpty()
                         || txtSDT.getText().toString().isEmpty() || matinhthanh.isEmpty() || maquanhuyen.isEmpty()
                         || maphuongxa.isEmpty()){
@@ -470,9 +471,22 @@ public class RegisterActivity extends BaseActivity {
                         }
                         txtSDT.setBackground(shape_edittext_have_focus);
                     }
+                    if(txtReEnterPassword.getText().toString().length() < 8 || txtPassword.getText().toString().length()<8){
+                        ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                "Mật khẩu phải từ 8 ký tự trở lên!",R.drawable.password_drbl);
+                        return;
+                    }
+
+
                     ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
                             "Bạn chưa nhập đủ thông tin. Những mục có dấu * là bắt buộc!",R.drawable.connection_error);
                 }else{
+                    if(!txtPassword.getText().toString().equals(txtReEnterPassword.getText().toString())){
+                        ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                "Mật khẩu Không khớp",R.drawable.password_drbl);
+                        return;
+                    }
+
                     btnLuu.setEnabled(false);
 
                     if(URIimgUser != null)

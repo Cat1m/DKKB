@@ -16,6 +16,7 @@ import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
+import com.hungduy.honghunghospital.Model.setModel.setKhaiBao;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 
@@ -60,28 +61,26 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
                 } else {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeCongTacActivity.this){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            super.onResponse(call, response);
-                            if (response.body().getStatus().equals("OK")) {
-                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
-                                if (cauhois.length > 0) {
-                                    int i = 0;
-                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
-                                        cauHoiKhaiBaoYTes.add(a);
-                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
-                                                }catch (Exception ex){
-                                                }
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
+                            getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                            if (cauhois.length > 0) {
+                                int i = 0;
+                                for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                    cauHoiKhaiBaoYTes.add(a);
+                                    CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                            }catch (Exception ex){
                                             }
-                                        }).start();
-                                    }
+                                        }
+                                    }).start();
                                 }
-                                KhaiBaoYTeADT.notifyDataSetChanged();
                             }
+                            KhaiBaoYTeADT.notifyDataSetChanged();
                         }
                     });
                 }
@@ -93,21 +92,33 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
             @Override
             public void onClick(View view) {
                 boolean kq = false;
-                String cautraloi = "";
-                for (CauHoiKhaiBaoYTeEXT s : CauTL){
-                    cautraloi += ",{ m: '"+s.getMa()+"' ,c : '"+ s.getCautraloi() +"'}";
-                    if(s.getCautraloi().equals("Có")){
+                String khaibaoyte = "";
+                for(CauHoiKhaiBaoYTeEXT c : CauTL){
+                    khaibaoyte += c.getCauhoi() +" : " + c.getCautraloi() + "|";
+                    if(c.getCautraloi().equals("Có")){
                         kq = true;
                     }
                 }
-                Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
-                i.putExtra("isTestCovid",kq);
-                i.putExtra("noidungkham"," Anh/Chị đã khai báo y tế thành công");
-                i.putExtra("FullName",FullName);
-                i.putExtra("urlImage",urlImage);
-                i.putExtra("QR","{ obj:'LHCT' ,kbyt:["+cautraloi.substring(1)+"], ld:'"+txtLyDo.getText().toString() +"' }");
-                startActivity(i);
-                finish();
+                boolean finalKq = kq;
+                mAPIService.setKhaiBao(token,new setKhaiBao("3",khaibaoyte,txtLyDo.getText().toString()))
+                        .enqueue(new CallbackResponse(KhaiBaoYTeCongTacActivity.this){
+                            @Override
+                            public void success(Response<ResponseModel> response) {
+                                super.success(response);
+                                Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                                i.putExtra("isTestCovid", finalKq);
+                                i.putExtra("noidungkham"," Anh/Chị đã khai báo y tế thành công");
+                                i.putExtra("FullName",FullName);
+                                i.putExtra("urlImage",urlImage);
+                                i.putExtra("QR",response.body().getData());
+                                i.putExtra("loai",2);
+                                startActivity(i);
+                                finish();
+                            }
+                });
+
+
+
             }
         });
 

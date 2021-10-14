@@ -58,16 +58,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:contentDescription="TODO"
-        android:scaleType="fitEnd"
-        android:src="@drawable/toan_canh_bv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="260dp"
@@ -81,10 +71,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,6 +86,17 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:contentDescription="TODO"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/toan_canh_bv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -121,7 +124,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/txtUsername"
                     app:layout_constraintEnd_toStartOf="@+id/textView17"
                     app:layout_constraintStart_toStartOf="@+id/txtUsername"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
                 <EditText
                     android:id="@+id/txtUsername"

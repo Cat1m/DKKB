@@ -38,7 +38,7 @@
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/font/utm_gods_word_r_italic.xml" value="0.396875" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout-land/fragment_login.xml" value="0.31040564373897706" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/Logo_User_Hello.xml" value="0.2368659420289855" />
-        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua.xml" value="0.5" />
+        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua_luu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte_cong_tac.xml" value="0.5" />
@@ -46,7 +46,7 @@
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte_noi_bo.xml" value="0.33" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_logo.xml" value="0.33" />
-        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_reset_password.xml" value="0.203125" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_splash.xml" value="0.2171875" />
@@ -54,7 +54,7 @@
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/activity_webview.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/dang_ky_kham.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fancygifdialog.xml" value="0.33" />
-        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fragment_bac_si.xml" value="0.67" />
+        <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fragment_bac_si.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fragment_dich_vu.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fragment_forget_password.xml" value="0.33" />
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/layout/fragment_login.xml" value="0.33" />

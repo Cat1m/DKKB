@@ -82,26 +82,25 @@ public class BacSiFragment extends BaseFragment {
                 }else{
                     mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(getActivity()){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            super.onResponse(call, response);
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                if(dsBS.length > 0){
-                                    String[] tenBS = new String[dsBS.length];
-                                    int i=0;
-                                    for (getMaTen bs: dsBS ) {
-                                        if(txtHoTen.getText().toString().equals(bs.getTen())){
-                                            getDetai(bs.getMa());
-                                        }
-                                        listBS.add(bs);
-                                        tenBS[i] = bs.getTen();
-                                        i++;
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                            if(dsBS.length > 0){
+                                String[] tenBS = new String[dsBS.length];
+                                int i=0;
+                                for (getMaTen bs: dsBS ) {
+                                    if(txtHoTen.getText().toString().equals(bs.getTen())){
+                                        getDetai(bs.getMa());
                                     }
-                                    txtHoTen.setItems(tenBS);
-                                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                                    listBS.add(bs);
+                                    tenBS[i] = bs.getTen();
+                                    i++;
                                 }
+                                txtHoTen.setItems(tenBS);
+                                Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                             }
                         }
+
                     });
                 }
             }
@@ -165,8 +164,8 @@ public class BacSiFragment extends BaseFragment {
 
         mAPIService.getDetailActiveDoctor(APIKey,new baseGetClass(ma)).enqueue(new CallbackResponse(getActivity()){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 if(response.body().getStatus().equals("OK")){
                     LayoutDoctor.setVisibility(View.VISIBLE);
                     bs = new Gson().fromJson(response.body().getData(),getThongTinBS.class);
@@ -188,26 +187,26 @@ public class BacSiFragment extends BaseFragment {
         });
 
         mAPIService.getLichLamViecBS(APIKey,new baseGetClass(ma)).enqueue(new CallbackResponse(getActivity()){
+
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
-                if(response.body().getStatus().equals("OK")){
-                    getListLichLamViecBS llvs = new Gson().fromJson(response.body().getData(),getListLichLamViecBS.class);
-                    if(llvs.getTuannay().size()>0){
-                        ArrayList<getLichLamViecBS> a = new ArrayList<>();
-                        ArrayList<getLichLamViecBS> b = new ArrayList<>();
-                        for (getLichLamViecBS llv : llvs.getTuannay()) {
-                            a.add(llv);
-                            setLichLamViec(llv);
-                        }
-                        for (getLichLamViecBS llv : llvs.getTuanSau()) {
-                            b.add(llv);
-                        }
-                        llvBS.setTuannay(a);
-                        llvBS.setTuanSau(b);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
+                getListLichLamViecBS llvs = new Gson().fromJson(response.body().getData(),getListLichLamViecBS.class);
+                if(llvs.getTuannay().size()>0){
+                    ArrayList<getLichLamViecBS> a = new ArrayList<>();
+                    ArrayList<getLichLamViecBS> b = new ArrayList<>();
+                    for (getLichLamViecBS llv : llvs.getTuannay()) {
+                        a.add(llv);
+                        setLichLamViec(llv);
                     }
+                    for (getLichLamViecBS llv : llvs.getTuanSau()) {
+                        b.add(llv);
+                    }
+                    llvBS.setTuannay(a);
+                    llvBS.setTuanSau(b);
                 }
             }
+
         });
     }
 

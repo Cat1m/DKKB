@@ -472,9 +472,10 @@ public class UpdateUserActivity extends BaseActivity {
                     }else{
                         txtReEnterNewPassword.setBackground(shape_edittext_have_focus);
                     }
+
                     if(txtReEnterNewPassword.getText().toString().length() < 8){
                         ThongBao(UpdateUserActivity.this,"Đã có lỗi xảy ra",
-                                "Mật khẩu phải từ 8 ký tự trở lên",R.drawable.connection_error);
+                                "Mật khẩu phải từ 8 ký tự trở lên",R.drawable.password_drbl);
                         return;
                     }
                 }
@@ -503,9 +504,23 @@ public class UpdateUserActivity extends BaseActivity {
                 } else {
                     if(swDoiMatKhau.isChecked() && !txtNewPassword.getText().toString().equals(txtReEnterNewPassword.getText().toString())){
                         ThongBao(UpdateUserActivity.this,"Đã có lỗi xảy ra",
-                                "Mật khẩu không trùng khớp",R.drawable.connection_error);
+                                "Mật khẩu không trùng khớp",R.drawable.password_drbl);
                         return;
                     }
+                    dialog_loading.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(dialog_loading.isShowing()){
+                                        dialog_loading.dismiss();
+                                    }
+                                }
+                            });
+                        }
+                    },2000);
 
                     btnLuu.setEnabled(false);
                     btnLuu.setAlpha(.3f);
@@ -515,12 +530,14 @@ public class UpdateUserActivity extends BaseActivity {
                         MultipartBody.Part body = MultipartBody.Part.createFormData("files[0]", file.getName(), requestFile);
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                             @Override
-                            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                super.onResponse(call, response);
-                                if (response.body().getStatus().equals("OK")) {
+                            public void success(Response<ResponseModel> response) {
+                                super.success(response);
+                                try {
                                     String[] url = new Gson().fromJson(response.body().getData(), String[].class);
                                     newimgUserURL = url[0];
                                     Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception ex){
+
                                 }
                             }
                         });
@@ -532,12 +549,14 @@ public class UpdateUserActivity extends BaseActivity {
                         MultipartBody.Part body = MultipartBody.Part.createFormData("files[0]", file.getName(), requestFile);
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                             @Override
-                            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                super.onResponse(call, response);
-                                if (response.body().getStatus().equals("OK")) {
+                            public void success(Response<ResponseModel> response) {
+                                super.success(response);
+                                try{
                                     String[] url = new Gson().fromJson(response.body().getData(), String[].class);
                                     newimgBHYTURL = url[0];
                                     Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception ex){
+
                                 }
                             }
                         });
@@ -561,8 +580,8 @@ public class UpdateUserActivity extends BaseActivity {
                             usrUpdate.setBhyt(txtMaBHYT.getText().toString());
                             mAPIService.updateUser(token, usrUpdate).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                                 @Override
-                                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                    super.onResponse(call, response);
+                                public void success(Response<ResponseModel> response) {
+                                    super.success(response);
                                     if (response.body().getStatus().equals("OK")) {
                                         ThongBao(UpdateUserActivity.this, "Thành công", "", R.drawable.connection_error, new FancyGifDialogListener() {
                                             @Override
@@ -573,6 +592,7 @@ public class UpdateUserActivity extends BaseActivity {
                                     }else{
                                         btnLuu.setEnabled(true);
                                         btnLuu.setAlpha(1f);
+                                        dialog_loading.dismiss();
                                     }
                                 }
                             });

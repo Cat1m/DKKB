@@ -108,6 +108,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+
+    public String getFullname(){
+        return FullName;
+    }
+
+    public String getToken(){
+        return token;
+    }
+
     public void Connected(){
         if(txtOfflineMode != null) {
             mAPIService.ping().enqueue(new Callback<ResponseModel>() {

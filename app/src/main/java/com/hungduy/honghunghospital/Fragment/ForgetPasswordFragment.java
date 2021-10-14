@@ -3,6 +3,8 @@ package com.hungduy.honghunghospital.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
 import com.hungduy.honghunghospital.Model.setModel.setNewPassword;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
@@ -60,32 +63,29 @@ public class ForgetPasswordFragment extends BaseFragment {
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAPIService.getOTP(APIKey,new getOTPModel(txtSDT.getText().toString())).enqueue(new Callback<ResponseModel>() {
+                dialog_loading.show();
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                phoneNumber = txtSDT.getText().toString();
-                                viewGetOTP.setVisibility(View.INVISIBLE);
-                                viewReset.setVisibility(View.VISIBLE);
-                            }else if(response.body().getStatus().equals("Exist")){
-                                ThongBao(getActivity(), "Thông báo", response.body().getMessenge(), R.drawable.connection_error, new FancyGifDialogListener() {
-                                    @Override
-                                    public void OnClick() {
-                                        phoneNumber = txtSDT.getText().toString();
-                                        viewGetOTP.setVisibility(View.INVISIBLE);
-                                        viewReset.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                            }else{
-                                ThongBao(getActivity(),"Đã có lỗi xảy ra",response.body().getMessenge(),R.drawable.connection_error);
+                    public void run() {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(dialog_loading.isShowing()){
+                                    dialog_loading.dismiss();
+                                }
                             }
-                        }
+                        });
                     }
+                },2000);
 
+                mAPIService.getOTP(APIKey,new getOTPModel(txtSDT.getText().toString())).enqueue(new CallbackResponse(getActivity()){
                     @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                    public void success(Response<ResponseModel> response) {
+                        super.success(response);
+                        phoneNumber = txtSDT.getText().toString();
+                        viewGetOTP.setVisibility(View.INVISIBLE);
+                        viewReset.setVisibility(View.VISIBLE);
+                        dialog_loading.dismiss();
                     }
                 });
 
@@ -161,29 +161,18 @@ public class ForgetPasswordFragment extends BaseFragment {
                 if(txtReEnterPassword.getText().toString().equals(txtNewPassword.getText().toString()) && !txtOTPCode.getText().toString().isEmpty())
                 {
                     mAPIService.ResetPassword(APIKey,new setNewPassword(phoneNumber,txtOTPCode.getText().toString(),
-                            txtReEnterPassword.getText().toString())).enqueue(new Callback<ResponseModel>() {
+                            txtReEnterPassword.getText().toString())).enqueue(new CallbackResponse(getActivity()){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            if(response.isSuccessful()){
-                                if(response.body().getStatus().equals("OK")){
-                                    ThongBao(getActivity(), "Thành công", "Mật khẩu đã được khôi phục thành công!",
-                                            R.drawable.connection_error, new FancyGifDialogListener() {
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
+                            ThongBao(getActivity(), "Thành công", "Mật khẩu đã được khôi phục thành công!",
+                                    R.drawable.connection_error, new FancyGifDialogListener() {
                                         @Override
                                         public void OnClick() {
                                             LoginFragment login = new LoginFragment();
                                             FragmentUtils.replaceFragment(R.id.svTrangChu,getActivity().getSupportFragmentManager(),login,"");
                                         }
                                     });
-                                }else{
-                                    ThongBao(getActivity(), "Đã có lỗi xảy ra", response.body().getMessenge(),
-                                            R.drawable.connection_error);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                         }
                     });
                 }else {

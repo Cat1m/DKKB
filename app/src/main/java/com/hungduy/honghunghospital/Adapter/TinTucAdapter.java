@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -21,8 +25,11 @@ import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getTinTuc;
 import com.hungduy.honghunghospital.R;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 
@@ -41,6 +48,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
         private View itemview;
         public TextView txtTitle,txtNoiDung;
+        public ImageView img;
         public Button btnChiTiet;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -48,6 +56,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtNoiDung = itemView.findViewById(R.id.txtNoiDung);
             btnChiTiet = itemView.findViewById(R.id.btnChiTiet);
+            img = itemView.findViewById(R.id.img);
         }
     }
 
@@ -65,6 +74,31 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
         holder.txtTitle.setText(tintuc.getTen());
         holder.txtNoiDung.setText(tintuc.getMota());
         holder.btnChiTiet.setTag(tintuc.getMa());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Document doc = Jsoup.connect(tintuc.getUrl()).get();
+                    String img = doc.select("meta[property=og:image]").first().attr("content");
+                    if(img.isEmpty()){
+                        img = doc.select("meta[name=twitter:image]").first().attr("content");
+                    } else if(img.isEmpty()){
+                        img = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                    }
+                  //  Log.d("TinTucAdapter",img);
+                    String finalImg = img;
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Picasso.get().load(finalImg).into(holder.img);
+                        }
+                    });
+                }catch (Exception e){
+
+                }
+            }
+        }).start();
         holder.btnChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +110,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return tinTucs.size();

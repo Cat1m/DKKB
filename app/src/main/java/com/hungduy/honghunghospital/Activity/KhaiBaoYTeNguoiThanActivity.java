@@ -155,22 +155,20 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                         }else{
                             mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                                 @Override
-                                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                    super.onResponse(call, response);
-                                    if(response.body().getStatus().equals("OK")){
-                                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                        if(dsBS.length > 0){
-                                            listBS.clear();
-                                            String[] tenBS = new String[dsBS.length];
-                                            int i=0;
-                                            for (getMaTen bs: dsBS ) {
-                                                listBS.add(bs);
-                                                tenBS[i] = bs.getTen();
-                                                i++;
-                                            }
-                                            txtBS.setItems(tenBS);
-                                            Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                                public void success(Response<ResponseModel> response) {
+                                    super.success(response);
+                                    getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                                    if(dsBS.length > 0){
+                                        listBS.clear();
+                                        String[] tenBS = new String[dsBS.length];
+                                        int i=0;
+                                        for (getMaTen bs: dsBS ) {
+                                            listBS.add(bs);
+                                            tenBS[i] = bs.getTen();
+                                            i++;
                                         }
+                                        txtBS.setItems(tenBS);
+                                        Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                                     }
                                 }
                             });
@@ -412,28 +410,26 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 } else {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            super.onResponse(call, response);
-                            if (response.body().getStatus().equals("OK")) {
-                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
-                                if (cauhois.length > 0) {
-                                    int i = 0;
-                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
-                                        cauHoiKhaiBaoYTes.add(a);
-                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
-                                                }catch (Exception ex){
-                                                }
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
+                            getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                            if (cauhois.length > 0) {
+                                int i = 0;
+                                for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                    cauHoiKhaiBaoYTes.add(a);
+                                    CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                            }catch (Exception ex){
                                             }
-                                        }).start();
-                                    }
+                                        }
+                                    }).start();
                                 }
-                                KhaiBaoYTeADT.notifyDataSetChanged();
                             }
+                            KhaiBaoYTeADT.notifyDataSetChanged();
                         }
                     });
                 }
@@ -656,6 +652,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                                     i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
                                     i.putExtra("FullName",FullName);
                                     i.putExtra("urlImage",urlImage);
+                                    i.putExtra("loai",3);
                                     i.putExtra("QR",response.body().getData());
                                     startActivity(i);
                                     finish();

@@ -72,9 +72,10 @@ public class ThongTinFragment extends BaseFragment {
                     Log.d(TAG,"localDATA");
                 }else{
                     mAPIService.getTinTuc(APIKey).enqueue(new CallbackResponse(getActivity()){
+
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            super.onResponse(call, response);
+                        public void success(Response<ResponseModel> response) {
+                            super.success(response);
                             getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(),getTinTuc[].class);
                             if(tinTucs.length > 0){
                                 int i=0;

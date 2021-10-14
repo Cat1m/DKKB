@@ -102,7 +102,11 @@ public class ServiceSyncDATA extends Service {
                 Log.d(TAG," respone code : "+ response.code() + " respone body: "+ response.body());
                 return;
             }
+            if(response.isSuccessful() && response.body().getStatus().equals("OK")){
+                success(response);
+            }
         }
+        public void success(Response<ResponseModel> response ){}
 
         @Override
         public void onFailure(Call<ResponseModel> call, Throwable t) {
@@ -137,8 +141,6 @@ public class ServiceSyncDATA extends Service {
         dichvuDAO = database.dichVuDAO();
         loaiDichVuDAO = database.loaiDichVuDAO();
 
-        String dateNOW= new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
-
         //service Update Location run one
         String currentYearMonth = new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date());
         try {
@@ -153,10 +155,11 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getPreferencesKey(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 PreferencesKey = response.body().getMessenge();
             }
+
         });
 
         new Handler().postDelayed(new Runnable() {
@@ -193,8 +196,8 @@ public class ServiceSyncDATA extends Service {
     private void updateData(){
         mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
                 new Thread(new Runnable() {
                     @Override
@@ -213,8 +216,8 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getTinTuc(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(), getTinTuc[].class);
                 new Thread(new Runnable() {
                     @Override
@@ -233,8 +236,8 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getMaTen[] bacSi = new Gson().fromJson(response.body().getData(), getMaTen[].class);
                 new Thread(new Runnable() {
                     @Override
@@ -253,8 +256,8 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getDanToc(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getMaTen[] danToc = new Gson().fromJson(response.body().getData(), getMaTen[].class);
                 new Thread(new Runnable() {
                     @Override
@@ -273,8 +276,8 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getLoaiDichVu(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getNhomDichVu[] loaidv = new Gson().fromJson(response.body().getData(), getNhomDichVu[].class);
                 new Thread(new Runnable() {
                     @Override
@@ -293,8 +296,8 @@ public class ServiceSyncDATA extends Service {
 
         mAPIService.getDichVu(APIKey).enqueue(new CallBack(){
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                super.onResponse(call, response);
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
                 getDichVu[] dv = new Gson().fromJson(response.body().getData(),getDichVu[].class);
                 new Thread(new Runnable() {
                     @Override
