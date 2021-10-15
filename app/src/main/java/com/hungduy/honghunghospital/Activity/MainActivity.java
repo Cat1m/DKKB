@@ -283,7 +283,9 @@ public class MainActivity extends BaseActivity {
         String usernamePreferences = getStringPreferences(preferences,"username");
         String passwordPreferences = getStringPreferences(preferences,"password");
         if(usernamePreferences.isEmpty() || passwordPreferences.isEmpty()) {
-            svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+            if(imgHome.getTag().equals("1")) {
+                svTrangChu.setBackgroundColor(getResources().getColor(R.color.white));
+            }
         }else{
             svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
         }

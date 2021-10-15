@@ -33,6 +33,7 @@ import com.hungduy.honghunghospital.Database.Model.TinhThanh;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
@@ -486,6 +487,16 @@ public class RegisterActivity extends BaseActivity {
                                 "Mật khẩu Không khớp",R.drawable.password_drbl);
                         return;
                     }
+                    dialog_loading.show();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(dialog_loading.isShowing()){
+                                dialog_loading.dismiss();
+                            }
+                        }
+                    },2000);
 
                     btnLuu.setEnabled(false);
 
@@ -497,14 +508,18 @@ public class RegisterActivity extends BaseActivity {
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new Callback<ResponseModel>() {
                             @Override
                             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                String[] url = new Gson().fromJson(response.body().getData(), String[].class);
-                                imgUserURL = url[0];
-                                Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                try {
+                                    String[] url = new Gson().fromJson(response.body().getData(), String[].class);
+                                    imgUserURL = url[0];
+                                    Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception e){
+                                    imgUserURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                                }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                                imgUserURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
                             }
                         });
                     }
@@ -517,14 +532,18 @@ public class RegisterActivity extends BaseActivity {
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new Callback<ResponseModel>() {
                             @Override
                             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                String[] url = new Gson().fromJson(response.body().getData(), String[].class);
-                                imgBHYTURL = url[0];
-                                Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                try {
+                                    String[] url = new Gson().fromJson(response.body().getData(), String[].class);
+                                    imgBHYTURL = url[0];
+                                    Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception e){
+                                    imgBHYTURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                                }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                                imgBHYTURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
                             }
                         });
                     }
@@ -537,29 +556,18 @@ public class RegisterActivity extends BaseActivity {
                                     ,maquanhuyen,maphuongxa,maapkhupho,maquoctich,txtSDT.getText().toString(),txtPassword.getText().toString(),
                                     txtDiaChi.getText().toString(),txtCMND.getText().toString(),txtMaBHYT.getText().toString(),imgUserURL,imgBHYTURL);
                             u.setDantoc(madantoc);
-                            mAPIService.setUser(APIKey,u).enqueue(new Callback<ResponseModel>() {
+                            mAPIService.setUser(APIKey,u).enqueue(new CallbackResponse(RegisterActivity.this){
                                 @Override
-                                public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                                    if(response.isSuccessful()){
-                                        if(response.body().getStatus().equals("OK")){
-                                            //to do Update Image
-                                            ThongBao(RegisterActivity.this, "Thành công", "Đăng kí thành công !!",
-                                                    R.drawable.connection_error, new FancyGifDialogListener() {
-                                                        @Override
-                                                        public void OnClick() {
-                                                            finish();
-                                                        }
-                                                    });
-                                        }else{
-                                            ThongBao(RegisterActivity.this, "Đã có lỗi xảy ra", response.body().getMessenge()
-                                                    ,R.drawable.connection_error);
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                                public void success(Response<ResponseModel> response) {
+                                    super.success(response);
+                                    dialog_loading.dismiss();
+                                    ThongBao(RegisterActivity.this, "Thành công", "Đăng kí thành công !!",
+                                            R.drawable.connection_error, new FancyGifDialogListener() {
+                                                @Override
+                                                public void OnClick() {
+                                                    finish();
+                                                }
+                                            });
                                 }
                             });
                         }
