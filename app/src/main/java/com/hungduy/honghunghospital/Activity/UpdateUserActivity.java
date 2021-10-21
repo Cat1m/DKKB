@@ -516,6 +516,8 @@ public class UpdateUserActivity extends BaseActivity {
                                 public void run() {
                                     if(dialog_loading.isShowing()){
                                         dialog_loading.dismiss();
+                                        btnLuu.setEnabled(true);
+                                        btnLuu.setAlpha(1);
                                     }
                                 }
                             });
@@ -614,11 +616,7 @@ public class UpdateUserActivity extends BaseActivity {
                 }
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -842,7 +840,6 @@ public class UpdateUserActivity extends BaseActivity {
                 }
             }
         }, 500);
-
     }
 
     private void initView() {
