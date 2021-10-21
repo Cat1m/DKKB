@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "270206841724",
+    "firebase_url": "https://qlcongviec-fb3e0.firebaseio.com",
+    "project_id": "qlcongviec-fb3e0",
+    "storage_bucket": "qlcongviec-fb3e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270206841724:android:4e20e9763b250f5005aaf9",
+        "android_client_info": {
+          "package_name": "com.hungduy.crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzy18u-3EnYmGZrtSpNtzT-hOt6z3FICM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270206841724:android:5971b66b3b37090c05aaf9",
+        "android_client_info": {
+          "package_name": "com.hungduy.honghunghospital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzy18u-3EnYmGZrtSpNtzT-hOt6z3FICM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270206841724:android:94ec704f8ad41a8505aaf9",
+        "android_client_info": {
+          "package_name": "com.hungduy.qlcongviec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270206841724-venjc7p1007ralchfjafifnvb46nugj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hungduy.qlcongviec",
+            "certificate_hash": "1b6a34efd9a903da3d54f70aadc1edac0c0015bc"
+          }
+        },
+        {
+          "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzy18u-3EnYmGZrtSpNtzT-hOt6z3FICM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
