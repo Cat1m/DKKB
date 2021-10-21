@@ -12,6 +12,10 @@ public class TinTuc {
     @ColumnInfo(name = "ID")
     private int ID;
 
+    @NonNull
+    @ColumnInfo(name = "Loai")
+    private int Loai;
+
     @ColumnInfo(name = "Title")
     private String Title;
 
@@ -24,11 +28,20 @@ public class TinTuc {
     public TinTuc() {
     }
 
-    public TinTuc(int ID, String title, String URL, String moTa) {
+    public TinTuc(int ID, int loai, String title, String URL, String moTa) {
         this.ID = ID;
+        Loai = loai;
         Title = title;
         this.URL = URL;
         MoTa = moTa;
+    }
+
+    public int getLoai() {
+        return Loai;
+    }
+
+    public void setLoai(int loai) {
+        Loai = loai;
     }
 
     public int getID() {

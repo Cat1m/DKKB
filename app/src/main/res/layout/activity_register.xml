@@ -47,486 +47,393 @@
                 app:srcCompat="@drawable/logo_nen" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:overScrollMode="never"
-            android:scrollbarStyle="@null"
-            android:scrollbars="none"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="-10dp"
                 android:background="@android:color/transparent"
-                android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imgUserAVT"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginEnd="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="@+id/view2"
-                        app:layout_constraintEnd_toEndOf="@+id/view2"
-                        app:layout_constraintStart_toStartOf="@+id/view2"
-                        app:layout_constraintTop_toTopOf="@+id/view2"
-                        app:srcCompat="@drawable/avatar_user_empty" />
-
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:background="@drawable/shape_avatar_empty_user"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                android:overScrollMode="never"
+                android:scrollbarStyle="@null"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toTopOf="@+id/include19"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="@string/txt_ho_va_ten"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/txtNhomDV"
-                        android:layout_width="334dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="@string/txt_ngay_thang_nam_sinh"
-                            android:textColor="@color/textColorGreen"
-                            android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView3"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="15dp"
-                            app:cardCornerRadius="7dp"
-                            app:cardElevation="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-                            <TextView
-                                android:id="@+id/txtNgaySinh"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="26"
-                                android:textSize="16sp" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView4"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="5dp"
-                            app:cardCornerRadius="7dp"
-                            app:cardElevation="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/cardView3"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-                            <TextView
-                                android:id="@+id/txtThangSinh"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="01"
-                                android:textSize="16sp" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardView"
-                            android:layout_width="70dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="5dp"
-                            app:cardCornerRadius="7dp"
-                            app:cardElevation="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/cardView4"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-                            <TextView
-                                android:id="@+id/txtNamSinh"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="1997"
-                                android:textSize="16sp" />
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="Giới tính(*)"
-                            android:textColor="@color/textColorGreen"
-                            android:textSize="18sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="115dp"
-                            android:layout_height="50dp"
+                        <ImageView
+                            android:id="@+id/imgUserAVT"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
                             android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="@+id/view2"
+                            app:layout_constraintEnd_toEndOf="@+id/view2"
+                            app:layout_constraintStart_toStartOf="@+id/view2"
+                            app:layout_constraintTop_toTopOf="@+id/view2"
+                            app:srcCompat="@drawable/avatar_user_empty" />
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/shape_avatar_empty_user"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-                            <RadioButton
-                                android:id="@+id/chkKhac"
-                                android:layout_width="wrap_content"
-                                android:layout_height="20dp"
-                                android:fontFamily="@font/myriadpro_semiext"
-                                android:scaleX="0.7"
-                                android:scaleY="0.7"
-                                android:text="Khác"
-                                android:textColor="@color/textColorGreen"
-                                android:textColorLink="@color/textColorGreen"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/chkNam"
-                                app:layout_constraintTop_toBottomOf="@+id/chkNam"
-                                tools:ignore="TouchTargetSizeCheck" />
-
-                            <RadioButton
-                                android:id="@+id/chkNu"
-                                android:layout_width="wrap_content"
-                                android:layout_height="20dp"
-                                android:fontFamily="@font/myriadpro_semiext"
-                                android:scaleX="0.7"
-                                android:scaleY="0.7"
-                                android:text="Nữ"
-                                android:textColor="@color/textColorGreen"
-                                app:layout_constraintBottom_toBottomOf="@+id/chkNam"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/chkNam"
-                                tools:ignore="TouchTargetSizeCheck" />
-
-                            <RadioButton
-                                android:id="@+id/chkNam"
-                                android:layout_width="wrap_content"
-                                android:layout_height="20dp"
-                                android:checked="true"
-                                android:fontFamily="@font/myriadpro_semiext"
-                                android:scaleX="0.7"
-                                android:scaleY="0.7"
-                                android:text="Nam"
-                                android:textColor="@color/textColorGreen"
-                                app:layout_constraintBottom_toTopOf="@+id/chkKhac"
-                                app:layout_constraintEnd_toStartOf="@+id/chkNu"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="TouchTargetSizeCheck" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Địa chỉ thường trú hoặc tạm trú(*)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <include
-                        layout="@layout/item_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Quốc tịch(*)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <jrizani.jrspinner.JRSpinner
-                        android:id="@+id/txtQuocTich"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        app:jrs_multiple="false"
-                        app:jrs_title="Chọn tỉnh thành"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Hộ chiếu/CMND/CCCD"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/txtCMND"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="number"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Mã số thẻ BHYT"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/txtMaBHYT"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Hình mặt trước thẻ BHYT"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:layout_margin="13dp"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="10dp">
-
-                        <ImageView
-                            android:id="@+id/imgBHYT"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/bhyt" />
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/myriadpro_semiboldsemiext"
-                        android:text="Số điện thoại(*)"
-                        android:textColor="@color/textColorGreen"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/txtSDT"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="6dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_edittext_have_focus"
-                        android:ems="10"
-                        android:fontFamily="@font/myriadpro_semiext"
-                        android:inputType="text"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:translationZ="5dp"
-                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
                     <LinearLayout
-                        android:id="@+id/ViewRegister"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="Mật khẩu (*)"
+                            android:text="@string/txt_ho_va_ten"
                             android:textColor="@color/textColorGreen"
                             android:textSize="18sp" />
 
                         <EditText
-                            android:id="@+id/txtPassword"
-                            android:layout_width="match_parent"
+                            android:id="@+id/txtNhomDV"
+                            android:layout_width="334dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
-                            android:layout_margin="6dp"
+                            android:layout_margin="5dp"
                             android:layout_marginBottom="3dp"
                             android:background="@drawable/shape_edittext_have_focus"
                             android:ems="10"
                             android:fontFamily="@font/myriadpro_semiext"
-                            android:inputType="textPassword"
+                            android:inputType="text"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:translationZ="5dp"
                             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-                        <TextView
-                            android:id="@+id/textView3"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="Nhập lại mật khẩu (*)"
-                            android:textColor="@color/textColorGreen"
-                            android:textSize="18sp" />
-
-                        <EditText
-                            android:id="@+id/txtReEnterPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/shape_edittext_have_focus"
-                            android:ems="10"
-                            android:fontFamily="@font/myriadpro_semiext"
-                            android:inputType="textPassword"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:translationZ="5dp"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                        <View
-                            android:id="@+id/view14"
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ViewUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiboldsemiext"
-                            android:text="Mật khẩu (*)"
-                            android:textColor="@color/textColorGreen"
-                            android:textSize="18sp" />
-
-                        <EditText
-                            android:id="@+id/txtOldPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="6dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="@drawable/shape_edittext_have_focus"
-                            android:ems="10"
-                            android:fontFamily="@font/myriadpro_semiext"
-                            android:inputType="textPassword"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:translationZ="5dp"
-                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                        <Switch
-                            android:id="@+id/swDoiMatKhau"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/myriadpro_semiext"
-                            android:padding="5dp"
-                            android:text="Đổi mật khẩu"
-                            android:textColor="@color/textColorGreen" />
-
-                        <LinearLayout
-                            android:id="@+id/viewNewPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            tools:visibility="gone">
+                            android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/textView30"
+                                android:id="@+id/textView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="@string/txt_ngay_thang_nam_sinh"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView3"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="15dp"
+                                app:cardCornerRadius="7dp"
+                                app:cardElevation="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                <TextView
+                                    android:id="@+id/txtNgaySinh"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="26"
+                                    android:textSize="16sp" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView4"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="5dp"
+                                app:cardCornerRadius="7dp"
+                                app:cardElevation="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                <TextView
+                                    android:id="@+id/txtThangSinh"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="01"
+                                    android:textSize="16sp" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView"
+                                android:layout_width="70dp"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="5dp"
+                                app:cardCornerRadius="7dp"
+                                app:cardElevation="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/cardView4"
+                                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                <TextView
+                                    android:id="@+id/txtNamSinh"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="1997"
+                                    android:textSize="16sp" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Giới tính(*)"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="115dp"
+                                android:layout_height="50dp"
+                                android:layout_marginTop="1dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                                <RadioButton
+                                    android:id="@+id/chkKhac"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:fontFamily="@font/myriadpro_semiext"
+                                    android:scaleX="0.7"
+                                    android:scaleY="0.7"
+                                    android:text="Khác"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textColorLink="@color/textColorGreen"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/chkNam"
+                                    app:layout_constraintTop_toBottomOf="@+id/chkNam"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+                                <RadioButton
+                                    android:id="@+id/chkNu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:fontFamily="@font/myriadpro_semiext"
+                                    android:scaleX="0.7"
+                                    android:scaleY="0.7"
+                                    android:text="Nữ"
+                                    android:textColor="@color/textColorGreen"
+                                    app:layout_constraintBottom_toBottomOf="@+id/chkNam"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/chkNam"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+                                <RadioButton
+                                    android:id="@+id/chkNam"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:checked="true"
+                                    android:fontFamily="@font/myriadpro_semiext"
+                                    android:scaleX="0.7"
+                                    android:scaleY="0.7"
+                                    android:text="Nam"
+                                    android:textColor="@color/textColorGreen"
+                                    app:layout_constraintBottom_toTopOf="@+id/chkKhac"
+                                    app:layout_constraintEnd_toStartOf="@+id/chkNu"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:ignore="TouchTargetSizeCheck" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Địa chỉ thường trú hoặc tạm trú(*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <include
+                            layout="@layout/item_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Quốc tịch(*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <jrizani.jrspinner.JRSpinner
+                            android:id="@+id/txtQuocTich"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="text"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            app:jrs_multiple="false"
+                            app:jrs_title="Chọn tỉnh thành"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Hộ chiếu/CMND/CCCD"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/txtCMND"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="number"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Mã số thẻ BHYT"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/txtMaBHYT"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="text"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Hình mặt trước thẻ BHYT"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:layout_margin="13dp"
+                            app:cardCornerRadius="18dp"
+                            app:cardElevation="10dp">
+
+                            <ImageView
+                                android:id="@+id/imgBHYT"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/bhyt" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/myriadpro_semiboldsemiext"
+                            android:text="Số điện thoại(*)"
+                            android:textColor="@color/textColorGreen"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/txtSDT"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="6dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/shape_edittext_have_focus"
+                            android:ems="10"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:inputType="text"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:translationZ="5dp"
+                            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <LinearLayout
+                            android:id="@+id/ViewRegister"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/myriadpro_semiboldsemiext"
-                                android:text="Nhập mật khẩu mới (*)"
+                                android:text="Mật khẩu (*)"
                                 android:textColor="@color/textColorGreen"
                                 android:textSize="18sp" />
 
                             <EditText
-                                android:id="@+id/txtNewPassword"
+                                android:id="@+id/txtPassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:layout_gravity="center"
@@ -542,6 +449,7 @@
                                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                             <TextView
+                                android:id="@+id/textView3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/myriadpro_semiboldsemiext"
@@ -550,12 +458,11 @@
                                 android:textSize="18sp" />
 
                             <EditText
-                                android:id="@+id/txtReEnterNewPassword"
+                                android:id="@+id/txtReEnterPassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="6dp"
-                                android:layout_marginBottom="3dp"
                                 android:background="@drawable/shape_edittext_have_focus"
                                 android:ems="10"
                                 android:fontFamily="@font/myriadpro_semiext"
@@ -566,68 +473,167 @@
                                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                             <View
-                                android:id="@+id/view15"
+                                android:id="@+id/view14"
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ViewUpdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                android:text="Mật khẩu (*)"
+                                android:textColor="@color/textColorGreen"
+                                android:textSize="18sp" />
+
+                            <EditText
+                                android:id="@+id/txtOldPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="6dp"
+                                android:layout_marginBottom="3dp"
+                                android:background="@drawable/shape_edittext_have_focus"
+                                android:ems="10"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:inputType="textPassword"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:translationZ="5dp"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                            <Switch
+                                android:id="@+id/swDoiMatKhau"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/myriadpro_semiext"
+                                android:padding="5dp"
+                                android:text="Đổi mật khẩu"
+                                android:textColor="@color/textColorGreen" />
+
+                            <LinearLayout
+                                android:id="@+id/viewNewPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                tools:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/textView30"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Nhập mật khẩu mới (*)"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="18sp" />
+
+                                <EditText
+                                    android:id="@+id/txtNewPassword"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="6dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:ems="10"
+                                    android:fontFamily="@font/myriadpro_semiext"
+                                    android:inputType="textPassword"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:translationZ="5dp"
+                                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                                    android:text="Nhập lại mật khẩu (*)"
+                                    android:textColor="@color/textColorGreen"
+                                    android:textSize="18sp" />
+
+                                <EditText
+                                    android:id="@+id/txtReEnterNewPassword"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="6dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:background="@drawable/shape_edittext_have_focus"
+                                    android:ems="10"
+                                    android:fontFamily="@font/myriadpro_semiext"
+                                    android:inputType="textPassword"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:translationZ="5dp"
+                                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                                <View
+                                    android:id="@+id/view15"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="10dp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="30dp">
+
+                            <Button
+                                android:id="@+id/btnThoat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_marginBottom="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_shape_green"
+                                android:minWidth="130dp"
+                                android:text="Thoát"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:translationZ="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <Button
+                                android:id="@+id/btnLuu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_marginBottom="40dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_shape_blue"
+                                android:minWidth="130dp"
+                                android:text="Lưu"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:translationZ="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/btnThoat"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="30dp">
-
-                        <Button
-                            android:id="@+id/btnThoat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/btn_shape_green"
-                            android:minWidth="130dp"
-                            android:text="Thoát"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:translationZ="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/btnLuu"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:id="@+id/btnLuu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginBottom="40dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/btn_shape_blue"
-                            android:minWidth="130dp"
-                            android:text="Lưu"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:translationZ="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/btnThoat"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </ScrollView>
 
             <include
-                layout="@layout/item_offline_mode"
+                android:id="@+id/include19"
+                layout="@layout/item_footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -635,6 +641,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -7,6 +7,9 @@ public class getTinTuc {
     @SerializedName("ma")
     @Expose
     private Integer ma;
+    @SerializedName("loai")
+    @Expose
+    private Integer loai;
     @SerializedName("ten")
     @Expose
     private String ten;
@@ -17,14 +20,24 @@ public class getTinTuc {
     @Expose
     private String url;
 
-    public getTinTuc(Integer ma, String ten, String mota, String url) {
+
+    public getTinTuc() {
+    }
+
+    public getTinTuc(Integer ma, Integer loai, String ten, String mota, String url) {
         this.ma = ma;
+        this.loai = loai;
         this.ten = ten;
         this.mota = mota;
         this.url = url;
     }
 
-    public getTinTuc() {
+    public Integer getLoai() {
+        return loai;
+    }
+
+    public void setLoai(Integer loai) {
+        this.loai = loai;
     }
 
     public Integer getMa() {

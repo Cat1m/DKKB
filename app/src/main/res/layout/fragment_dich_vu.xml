@@ -179,6 +179,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/myriadpor_semiboldextit"
                         android:gravity="center"
+                        android:lineSpacingExtra="3sp"
                         android:text="@string/txt_dichvu_lienhe_hotline" />
 
                 </LinearLayout>

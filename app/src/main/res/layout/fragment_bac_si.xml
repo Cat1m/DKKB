@@ -178,6 +178,7 @@
                         android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:fontFamily="@font/myriadpro_semiext"
+                        android:lineSpacingExtra="5sp"
                         android:maxLines="4"
                         android:padding="10dp" />
 
@@ -712,6 +713,8 @@
                     android:id="@+id/textView29"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:lineSpacingExtra="5sp"
                     android:paddingLeft="10dp"
                     android:text="Ghi chú:\n - Sáng 7:00 - 12:00\n - Chiều 13:00 - 16:00" />
 

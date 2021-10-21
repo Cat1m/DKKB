@@ -49,5 +49,6 @@
     <string name="txt_offline_mode">Kết nối đến máy chủ bị mất !</string>
     <string name="txt_chon_khoan_thoi_gian_tra_cuu_lich_su_kham">Chọn khoảng thời gian\ntra cứu lịch sử khám bệnh</string>
     <string name="txt_thong_tin_lich_su_kham_chua_benh">Thông tin: Lịch sử khám chữa bệnh</string>
+    <string name="txt_chon_1_trong_4_hinh_thuc_sau">Phần đăng kí khám bệnh<br/>\n<i><small>(Chọn 1 trong 4 hình thức sau)</small></i></string>
     <!-- uCrop string resource end -->
 </resources>

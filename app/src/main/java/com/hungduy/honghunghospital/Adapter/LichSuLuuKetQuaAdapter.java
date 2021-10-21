@@ -90,6 +90,7 @@ public class LichSuLuuKetQuaAdapter extends RecyclerView.Adapter<LichSuLuuKetQua
                     i.putExtra("QR",kq.getMaQR());
                     i.putExtra("isReview",true);
                     activity.startActivity(i);
+                    activity.finish();
                 }
             }
         });

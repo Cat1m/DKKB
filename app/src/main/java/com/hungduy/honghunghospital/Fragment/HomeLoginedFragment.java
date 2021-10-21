@@ -44,7 +44,6 @@ public class HomeLoginedFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     public void Logined(boolean logined){

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Adapter.TinTucAdapter;
+import com.hungduy.honghunghospital.Adapter.TinTucHorizontalAdapter;
 import com.hungduy.honghunghospital.Database.Model.TinTuc;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
@@ -39,8 +40,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ThongTinFragment extends BaseFragment {
-    private ArrayList<getTinTuc> getTinTucs= new ArrayList<>();
-    private RecyclerView rcViewTinTuc;
+    private ArrayList<getTinTuc> getTinTucChuongTrinhUuDai= new ArrayList<>();
+    private ArrayList<getTinTuc> getTinTucThongBaoQuyDinh= new ArrayList<>();
+    private ArrayList<getTinTuc> getTinTucKhac= new ArrayList<>();
+    private RecyclerView rcChuongTrinh,rcThongBaoQuyDinh,rcThongBaoKhac;
 
     public ThongTinFragment() {
     }
@@ -55,48 +58,85 @@ public class ThongTinFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         mapView(view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        TinTucAdapter tinTucADT= new TinTucAdapter(getTinTucs,getContext(), getActivity());
-        rcViewTinTuc.setAdapter(tinTucADT);
-        rcViewTinTuc.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManagerHo = new LinearLayoutManager(getContext());
+        linearLayoutManagerHo.setOrientation(RecyclerView.HORIZONTAL);
+        TinTucHorizontalAdapter tinTucHoADT= new TinTucHorizontalAdapter(getTinTucChuongTrinhUuDai,getContext(), getActivity());
+        rcChuongTrinh.setAdapter(tinTucHoADT);
+        rcChuongTrinh.setLayoutManager(linearLayoutManagerHo);
 
-        new Thread(new Runnable() {
+        LinearLayoutManager layoutQD = new LinearLayoutManager(getContext());
+        TinTucAdapter QuyDinhADT= new TinTucAdapter(getTinTucThongBaoQuyDinh,getContext(), getActivity());
+        rcThongBaoQuyDinh.setAdapter(QuyDinhADT);
+        rcThongBaoQuyDinh.setLayoutManager(layoutQD);
+
+
+        LinearLayoutManager layoutKhac = new LinearLayoutManager(getContext());
+        TinTucAdapter KhacADT= new TinTucAdapter(getTinTucKhac,getContext(), getActivity());
+        rcThongBaoKhac.setAdapter(KhacADT);
+        rcThongBaoKhac.setLayoutManager(layoutKhac);
+
+
+      /*  new Thread(new Runnable() {
             @Override
             public void run() {
                 getTinTucs.clear();
+                getTinTucChuongTrinhUuDai.clear();
                 if(tinTucDAO.getAll().size() > 0){
                     for(TinTuc a : tinTucDAO.getAll()){
-                        getTinTucs.add(new getTinTuc(a.getID(),a.getTitle(),a.getMoTa(),a.getURL()));
+                        getTinTucs.add(new getTinTuc(a.getID(),a.getLoai(),a.getTitle(),a.getMoTa(),a.getURL()));
+                        if(a.getLoai() == 4){
+                            getTinTucChuongTrinhUuDai.add(new getTinTuc(a.getID(),a.getLoai(),a.getTitle(),a.getMoTa(),a.getURL()));
+                            tinTucHoADT.notifyDataSetChanged();
+                        }
+                        if(a.getLoai() == 1){
+                            getTinTucThongBaoQuyDinh.add(new getTinTuc(a.getID(),a.getLoai(),a.getTitle(),a.getMoTa(),a.getURL()));
+                            QuyDinhADT.notifyDataSetChanged();
+                        }
                         tinTucADT.notifyDataSetChanged();
                     }
                     Log.d(TAG,"localDATA");
                 }else{
-                    mAPIService.getTinTuc(APIKey).enqueue(new CallbackResponse(getActivity()){
 
-                        @Override
-                        public void success(Response<ResponseModel> response) {
-                            super.success(response);
-                            getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(),getTinTuc[].class);
-                            if(tinTucs.length > 0){
-                                int i=0;
-                                for (getTinTuc a: tinTucs) {
-                                    getTinTucs.add(a);
-                                    tinTucADT.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    });
                 }
             }
-        }).start();
+        });*/ // code này đang lỗi
+
+        mAPIService.getTinTuc(APIKey).enqueue(new CallbackResponse(getActivity()){
+            @Override
+            public void success(Response<ResponseModel> response) {
+                super.success(response);
+                getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(),getTinTuc[].class);
+                if(tinTucs.length > 0){
+                    int i=0;
+                    getTinTucChuongTrinhUuDai.clear();
+                    getTinTucThongBaoQuyDinh.clear();
+                    getTinTucKhac.clear();
+                    for (getTinTuc a: tinTucs) {
+                        if(a.getLoai() == 4){
+                            getTinTucChuongTrinhUuDai.add(a);
+                            tinTucHoADT.notifyDataSetChanged();
+                        }
+                        if(a.getLoai() == 1){
+                            getTinTucThongBaoQuyDinh.add(a);
+                            QuyDinhADT.notifyDataSetChanged();
+                        }
+                        if(a.getLoai() == 3){
+                            getTinTucKhac.add(a);
+                            KhacADT.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        });
 
 
 
     }
 
     private void mapView(View view) {
-        rcViewTinTuc = view.findViewById(R.id.rcViewTinTuc);
-
+        rcThongBaoKhac = view.findViewById(R.id.rcThongBaoKhac);
+        rcChuongTrinh = view.findViewById(R.id.rcChuongTrinh);
+        rcThongBaoQuyDinh = view.findViewById(R.id.rcThongBaoQuyDinh);
     }
 
     @Override

@@ -149,8 +149,6 @@ public class ServiceSyncDATA extends Service {
         }
 
 
-
-
         mAPIService = ApiUtils.getAPIService();// register API services
 
         mAPIService.getPreferencesKey(APIKey).enqueue(new CallBack(){
@@ -225,7 +223,7 @@ public class ServiceSyncDATA extends Service {
                         if ((tinTucs.length > tinTucDAO.getAll().size() && tinTucs.length > 0) || forceUpdate){
                             tinTucDAO.deleteAll();
                             for (getTinTuc a : tinTucs) {
-                                tinTucDAO.insert(new TinTuc(a.getMa(), a.getTen(), a.getUrl(), a.getMota()));
+                                tinTucDAO.insert(new TinTuc(a.getMa(),a.getLoai(), a.getTen(), a.getUrl(), a.getMota()));
                             }
                             Log.d(TAG,"Get data Tin Tuc");
                         }

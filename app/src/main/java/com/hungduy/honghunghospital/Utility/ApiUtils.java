@@ -2,7 +2,7 @@ package com.hungduy.honghunghospital.Utility;
 
 public class ApiUtils {
     private ApiUtils() {}
-  //public static final String BASE_URL = "https://api.nguyentri.tech/api/app/";
+   // public static final String BASE_URL = "https://api.nguyentri.xyz/api/app/";
     public static final String BASE_URL = "https://app.honghunghospital.com.vn/api/app/";
     //public static final String BASE_URL = "https://a.hungduy.vn/api/qlcongviecVer2/";
 

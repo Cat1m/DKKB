@@ -55,11 +55,12 @@
                 android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="-10dp"
                 android:background="@android:color/transparent"
                 android:overScrollMode="never"
                 android:scrollbarStyle="@null"
                 android:scrollbars="none"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/include12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -271,6 +272,16 @@
 
                 </LinearLayout>
             </ScrollView>
+
+            <include
+                android:id="@+id/include12"
+                layout="@layout/item_footer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

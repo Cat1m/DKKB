@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.usage.UsageEvents;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getUser;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.ServiceSyncDATA;
 import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
@@ -70,6 +72,7 @@ public class MainActivity extends BaseActivity {
     private ThongTinFragment ThongTinFM;
 
     private boolean Connected = true;
+    public int viewNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,7 @@ public class MainActivity extends BaseActivity {
 
         mapView();
         btnMainClick();
+        super.setMainActivity(this);
 
         loginFM = new LoginFragment();
         BacSiFM = new BacSiFragment();
@@ -253,9 +257,32 @@ public class MainActivity extends BaseActivity {
         imgLichBS.setTag("0");
         imgDichVu.setTag("0");
         imgTinTuc.setTag("0");
-
-
     }
+
+    private void setSvTrangChu(int a){
+        switch (a){
+            case 1 :
+                btnHome.callOnClick();
+                viewNum = 0;
+                break;
+            case 2 :
+                btnLichBS.callOnClick();
+                viewNum = 0;
+                break;
+            case 3 :
+                btnDichVu.callOnClick();
+                viewNum = 0;
+                break;
+            case 4 :
+                btnTinTuc.callOnClick();
+                viewNum = 0;
+                break;
+            default:
+                viewNum = 0;
+                break;
+        }
+    }
+
 
     private void clearBtnColor(){
         if(imgHome.getTag().toString().equals("1")){
@@ -289,6 +316,7 @@ public class MainActivity extends BaseActivity {
         }else{
             svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
         }
+        setSvTrangChu(viewNum);
     }
 
     private void btnMainClick() {
@@ -360,6 +388,14 @@ public class MainActivity extends BaseActivity {
         imgDichVu = findViewById(R.id.imgDichVu);
         imgTinTuc = findViewById(R.id.imgTinTuc);
         svTrangChu = findViewById(R.id.svTrangChu);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Intent serviceIntent = new Intent(this, ServiceSyncDATA.class);
+        startService(serviceIntent);
+
     }
 
 

@@ -8,6 +8,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,7 +100,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean isConnected;
     protected boolean noibo;
     protected Dialog dialog_loading;
+    protected static MainActivity mContext;
+
     private ConnectivityStatusReceiver connectivityStatusReceiver;
+
+
+    private LinearLayout btnHome,btnLichBS,btnDichVu,btnTinTuc;
+    private ImageView imgHome;
+
+
 
     public void Disconnect(){
         if(txtOfflineMode != null){
@@ -194,11 +204,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         connectivityStatusReceiver = new ConnectivityStatusReceiver();
         connectivityStatusReceiver.setActivity(this);
-
     }
 
 
-
+    public void setMainActivity(MainActivity a){
+        this.mContext = a;
+    }
 
     @Override
     protected void onStart() {
@@ -290,7 +301,66 @@ public abstract class BaseActivity extends AppCompatActivity {
         }catch (Exception ex){
 
         }
+
+        if(!TAG.equals("MainActivity")){
+            try {
+                btnHome = findViewById(R.id.btnHome);
+                btnLichBS = findViewById(R.id.btnLichBS);
+                btnDichVu = findViewById(R.id.btnDichVu);
+                btnTinTuc = findViewById(R.id.btnTinTuc);
+                imgHome = findViewById(R.id.imgHome);
+                imgHome.setImageBitmap(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.homepage_gray));
+            }catch (Exception ex){
+                Log.d(TAG, ex.getMessage());
+            }
+            try{
+                btnHome.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.viewNum = 1;
+                        finish();
+                    }
+                });
+                btnLichBS.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            mContext.viewNum = 2;
+                        } catch (Exception e) {
+                            Log.d(TAG, e.getMessage());
+                        }
+                        finish();
+                    }
+                });
+                btnDichVu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            mContext.viewNum = 3;
+                        } catch (Exception e) {
+                            Log.d(TAG, e.getMessage());
+                        }
+                        finish();
+                    }
+                });
+                btnTinTuc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            mContext.viewNum = 4;
+                        } catch (Exception e) {
+                            Log.d(TAG, e.getMessage());
+                        }
+                        finish();
+                    }
+                });
+            }catch (Exception e){
+                Log.d(TAG, e.getMessage());
+            }
+        }
+
     }
+
 
 
     @Override
@@ -298,6 +368,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(connectivityStatusReceiver, intentFilter);
+
     }
 
     @Override

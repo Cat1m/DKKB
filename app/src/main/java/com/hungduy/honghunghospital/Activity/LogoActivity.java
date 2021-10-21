@@ -9,15 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hungduy.honghunghospital.R;
 import com.squareup.picasso.Picasso;
 
 public class LogoActivity extends BaseActivity {
     private ImageView imageView3;
-    private ImageView imgLogoBVHH;
-    private ImageView imgUser;
-    private TextView txtDiaChi,txtSDT,txtEmail,txtFacebook,txtWebsite;
+    private ImageView imgWeb,imgFacebook,imgYoutube,imgZalo;
+    private ImageView imgLogoBVHH,imgUser;
+    private TextView txtDiaChi,txtSDT,txtEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class LogoActivity extends BaseActivity {
                     Intent intent = new Intent(LogoActivity.this,WebviewActivity.class);
                     intent.putExtra("url","https://goo.gl/maps/Gm4Ce4jmUVtnMtgi7");
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -63,7 +65,7 @@ public class LogoActivity extends BaseActivity {
             }
         });
 
-        txtFacebook.setOnClickListener(new View.OnClickListener() {
+        imgFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent;
@@ -74,18 +76,56 @@ public class LogoActivity extends BaseActivity {
                     intent = new Intent(LogoActivity.this,WebviewActivity.class);
                     intent.putExtra("url","https://www.facebook.com/161426131359201");
                     startActivity(intent);
+                    finish();
                 }
             }
         });
 
-        txtWebsite.setOnClickListener(new View.OnClickListener() {
+        imgWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LogoActivity.this,WebviewActivity.class);
                 intent.putExtra("url","https://honghunghospital.com.vn");
                 startActivity(intent);
+                finish();
             }
         });
+
+        imgYoutube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String youtubeURL = "https://www.youtube.com/channel/UClJptrMqBjA_q3iRNuvPdNg";
+                Intent youtubeIntent=null;
+                try {
+                    youtubeIntent=new Intent(Intent.ACTION_VIEW);
+                    youtubeIntent.setPackage("com.google.android.youtube");
+                    youtubeIntent.setData(Uri.parse(youtubeURL ));
+                    startActivity(youtubeIntent);
+                } catch (Exception e) {
+                    youtubeIntent = new Intent(LogoActivity.this,WebviewActivity.class);
+                    youtubeIntent.putExtra("url",youtubeURL);
+                    startActivity(youtubeIntent);
+                    finish();
+                }
+            }
+        });
+
+        imgZalo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                String url = "https://zalo.me/1959767744609917092";
+                try {
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setPackage("com.zing.zalo");
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                }catch (Exception ex){
+                    Toast.makeText(LogoActivity.this,"Bạn chưa cài zalo!!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void mapView() {
@@ -93,7 +133,9 @@ public class LogoActivity extends BaseActivity {
         txtDiaChi = findViewById(R.id.txtDiaChi);
         txtSDT = findViewById(R.id.txtSDT);
         txtEmail = findViewById(R.id.txtEmail);
-        txtFacebook = findViewById(R.id.txtFacebook);
-        txtWebsite = findViewById(R.id.txtWebsite);
+        imgWeb = findViewById(R.id.imgWeb);
+        imgFacebook = findViewById(R.id.imgFacebook);
+        imgYoutube = findViewById(R.id.imgYoutube);
+        imgZalo = findViewById(R.id.imgZalo);
     }
 }

@@ -10,6 +10,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hungduy.honghunghospital.R;
@@ -18,12 +19,19 @@ public class WebviewActivity extends BaseActivity {
     private WebView webView;
     private Button btnThoat;
     private String url;
+    private ImageView imgLogoBVHH,imgUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         mapView();
+
+        imgLogoBVHH = findViewById(R.id.imgLogoBVHH);
+        imgLogoBVHH.setEnabled(false);
+
+        imgUser = findViewById(R.id.imgUser);
+        imgUser.setEnabled(false);
 
         Intent intent= getIntent();
         Bundle bundle = intent.getExtras();
