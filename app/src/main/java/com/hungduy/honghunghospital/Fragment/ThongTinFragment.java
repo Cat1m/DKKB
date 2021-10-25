@@ -1,5 +1,6 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.hungduy.honghunghospital.Activity.WebviewActivity;
 import com.hungduy.honghunghospital.Adapter.TinTucAdapter;
 import com.hungduy.honghunghospital.Adapter.TinTucHorizontalAdapter;
 import com.hungduy.honghunghospital.Database.Model.TinTuc;
@@ -44,7 +46,7 @@ public class ThongTinFragment extends BaseFragment {
     private ArrayList<getTinTuc> getTinTucThongBaoQuyDinh= new ArrayList<>();
     private ArrayList<getTinTuc> getTinTucKhac= new ArrayList<>();
     private RecyclerView rcChuongTrinh,rcThongBaoQuyDinh,rcThongBaoKhac;
-
+    private TextView txtThongBao,txtTinKhac;
     public ThongTinFragment() {
     }
 
@@ -128,8 +130,22 @@ public class ThongTinFragment extends BaseFragment {
                 }
             }
         });
-
-
+        txtThongBao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url","https://honghunghospital.com.vn/category/tin-tuc/thong-bao/");
+                startActivity(intent);
+            }
+        });
+        txtTinKhac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url","https://honghunghospital.com.vn/category/tin-tuc/");
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -137,6 +153,8 @@ public class ThongTinFragment extends BaseFragment {
         rcThongBaoKhac = view.findViewById(R.id.rcThongBaoKhac);
         rcChuongTrinh = view.findViewById(R.id.rcChuongTrinh);
         rcThongBaoQuyDinh = view.findViewById(R.id.rcThongBaoQuyDinh);
+        txtThongBao = view.findViewById(R.id.txtThongBao);
+        txtTinKhac = view.findViewById(R.id.txtTinKhac);
     }
 
     @Override

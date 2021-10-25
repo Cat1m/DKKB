@@ -58,7 +58,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -116,13 +117,24 @@
                             android:overScrollMode="never"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:paddingBottom="30dp"
                             android:scrollbars="none"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView32">
 
                         </androidx.recyclerview.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/txtThongBao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/utm_gods_word_r_italic"
+                            android:padding="8dp"
+                            android:text="Xem thêm các tin khác"
+                            android:textColor="@android:color/holo_blue_dark"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rcThongBaoQuyDinh" />
 
                         <TextView
                             android:id="@+id/textView33"
@@ -135,7 +147,7 @@
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/rcThongBaoQuyDinh" />
+                            app:layout_constraintTop_toBottomOf="@+id/txtThongBao" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoKhac"
@@ -146,12 +158,26 @@
                             android:overScrollMode="never"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:paddingBottom="30dp"
                             android:scrollbars="none"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView33">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/txtTinKhac"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="@font/utm_gods_word_r_italic"
+                            android:padding="8dp"
+                            android:text="Xem thêm các tin khác"
+                            android:textColor="@android:color/holo_blue_dark"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rcThongBaoKhac" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
