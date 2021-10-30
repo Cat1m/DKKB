@@ -96,17 +96,28 @@
                         </androidx.recyclerview.widget.RecyclerView>
 
                         <TextView
+                            android:id="@+id/textView111"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:padding="8dp"
+                            android:text="[Trượt ngang để xem thêm]"
+                            android:textColor="@android:color/holo_blue_dark"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rcChuongTrinh" />
+
+                        <TextView
                             android:id="@+id/textView32"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="8dp"
                             android:fontFamily="@font/utm_gods_word_b"
                             android:text="Thông báo &amp; Quy định đang được áp dụng"
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/rcChuongTrinh" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoQuyDinh"

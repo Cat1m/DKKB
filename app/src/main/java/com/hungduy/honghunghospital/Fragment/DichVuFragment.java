@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class DichVuFragment extends BaseFragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mapView(view);
+
 
         txtNhomDV.setItems(new String[0]);
         txtDichVu.setItems(new String[0]);
@@ -175,9 +177,10 @@ public class DichVuFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        txtNhomDV.setText("Chọn nhóm dịch vụ");
-        txtDichVu.setText("Chọn dịch vụ");
+        txtNhomDV.setInputType(txtNhomDV.getInputType()| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        txtDichVu.setInputType(txtDichVu.getInputType()| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        txtNhomDV.setText("Vui lòng chọn nhóm dịch vụ\nbạn quan tâm");
+        txtDichVu.setText("Vui lòng chọn tên\ndịch vụ cụ thể");
         txtGiaDichVu.setText("Giá dịch vụ");
     }
 

@@ -716,7 +716,7 @@
                     android:fontFamily="@font/myriadpro_semiext"
                     android:lineSpacingExtra="5sp"
                     android:paddingLeft="10dp"
-                    android:text="Ghi chú:\n - Sáng 7:00 - 12:00\n - Chiều 13:00 - 16:00" />
+                    android:text="Thời gian làm việc:\n ● Sáng 7:00 - 12:00\n ● Chiều 13:00 - 16:00" />
 
             </LinearLayout>
         </ScrollView>
