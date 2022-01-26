@@ -81,7 +81,6 @@ public class ForgetPasswordFragment extends BaseFragment {
                 mAPIService.getOTP(APIKey,new getOTPModel(txtSDT.getText().toString())).enqueue(new CallbackResponse(getActivity()){
                     @Override
                     public void success(Response<ResponseModel> response) {
-                        super.success(response);
                         phoneNumber = txtSDT.getText().toString();
                         viewGetOTP.setVisibility(View.INVISIBLE);
                         viewReset.setVisibility(View.VISIBLE);
@@ -164,7 +163,6 @@ public class ForgetPasswordFragment extends BaseFragment {
                             txtReEnterPassword.getText().toString())).enqueue(new CallbackResponse(getActivity()){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            super.success(response);
                             ThongBao(getActivity(), "Thành công", "Mật khẩu đã được khôi phục thành công!",
                                     R.drawable.connection_error, new FancyGifDialogListener() {
                                         @Override

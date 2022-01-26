@@ -62,7 +62,7 @@ public interface APIService {
 
     @Headers("Content-Type: application/json")
     @POST("getUserbyToken")
-    Call<ResponseModel> getUserbyToken(@Header("token") String s,@Body baseGetClass x);
+    Call<ResponseModel> getUserbyToken(@Header("token") String s);
 
     @Headers("Content-Type: application/json")
     @POST("updateUser")

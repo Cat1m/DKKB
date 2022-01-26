@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mAPIService.getUserbyToken(APIKey, new baseGetClass(token)).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getUserbyToken(token).enqueue(new Callback<ResponseModel>() {
                     @Override
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                         if (response.isSuccessful() && response.body().getStatus().equals("OK")) {
@@ -206,7 +206,6 @@ public class MainActivity extends BaseActivity {
                     mAPIService.ping().enqueue(new CallbackResponse(MainActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            super.success(response);
                             loginFM.RetryLogin();
                             clearBtnColor();
                             imgHome.setImageBitmap(homepage_color);

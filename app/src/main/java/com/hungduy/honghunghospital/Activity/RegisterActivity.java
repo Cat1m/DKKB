@@ -559,7 +559,6 @@ public class RegisterActivity extends BaseActivity {
                             mAPIService.setUser(APIKey,u).enqueue(new CallbackResponse(RegisterActivity.this){
                                 @Override
                                 public void success(Response<ResponseModel> response) {
-                                    super.success(response);
                                     dialog_loading.dismiss();
                                     ThongBao(RegisterActivity.this, "Thành công", "Đăng kí thành công !!",
                                             R.drawable.connection_error, new FancyGifDialogListener() {

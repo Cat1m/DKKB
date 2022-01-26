@@ -128,7 +128,6 @@ public class BacSiFragment extends BaseFragment {
                     mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(getActivity()){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            super.success(response);
                             getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
                             if(dsBS.length > 0){
                                 String[] tenBS = new String[dsBS.length];
@@ -158,7 +157,6 @@ public class BacSiFragment extends BaseFragment {
         mAPIService.getDetailActiveDoctor(APIKey,new baseGetClass(ma)).enqueue(new CallbackResponse(getActivity()){
             @Override
             public void success(Response<ResponseModel> response) {
-                super.success(response);
                 if(response.body().getStatus().equals("OK")){
                     LayoutDoctor.setVisibility(View.VISIBLE);
                     bs = new Gson().fromJson(response.body().getData(),getThongTinBS.class);
@@ -183,7 +181,6 @@ public class BacSiFragment extends BaseFragment {
 
             @Override
             public void success(Response<ResponseModel> response) {
-                super.success(response);
                 getListLichLamViecBS llvs = new Gson().fromJson(response.body().getData(),getListLichLamViecBS.class);
                 if(llvs.getTuannay().size()>0){
                     ArrayList<getLichLamViecBS> a = new ArrayList<>();

@@ -132,7 +132,6 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void success(Response<ResponseModel> response) {
-                super.success(response);
                 if (response.body().getStatus().equals("OK")){
                     dialog_loading.show();
                     MainActivity activity = (MainActivity) getActivity();

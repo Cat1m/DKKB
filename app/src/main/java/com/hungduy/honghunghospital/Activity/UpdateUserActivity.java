@@ -533,7 +533,6 @@ public class UpdateUserActivity extends BaseActivity {
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                             @Override
                             public void success(Response<ResponseModel> response) {
-                                super.success(response);
                                 try {
                                     String[] url = new Gson().fromJson(response.body().getData(), String[].class);
                                     newimgUserURL = url[0];
@@ -552,7 +551,6 @@ public class UpdateUserActivity extends BaseActivity {
                         mAPIService.ImageUploadFile(APIKey, body).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                             @Override
                             public void success(Response<ResponseModel> response) {
-                                super.success(response);
                                 try{
                                     String[] url = new Gson().fromJson(response.body().getData(), String[].class);
                                     newimgBHYTURL = url[0];
@@ -583,7 +581,6 @@ public class UpdateUserActivity extends BaseActivity {
                             mAPIService.updateUser(token, usrUpdate).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                                 @Override
                                 public void success(Response<ResponseModel> response) {
-                                    super.success(response);
                                     if (response.body().getStatus().equals("OK")) {
                                         ThongBao(UpdateUserActivity.this, "Thành công", "", R.drawable.connection_error, new FancyGifDialogListener() {
                                             @Override
@@ -621,120 +618,112 @@ public class UpdateUserActivity extends BaseActivity {
             @Override
             public void run() {
                 if(isConnected){
-                    mAPIService.getUserbyToken(APIKey,new baseGetClass(token)).enqueue(new Callback<ResponseModel>() {
+                    mAPIService.getUserbyToken(token).enqueue(new CallbackResponse(UpdateUserActivity.this){
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            if(response.isSuccessful() && response.body().getStatus().equals("OK")){
-                                getUser usr = new Gson().fromJson(response.body().getData(),getUser.class);
-                                if(usr != null){
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            USRdao.insert(new UserData(AppConfigString.Username,usr.getUsername()));
-                                            USRdao.insert(new UserData(AppConfigString.HoTen,usr.getHoTen()));
-                                            USRdao.insert(new UserData(AppConfigString.NgaySinh,usr.getNgaySinh()));
-                                            USRdao.insert(new UserData(AppConfigString.GioiTinh,usr.getGioiTinh()+""));
-                                            USRdao.insert(new UserData(AppConfigString.MaTinh,usr.getMaTinh()+""));
-                                            USRdao.insert(new UserData(AppConfigString.MaHuyen,usr.getMaHuyen()+""));
-                                            USRdao.insert(new UserData(AppConfigString.MaPhuongXa,usr.getMaPhuongXa()+""));
-                                            USRdao.insert(new UserData(AppConfigString.MaApKhuPho,usr.getMaApKhuPho()+""));
-                                            USRdao.insert(new UserData(AppConfigString.SoNha,usr.getSoNha()));
-                                            USRdao.insert(new UserData(AppConfigString.QuocTich,usr.getQuocTich()+""));
-                                            USRdao.insert(new UserData(AppConfigString.HoChieu,usr.getHoChieu()));
-                                            USRdao.insert(new UserData(AppConfigString.MaTheBHYT,usr.getMaTheBHYT()));
-                                            USRdao.insert(new UserData(AppConfigString.HinhBHYT,usr.getHinhBHYT()));
-                                            USRdao.insert(new UserData(AppConfigString.HinhAnh,usr.getHinhAnh()));
-                                            USRdao.insert(new UserData(AppConfigString.DanToc,usr.getDanToc()));
-                                        }
-                                    }).start();
-                                    txtHoTen.setText(usr.getHoTen());
-                                    try{
-                                        txtNgaySinh.setText(usr.getNgaySinh().split("/")[0]);
-                                        txtThangSinh.setText(usr.getNgaySinh().split("/")[1]);
-                                        txtNamSinh.setText(usr.getNgaySinh().split("/")[2]);
+                        public void success(Response<ResponseModel> response) {
+                            getUser usr = new Gson().fromJson(response.body().getData(),getUser.class);
+                            if(usr != null){
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        USRdao.insert(new UserData(AppConfigString.Username,usr.getUsername()));
+                                        USRdao.insert(new UserData(AppConfigString.HoTen,usr.getHoTen()));
+                                        USRdao.insert(new UserData(AppConfigString.NgaySinh,usr.getNgaySinh()));
+                                        USRdao.insert(new UserData(AppConfigString.GioiTinh,usr.getGioiTinh()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaTinh,usr.getMaTinh()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaHuyen,usr.getMaHuyen()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaPhuongXa,usr.getMaPhuongXa()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaApKhuPho,usr.getMaApKhuPho()+""));
+                                        USRdao.insert(new UserData(AppConfigString.SoNha,usr.getSoNha()));
+                                        USRdao.insert(new UserData(AppConfigString.QuocTich,usr.getQuocTich()+""));
+                                        USRdao.insert(new UserData(AppConfigString.HoChieu,usr.getHoChieu()));
+                                        USRdao.insert(new UserData(AppConfigString.MaTheBHYT,usr.getMaTheBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhBHYT,usr.getHinhBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhAnh,usr.getHinhAnh()));
+                                        USRdao.insert(new UserData(AppConfigString.DanToc,usr.getDanToc()));
+                                    }
+                                }).start();
+                                txtHoTen.setText(usr.getHoTen());
+                                try{
+                                    txtNgaySinh.setText(usr.getNgaySinh().split("/")[0]);
+                                    txtThangSinh.setText(usr.getNgaySinh().split("/")[1]);
+                                    txtNamSinh.setText(usr.getNgaySinh().split("/")[2]);
 
-                                    }catch (Exception ex){
-                                        txtNgaySinh.setText("");
-                                        txtThangSinh.setText("");
-                                        txtNamSinh.setText("");
-                                    }
-                                    imgUserURL = usr.getHinhAnh();
-                                    imgBHYTURL = usr.getHinhBHYT();
-                                    switch (usr.getGioiTinh()){
-                                        case 0 :
-                                            chkNam.setChecked(true);
-                                            break;
-                                        case 1:
-                                            chkNu.setChecked(true);
-                                            break;
-                                        case 2:
-                                            chkKhac.setChecked(true);
-                                            break;
-                                    }
-                                    for(TinhThanh a : listTinhThanh){
-                                        if(a.getMa() == usr.getMaTinh()){
-                                            txtTinhThanh.setText(a.getTen());
-                                            break;
-                                        }
-                                    }
-                                    gioitinh = usr.getGioiTinh()+"";
-                                    matinhthanh = usr.getMaTinh()+"";
-                                    maquanhuyen = usr.getMaHuyen()+"";
-                                    maphuongxa = usr.getMaPhuongXa()+"";
-                                    maapkhupho = usr.getMaApKhuPho()+"";
-                                    DoDuLieuQuanHuyen(usr.getMaTinh());
-                                    DoDuLieuXaPhuong(usr.getMaHuyen());
-                                    DoDuLieuApKhuPho(usr.getMaPhuongXa());
-                                    if(maapkhupho.equals("")){
-                                        txtApKhuPho.setEnabled(false);
-                                        txtApKhuPho.setText("---");
-                                    }
-                                    txtDiaChi.setText(usr.getSoNha());
-                                    maquoctich = usr.getQuocTich()+"";
-                                    for(QuocGia q : listQuocGia){
-                                        if(q.getMa() == usr.getQuocTich()){
-                                            txtQuocTich.setText(q.getTen());
-                                        }
-                                    }
-                                    txtCMND.setText(usr.getHoChieu());
-                                    txtMaBHYT.setText(usr.getMaTheBHYT());
-                                    txtSDT.setText(usr.getUsername());
-
-                                    for(int i=0;i<listDanToc.size();i++){
-                                        if(usr.getDanToc().equals(listDanToc.get(i).getMa()+"")){
-                                            txtDanToc.select(i);
-                                        }
-                                    }
-
-                                    dialog_loading.dismiss();
-                                    if(!usr.getHinhAnh().isEmpty()){
-                                        Picasso.get().load(usr.getHinhAnh()).into(imgUserAVT);
-                                        Picasso.get().load(usr.getHinhAnh()).into(
-                                                UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
-                                                        , AppConfigString.UserImageName));
-                                    }else{
-                                        Picasso.get().load(R.drawable.avatar_user_empty).into(
-                                                UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
-                                                        , AppConfigString.UserImageName));
-                                    }
-                                    if(!usr.getHinhBHYT().isEmpty()){
-                                        Picasso.get().load(usr.getHinhBHYT()).into(imgBHYT);
-                                        Picasso.get().load(usr.getHinhBHYT()).into(
-                                                UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
-                                                        , AppConfigString.BHYTImageName));
-                                    }else{
-                                        Picasso.get().load(R.drawable.bhyt).into(
-                                                UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
-                                                        , AppConfigString.BHYTImageName));
+                                }catch (Exception ex){
+                                    txtNgaySinh.setText("");
+                                    txtThangSinh.setText("");
+                                    txtNamSinh.setText("");
+                                }
+                                imgUserURL = usr.getHinhAnh();
+                                imgBHYTURL = usr.getHinhBHYT();
+                                switch (usr.getGioiTinh()){
+                                    case 0 :
+                                        chkNam.setChecked(true);
+                                        break;
+                                    case 1:
+                                        chkNu.setChecked(true);
+                                        break;
+                                    case 2:
+                                        chkKhac.setChecked(true);
+                                        break;
+                                }
+                                for(TinhThanh a : listTinhThanh){
+                                    if(a.getMa() == usr.getMaTinh()){
+                                        txtTinhThanh.setText(a.getTen());
+                                        break;
                                     }
                                 }
-                            }else{
+                                gioitinh = usr.getGioiTinh()+"";
+                                matinhthanh = usr.getMaTinh()+"";
+                                maquanhuyen = usr.getMaHuyen()+"";
+                                maphuongxa = usr.getMaPhuongXa()+"";
+                                maapkhupho = usr.getMaApKhuPho()+"";
+                                DoDuLieuQuanHuyen(usr.getMaTinh());
+                                DoDuLieuXaPhuong(usr.getMaHuyen());
+                                DoDuLieuApKhuPho(usr.getMaPhuongXa());
+                                if(maapkhupho.equals("")){
+                                    txtApKhuPho.setEnabled(false);
+                                    txtApKhuPho.setText("---");
+                                }
+                                txtDiaChi.setText(usr.getSoNha());
+                                maquoctich = usr.getQuocTich()+"";
+                                for(QuocGia q : listQuocGia){
+                                    if(q.getMa() == usr.getQuocTich()){
+                                        txtQuocTich.setText(q.getTen());
+                                    }
+                                }
+                                txtCMND.setText(usr.getHoChieu());
+                                txtMaBHYT.setText(usr.getMaTheBHYT());
+                                txtSDT.setText(usr.getUsername());
 
+                                for(int i=0;i<listDanToc.size();i++){
+                                    if(usr.getDanToc().equals(listDanToc.get(i).getMa()+"")){
+                                        txtDanToc.select(i);
+                                    }
+                                }
+
+                                dialog_loading.dismiss();
+                                if(!usr.getHinhAnh().isEmpty()){
+                                    Picasso.get().load(usr.getHinhAnh()).into(imgUserAVT);
+                                    Picasso.get().load(usr.getHinhAnh()).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.UserImageName));
+                                }else{
+                                    Picasso.get().load(R.drawable.avatar_user_empty).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.UserImageName));
+                                }
+                                if(!usr.getHinhBHYT().isEmpty()){
+                                    Picasso.get().load(usr.getHinhBHYT()).into(imgBHYT);
+                                    Picasso.get().load(usr.getHinhBHYT()).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.BHYTImageName));
+                                }else{
+                                    Picasso.get().load(R.drawable.bhyt).into(
+                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
+                                                    , AppConfigString.BHYTImageName));
+                                }
                             }
-                        }
-                        @Override
-                        public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                         }
                     });
                 }else{

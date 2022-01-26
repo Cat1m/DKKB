@@ -156,7 +156,6 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                                 @Override
                                 public void success(Response<ResponseModel> response) {
-                                    super.success(response);
                                     getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
                                     if(dsBS.length > 0){
                                         listBS.clear();
@@ -411,7 +410,6 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            super.success(response);
                             getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
                             if (cauhois.length > 0) {
                                 int i = 0;

@@ -67,7 +67,6 @@ public class KhaiBaoYTeNoiBoActivity extends BaseKhaiBaoYTeActivity {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNoiBoActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            super.success(response);
                             getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
                             if (cauhois.length > 0) {
                                 int i = 0;
@@ -111,7 +110,6 @@ public class KhaiBaoYTeNoiBoActivity extends BaseKhaiBaoYTeActivity {
                         .enqueue(new CallbackResponse(KhaiBaoYTeNoiBoActivity.this){
                             @Override
                             public void success(Response<ResponseModel> response) {
-                                super.success(response);
                                 Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                                 i.putExtra("isTestCovid", finalKq);
                                 i.putExtra("noidungkham"," Anh/Chị đã khai báo y tế thành công");

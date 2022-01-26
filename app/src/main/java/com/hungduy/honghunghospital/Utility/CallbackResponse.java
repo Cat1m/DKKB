@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CallbackResponse implements Callback<ResponseModel> {
+public abstract class CallbackResponse implements Callback<ResponseModel> {
     private Activity a;
 
     public Activity getA() {
@@ -34,7 +34,7 @@ public class CallbackResponse implements Callback<ResponseModel> {
         if(!response.isSuccessful()){
             try{
                 new FancyGifDialog.Builder(a)
-                        .setTitle("Thông báo!")
+                        .setTitle("Đã có lỗi xảy ra")
                         .setMessage("Server error")
                         .setPositiveBtnBackground("#FF4081")
                         .setPositiveBtnText("Đồng ý")
@@ -47,7 +47,7 @@ public class CallbackResponse implements Callback<ResponseModel> {
             if(!response.body().getStatus().equals("OK")){
                 try{
                     new FancyGifDialog.Builder(a)
-                            .setTitle("Đã có lỗi xảy ra")
+                            .setTitle("Thông báo!")
                             .setMessage(response.body().getMessenge())
                             .setPositiveBtnBackground("#FF4081")
                             .setPositiveBtnText("Đồng ý")
@@ -62,9 +62,7 @@ public class CallbackResponse implements Callback<ResponseModel> {
         }
     }
 
-    public void success(Response<ResponseModel> response){
-
-    }
+    abstract public void success(Response<ResponseModel> response);
 
     @Override
     public void onFailure(Call<ResponseModel> call, Throwable t) {
