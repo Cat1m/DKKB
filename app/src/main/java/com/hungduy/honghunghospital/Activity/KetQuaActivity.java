@@ -1,55 +1,31 @@
 package com.hungduy.honghunghospital.Activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
 import com.hungduy.honghunghospital.Database.Model.KetQuaLuu;
-import com.hungduy.honghunghospital.Model.ResponseModel;
-import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
-import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
-import com.hungduy.honghunghospital.Model.getModel.getMaTen;
-import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.R;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import jrizani.jrspinner.JRSpinner;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class KetQuaActivity extends BaseActivity {
 

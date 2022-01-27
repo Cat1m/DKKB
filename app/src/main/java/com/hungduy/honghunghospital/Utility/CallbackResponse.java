@@ -26,8 +26,6 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
         this.a = a;
     }
 
-    public CallbackResponse() {
-    }
 
     @Override
     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

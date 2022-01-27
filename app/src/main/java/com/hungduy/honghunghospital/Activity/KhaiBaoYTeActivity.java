@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
@@ -285,31 +286,26 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                mAPIService.getDichVu(APIKey).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
                     @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                if(dsBS.length > 0){
-                                    listDV.clear();
-                                    String[] tenBS = new String[dsBS.length];
-                                    int i=0;
-                                    for (getMaTen bs: dsBS ) {
-                                        listDV.add(bs);
-                                        tenBS[i] = bs.getTen();
-                                        i++;
-                                    }
-                                    txtBS.setItems(tenBS);
-                                    Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                    public void success(Response<ResponseModel> response) {
+                        try{
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                            if(dsBS.length > 0){
+                                listDV.clear();
+                                String[] tenBS = new String[dsBS.length];
+                                int i=0;
+                                for (getMaTen bs: dsBS ) {
+                                    listDV.add(bs);
+                                    tenBS[i] = bs.getTen();
+                                    i++;
                                 }
+                                txtBS.setItems(tenBS);
+                                Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
                             }
+                        }catch (Exception e){
+                            Toast.makeText(KhaiBaoYTeActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                     }
                 });
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
@@ -374,21 +370,19 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                     maloaidangky = 1;
                     madangky = bacSi;
                     madangky.setTen(" bác sĩ: "+bacSi.getTen());
-                    Log.d(TAG,bacSi.getTen());
                 }
                 if(chuyenKhoa != null){
                     found =true;
                     maloaidangky = 2;
                     madangky = chuyenKhoa;
-                    Log.d(TAG,chuyenKhoa.getTen());
                 }
                 if(dichVu != null){
                     found =true;
                     maloaidangky = 3;
                     madangky = dichVu;
-                    Log.d(TAG,dichVu.getTen());
                 }
                 if(found){
+                    showDialogLoading(1000);
                     String khaibaoyte = "";
                     for(CauHoiKhaiBaoYTeEXT c : CauTL){
                         khaibaoyte += c.getCauhoi() +" : " + c.getCautraloi() + "|";
@@ -397,41 +391,35 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                             madangky.getMa(), "", "");
                     final getMaTen dv = madangky;
                     final int maloai = maloaidangky;
-                    mAPIService.setDangKyKham(token,dkkb ).enqueue(new Callback<ResponseModel>() {
+                    mAPIService.setDangKyKham(token,dkkb).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            if(response.isSuccessful()){
-                                if(response.body().getStatus().equals("OK")){
-                                    boolean kq = false;
-                                    for (CauHoiKhaiBaoYTeEXT s : CauTL){
-                                        if(s.getCautraloi().equals("Có")){
-                                            kq = true;
-                                            break;
-                                        }
-                                    }
-                                    if(maloai == 3 && dv.getMa().equals("9") ){
-                                        kq=true;
-                                    }
-                                    Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
-                                    i.putExtra("isTestCovid",kq);
-                                    i.putExtra("noidungkham"," Anh/Chị đã đăng ký khám " + dv.getTen() + " <br/> thành công");
-                                    i.putExtra("dv",dv.getTen());
-                                    i.putExtra("loai",1);
-                                    i.putExtra("FullName",FullName);
-                                    i.putExtra("urlImage",urlImage);
-                                    i.putExtra("QR",response.body().getData());
-                                    startActivity(i);
-                                    finish();
+                        public void success(Response<ResponseModel> response) {
+                            boolean kq = false;
+                            for (CauHoiKhaiBaoYTeEXT s : CauTL){
+                                if(s.getCautraloi().equals("Có")){
+                                    kq = true;
+                                    break;
                                 }
                             }
-                        }
-                        @Override
-                        public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                            if(maloai == 3 && dv.getMa().equals("9") ){
+                                kq=true;
+                            }
+                            Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                            i.putExtra("isTestCovid",kq);
+                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký khám " + dv.getTen() + " <br/> thành công");
+                            i.putExtra("dv",dv.getTen());
+                            i.putExtra("loai",1);
+                            i.putExtra("FullName",FullName);
+                            i.putExtra("urlImage",urlImage);
+                            i.putExtra("QR",response.body().getData());
+                            HideDialogLoading();
+                            startActivity(i);
+                            finish();
                         }
                     });
                 }else{
-                    ThongBao(KhaiBaoYTeActivity.this,"Đã có lỗi xảy ra","Vui lòng chọn dịch vụ bạn cần !",R.drawable.searching);
+                    ThongBao(KhaiBaoYTeActivity.this,"Thông báo","Vui lòng chọn dịch vụ bạn cần !",R.drawable.searching);
+                    HideDialogLoading();
                 }
             }
         });

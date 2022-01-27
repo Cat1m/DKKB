@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +23,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,8 +43,6 @@ import com.hungduy.honghunghospital.Database.DAO.TinhThanhDAO;
 import com.hungduy.honghunghospital.Database.DAO.UserDataDAO;
 import com.hungduy.honghunghospital.Database.LocalDB;
 import com.hungduy.honghunghospital.Model.ResponseModel;
-import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
-import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.APIService;
 import com.hungduy.honghunghospital.Utility.ApiUtils;
@@ -58,10 +54,7 @@ import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -108,7 +101,32 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LinearLayout btnHome,btnLichBS,btnDichVu,btnTinTuc;
     private ImageView imgHome;
 
+    protected void showDialogLoading(int timedelay){
+        dialog_loading.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                HideDialogLoading();
+            }
+        },timedelay);
+    }
 
+    protected void HideDialogLoading() {
+        if(dialog_loading.isShowing()){
+            dialog_loading.dismiss();
+        }
+    }
+
+    private void CreateDialogLoading() {
+        dialog_loading = new Dialog(this);
+        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog_loading.getWindow() != null)
+            dialog_loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_loading.setCancelable(false);
+        dialog_loading.setContentView(R.layout.item_loadding);
+        ImageView img = dialog_loading.findViewById(R.id.imgLoading);
+        Glide.with(this).load(getDrawable(R.drawable.loading_color)).placeholder(R.drawable.logo_hungduy).into(img);
+    }
 
     public void Disconnect(){
         if(txtOfflineMode != null){
@@ -171,14 +189,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         dantocDAO = database.danTocDAO();
         ketQuaLuuDAO = database.ketQuaLuuDAO();
 
-        dialog_loading = new Dialog(this);
-        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (dialog_loading.getWindow() != null)
-            dialog_loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog_loading.setCancelable(false);
-        dialog_loading.setContentView(R.layout.item_loadding);
-        ImageView img = dialog_loading.findViewById(R.id.imgLoading);
-        Glide.with(this).load(getDrawable(R.drawable.loading_color)).placeholder(R.drawable.logo_hungduymedical).into(img);
+        CreateDialogLoading();
 
         if(BundleLogin!=null)
         {

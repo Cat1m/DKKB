@@ -86,6 +86,17 @@ public class ForgetPasswordFragment extends BaseFragment {
                         viewReset.setVisibility(View.VISIBLE);
                         dialog_loading.dismiss();
                     }
+
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        super.onResponse(call, response);
+                        if(response.isSuccessful() && response.body().getStatus().equals("Exist")){
+                            phoneNumber = txtSDT.getText().toString();
+                            viewGetOTP.setVisibility(View.INVISIBLE);
+                            viewReset.setVisibility(View.VISIBLE);
+                            dialog_loading.dismiss();
+                        }
+                    }
                 });
 
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,24 +63,28 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeCongTacActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
-                            if (cauhois.length > 0) {
-                                int i = 0;
-                                for (getCauHoiKhaiBaoYTe a : cauhois) {
-                                    cauHoiKhaiBaoYTes.add(a);
-                                    CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
-                                            }catch (Exception ex){
+                            try{
+                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                                if (cauhois.length > 0) {
+                                    int i = 0;
+                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                        cauHoiKhaiBaoYTes.add(a);
+                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                                }catch (Exception ex){
+                                                }
                                             }
-                                        }
-                                    }).start();
+                                        }).start();
+                                    }
                                 }
+                                KhaiBaoYTeADT.notifyDataSetChanged();
+                            }catch (Exception e){
+                                Toast.makeText(KhaiBaoYTeCongTacActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            KhaiBaoYTeADT.notifyDataSetChanged();
                         }
                     });
                 }
@@ -90,6 +95,7 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialogLoading(2000);
                 boolean kq = false;
                 String khaibaoyte = "";
                 for(CauHoiKhaiBaoYTeEXT c : CauTL){
@@ -110,6 +116,7 @@ public class KhaiBaoYTeCongTacActivity extends BaseKhaiBaoYTeActivity {
                                 i.putExtra("urlImage",urlImage);
                                 i.putExtra("QR",response.body().getData());
                                 i.putExtra("loai",2);
+                                HideDialogLoading();
                                 startActivity(i);
                                 finish();
                             }

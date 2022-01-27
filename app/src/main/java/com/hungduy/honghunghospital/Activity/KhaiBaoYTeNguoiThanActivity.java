@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -156,19 +157,23 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                                 @Override
                                 public void success(Response<ResponseModel> response) {
-                                    getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                    if(dsBS.length > 0){
-                                        listBS.clear();
-                                        String[] tenBS = new String[dsBS.length];
-                                        int i=0;
-                                        for (getMaTen bs: dsBS ) {
-                                            listBS.add(bs);
-                                            tenBS[i] = bs.getTen();
-                                            i++;
+                                    try{
+                                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                                        if(dsBS.length > 0){
+                                            listBS.clear();
+                                            String[] tenBS = new String[dsBS.length];
+                                            int i=0;
+                                            for (getMaTen bs: dsBS ) {
+                                                listBS.add(bs);
+                                                tenBS[i] = bs.getTen();
+                                                i++;
+                                            }
+                                            txtBS.setItems(tenBS);
                                         }
-                                        txtBS.setItems(tenBS);
-                                        Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                                    }catch (Exception e){
+                                        Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             });
                         }
@@ -226,12 +231,11 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                mAPIService.getDmChuyenKhoa(APIKey).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                     @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                    public void success(Response<ResponseModel> response) {
+                        try{
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
                                 if(dsBS.length > 0){
                                     listDMCK.clear();
                                     String[] tenBS = new String[dsBS.length];
@@ -244,13 +248,9 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                                     txtBS.setItems(tenBS);
                                     Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
                                 }
-                            }
+                        }catch (Exception e){
+                            Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                     }
                 });
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
@@ -305,31 +305,25 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                mAPIService.getDichVu(APIKey).enqueue(new Callback<ResponseModel>() {
+                mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                     @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if(response.isSuccessful()){
-                            if(response.body().getStatus().equals("OK")){
-                                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                if(dsBS.length > 0){
-                                    listDV.clear();
-                                    String[] tenBS = new String[dsBS.length];
-                                    int i=0;
-                                    for (getMaTen bs: dsBS ) {
-                                        listDV.add(bs);
-                                        tenBS[i] = bs.getTen();
-                                        i++;
-                                    }
-                                    txtBS.setItems(tenBS);
-                                    Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                    public void success(Response<ResponseModel> response) {
+                        try{
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                            if(dsBS.length > 0){
+                                listDV.clear();
+                                String[] tenBS = new String[dsBS.length];
+                                int i=0;
+                                for (getMaTen bs: dsBS ) {
+                                    listDV.add(bs);
+                                    tenBS[i] = bs.getTen();
+                                    i++;
                                 }
+                                txtBS.setItems(tenBS);
                             }
+                        }catch (Exception e){
+                            Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-
                     }
                 });
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
@@ -410,24 +404,28 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
-                            if (cauhois.length > 0) {
-                                int i = 0;
-                                for (getCauHoiKhaiBaoYTe a : cauhois) {
-                                    cauHoiKhaiBaoYTes.add(a);
-                                    CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
-                                            }catch (Exception ex){
+                            try{
+                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                                if (cauhois.length > 0) {
+                                    int i = 0;
+                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                        cauHoiKhaiBaoYTes.add(a);
+                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                                }catch (Exception ex){
+                                                }
                                             }
-                                        }
-                                    }).start();
+                                        }).start();
+                                    }
                                 }
+                                KhaiBaoYTeADT.notifyDataSetChanged();
+                            }catch (Exception e){
+                                Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            KhaiBaoYTeADT.notifyDataSetChanged();
                         }
                     });
                 }
@@ -584,6 +582,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialogLoading(2000);
                 boolean found = false;
                 int maloaidangky = 0;
                 getMaTen madangky = new getMaTen();
@@ -630,37 +629,29 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                     ngthan.setSoNha(txtDiaChi.getText().toString());
                     ngthan.setSoTheBH(txtMaBHYT.getText().toString());
                     ngthan.setMaDanToc(madantoc);
-                    mAPIService.setDangKyKhamNguoiThan(token,ngthan).enqueue(new Callback<ResponseModel>() {
+                    mAPIService.setDangKyKhamNguoiThan(token,ngthan).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                         @Override
-                        public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                            if(response.isSuccessful()){
-                                if(response.body().getStatus().equals("OK")){
-                                    boolean kq = false;
-                                    for (CauHoiKhaiBaoYTeEXT s : CauTL){
-                                        if(s.getCautraloi().equals("Có")){
-                                            kq = true;
-                                            break;
-                                        }
-                                    }
-                                    if(maloai == 3 && dv.getMa().equals("9") ){
-                                        kq=true;
-                                    }
-                                    Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
-                                    i.putExtra("isTestCovid",kq);
-                                    i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
-                                    i.putExtra("FullName",FullName);
-                                    i.putExtra("urlImage",urlImage);
-                                    i.putExtra("loai",3);
-                                    i.putExtra("QR",response.body().getData());
-                                    startActivity(i);
-                                    finish();
+                        public void success(Response<ResponseModel> response) {
+                            boolean kq = false;
+                            for (CauHoiKhaiBaoYTeEXT s : CauTL){
+                                if(s.getCautraloi().equals("Có")){
+                                    kq = true;
+                                    break;
                                 }
                             }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseModel> call, Throwable t) {
-
+                            if(maloai == 3 && dv.getMa().equals("9") ){
+                                kq=true;
+                            }
+                            Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
+                            i.putExtra("isTestCovid",kq);
+                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
+                            i.putExtra("FullName",FullName);
+                            i.putExtra("urlImage",urlImage);
+                            i.putExtra("loai",3);
+                            i.putExtra("QR",response.body().getData());
+                            startActivity(i);
+                            HideDialogLoading();
+                            finish();
                         }
                     });
                 }

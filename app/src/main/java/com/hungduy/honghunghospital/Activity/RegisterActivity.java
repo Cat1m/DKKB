@@ -1,9 +1,5 @@
 package com.hungduy.honghunghospital.Activity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.gson.Gson;
@@ -477,8 +477,6 @@ public class RegisterActivity extends BaseActivity {
                                 "Mật khẩu phải từ 8 ký tự trở lên!",R.drawable.password_drbl);
                         return;
                     }
-
-
                     ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
                             "Bạn chưa nhập đủ thông tin. Những mục có dấu * là bắt buộc!",R.drawable.connection_error);
                 }else{
@@ -487,17 +485,7 @@ public class RegisterActivity extends BaseActivity {
                                 "Mật khẩu Không khớp",R.drawable.password_drbl);
                         return;
                     }
-                    dialog_loading.show();
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(dialog_loading.isShowing()){
-                                dialog_loading.dismiss();
-                            }
-                        }
-                    },2000);
-
+                    showDialogLoading(2000);
                     btnLuu.setEnabled(false);
 
                     if(URIimgUser != null)
@@ -559,7 +547,7 @@ public class RegisterActivity extends BaseActivity {
                             mAPIService.setUser(APIKey,u).enqueue(new CallbackResponse(RegisterActivity.this){
                                 @Override
                                 public void success(Response<ResponseModel> response) {
-                                    dialog_loading.dismiss();
+                                    HideDialogLoading();
                                     ThongBao(RegisterActivity.this, "Thành công", "Đăng kí thành công !!",
                                             R.drawable.connection_error, new FancyGifDialogListener() {
                                                 @Override
@@ -576,8 +564,16 @@ public class RegisterActivity extends BaseActivity {
                         @Override
                         public void run() {
                             while (URIimgUser != null && imgUserURL =="") {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (Exception e) {
+                                }
                             }
                             while (URIimgBHYT != null && imgBHYTURL =="") {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (Exception e) {
+                                }
                             }
                             setUser.start();
                         }

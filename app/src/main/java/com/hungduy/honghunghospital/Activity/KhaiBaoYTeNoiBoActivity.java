@@ -1,15 +1,11 @@
 package com.hungduy.honghunghospital.Activity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +16,12 @@ import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
-import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.setModel.setKhaiBao;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 
 import java.util.ArrayList;
 
-import jrizani.jrspinner.JRSpinner;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class KhaiBaoYTeNoiBoActivity extends BaseKhaiBaoYTeActivity {
@@ -67,24 +59,29 @@ public class KhaiBaoYTeNoiBoActivity extends BaseKhaiBaoYTeActivity {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNoiBoActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
-                            if (cauhois.length > 0) {
-                                int i = 0;
-                                for (getCauHoiKhaiBaoYTe a : cauhois) {
-                                    cauHoiKhaiBaoYTes.add(a);
-                                    CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
-                                            }catch (Exception ex){
+                            try{
+                                getCauHoiKhaiBaoYTe[] cauhois = new Gson().fromJson(response.body().getData(), getCauHoiKhaiBaoYTe[].class);
+                                if (cauhois.length > 0) {
+                                    int i = 0;
+                                    for (getCauHoiKhaiBaoYTe a : cauhois) {
+                                        cauHoiKhaiBaoYTes.add(a);
+                                        CauTL.add(new CauHoiKhaiBaoYTeEXT(a, "Không"));
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    KBYTdao.insert(new CauHoiKhaiBaoYTe(Integer.parseInt(a.getMa()), a.getCauhoi()));
+                                                }catch (Exception ex){
+                                                }
                                             }
-                                        }
-                                    }).start();
+                                        }).start();
+                                    }
                                 }
+                                KhaiBaoYTeADT.notifyDataSetChanged();
+                            }catch (Exception e){
+                                Toast.makeText(KhaiBaoYTeNoiBoActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            KhaiBaoYTeADT.notifyDataSetChanged();
+
                         }
                     });
                 }

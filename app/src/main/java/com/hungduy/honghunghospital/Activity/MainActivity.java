@@ -1,30 +1,19 @@
 package com.hungduy.honghunghospital.Activity;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.usage.UsageEvents;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Database.Model.UserData;
 import com.hungduy.honghunghospital.Fragment.BacSiFragment;
@@ -34,18 +23,14 @@ import com.hungduy.honghunghospital.Fragment.HomeLoginedFragment;
 import com.hungduy.honghunghospital.Fragment.LoginFragment;
 import com.hungduy.honghunghospital.Fragment.ThongTinFragment;
 import com.hungduy.honghunghospital.Model.ResponseModel;
-import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getUser;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.ServiceSyncDATA;
 import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.FragmentUtils;
-import com.hungduy.honghunghospital.Utility.QLCVScrollView;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -347,31 +332,43 @@ public class MainActivity extends BaseActivity {
         btnLichBS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),BacSiFM,"");
-                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
-                clearBtnColor();
-                imgLichBS.setImageBitmap(doctor_color);
-                imgLichBS.setTag("1");
+                try {
+                    FragmentUtils.replaceFragment(R.id.svTrangChu, getSupportFragmentManager(), BacSiFM, "");
+                    svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
+                    clearBtnColor();
+                    imgLichBS.setImageBitmap(doctor_color);
+                    imgLichBS.setTag("1");
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Có lỗi xảy ra. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),DichVuFM,"");
-                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
-                clearBtnColor();
-                imgDichVu.setImageBitmap(services_color);
-                imgDichVu.setTag("1");
+                try {
+                    FragmentUtils.replaceFragment(R.id.svTrangChu, getSupportFragmentManager(), DichVuFM, "");
+                    svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
+                    clearBtnColor();
+                    imgDichVu.setImageBitmap(services_color);
+                    imgDichVu.setTag("1");
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Có lỗi xảy ra. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnTinTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),ThongTinFM,"");
-                svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
-                clearBtnColor();
-                imgTinTuc.setImageBitmap(information_color);
-                imgTinTuc.setTag("1");
+                try{
+                    FragmentUtils.replaceFragment(R.id.svTrangChu,getSupportFragmentManager(),ThongTinFM,"");
+                    svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
+                    clearBtnColor();
+                    imgTinTuc.setImageBitmap(information_color);
+                    imgTinTuc.setTag("1");
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Có lỗi xảy ra. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
