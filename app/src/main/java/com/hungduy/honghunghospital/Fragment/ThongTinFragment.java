@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -106,27 +107,32 @@ public class ThongTinFragment extends BaseFragment {
         mAPIService.getTinTuc(APIKey).enqueue(new CallbackResponse(getActivity()){
             @Override
             public void success(Response<ResponseModel> response) {
-                getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(),getTinTuc[].class);
-                if(tinTucs.length > 0){
-                    int i=0;
-                    getTinTucChuongTrinhUuDai.clear();
-                    getTinTucThongBaoQuyDinh.clear();
-                    getTinTucKhac.clear();
-                    for (getTinTuc a: tinTucs) {
-                        if(a.getLoai() == 4){
-                            getTinTucChuongTrinhUuDai.add(a);
-                            tinTucHoADT.notifyDataSetChanged();
-                        }
-                        if(a.getLoai() == 1){
-                            getTinTucThongBaoQuyDinh.add(a);
-                            QuyDinhADT.notifyDataSetChanged();
-                        }
-                        if(a.getLoai() == 3){
-                            getTinTucKhac.add(a);
-                            KhacADT.notifyDataSetChanged();
+                try{
+                    getTinTuc[] tinTucs = new Gson().fromJson(response.body().getData(),getTinTuc[].class);
+                    if(tinTucs.length > 0){
+                        int i=0;
+                        getTinTucChuongTrinhUuDai.clear();
+                        getTinTucThongBaoQuyDinh.clear();
+                        getTinTucKhac.clear();
+                        for (getTinTuc a: tinTucs) {
+                            if(a.getLoai() == 4){
+                                getTinTucChuongTrinhUuDai.add(a);
+                                tinTucHoADT.notifyDataSetChanged();
+                            }
+                            if(a.getLoai() == 1){
+                                getTinTucThongBaoQuyDinh.add(a);
+                                QuyDinhADT.notifyDataSetChanged();
+                            }
+                            if(a.getLoai() == 3){
+                                getTinTucKhac.add(a);
+                                KhacADT.notifyDataSetChanged();
+                            }
                         }
                     }
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Đã có lỗi khi lấy tin tức !!!", Toast.LENGTH_SHORT).show();
                 }
+                
             }
         });
         txtThongBao.setOnClickListener(new View.OnClickListener() {

@@ -199,6 +199,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 FullName =(String) BundleLogin.get("FullName");
                 urlImage =(String) BundleLogin.get("urlImage");
                 token =(String) BundleLogin.get("token");
+                isConnected =(boolean) BundleLogin.get("connected");
               //  isConnected = (Boolean) BundleLogin.get("isConnected");
             }catch (Exception ex){
 
@@ -298,6 +299,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), UpdateUserActivity.class);
                         i.putExtra("FullName",FullName);
                         i.putExtra("urlImage",urlImage);
+                        i.putExtra("connected",isConnected);
                         i.putExtra("token",token);
                         startActivity(i);
                     }

@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -135,10 +136,11 @@ public class UpdateUserActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        dialog_loading.show();
+        showDialogLoading(2000);
 
         mapView();
         initView();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -507,22 +509,7 @@ public class UpdateUserActivity extends BaseActivity {
                                 "Mật khẩu không trùng khớp",R.drawable.password_drbl);
                         return;
                     }
-                    dialog_loading.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(dialog_loading.isShowing()){
-                                        dialog_loading.dismiss();
-                                        btnLuu.setEnabled(true);
-                                        btnLuu.setAlpha(1);
-                                    }
-                                }
-                            });
-                        }
-                    },2000);
+                    showDialogLoading(2000);
 
                     btnLuu.setEnabled(false);
                     btnLuu.setAlpha(.3f);
@@ -621,26 +608,33 @@ public class UpdateUserActivity extends BaseActivity {
                     mAPIService.getUserbyToken(token).enqueue(new CallbackResponse(UpdateUserActivity.this){
                         @Override
                         public void success(Response<ResponseModel> response) {
-                            getUser usr = new Gson().fromJson(response.body().getData(),getUser.class);
+                            getUser usr;
+                            try{
+                                usr = new Gson().fromJson(response.body().getData(),getUser.class);
+                            }catch (Exception e){
+                                usr = null;
+                            }
+
                             if(usr != null){
+                                getUser finalUsr = usr;
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        USRdao.insert(new UserData(AppConfigString.Username,usr.getUsername()));
-                                        USRdao.insert(new UserData(AppConfigString.HoTen,usr.getHoTen()));
-                                        USRdao.insert(new UserData(AppConfigString.NgaySinh,usr.getNgaySinh()));
-                                        USRdao.insert(new UserData(AppConfigString.GioiTinh,usr.getGioiTinh()+""));
-                                        USRdao.insert(new UserData(AppConfigString.MaTinh,usr.getMaTinh()+""));
-                                        USRdao.insert(new UserData(AppConfigString.MaHuyen,usr.getMaHuyen()+""));
-                                        USRdao.insert(new UserData(AppConfigString.MaPhuongXa,usr.getMaPhuongXa()+""));
-                                        USRdao.insert(new UserData(AppConfigString.MaApKhuPho,usr.getMaApKhuPho()+""));
-                                        USRdao.insert(new UserData(AppConfigString.SoNha,usr.getSoNha()));
-                                        USRdao.insert(new UserData(AppConfigString.QuocTich,usr.getQuocTich()+""));
-                                        USRdao.insert(new UserData(AppConfigString.HoChieu,usr.getHoChieu()));
-                                        USRdao.insert(new UserData(AppConfigString.MaTheBHYT,usr.getMaTheBHYT()));
-                                        USRdao.insert(new UserData(AppConfigString.HinhBHYT,usr.getHinhBHYT()));
-                                        USRdao.insert(new UserData(AppConfigString.HinhAnh,usr.getHinhAnh()));
-                                        USRdao.insert(new UserData(AppConfigString.DanToc,usr.getDanToc()));
+                                        USRdao.insert(new UserData(AppConfigString.Username, finalUsr.getUsername()));
+                                        USRdao.insert(new UserData(AppConfigString.HoTen, finalUsr.getHoTen()));
+                                        USRdao.insert(new UserData(AppConfigString.NgaySinh, finalUsr.getNgaySinh()));
+                                        USRdao.insert(new UserData(AppConfigString.GioiTinh, finalUsr.getGioiTinh()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaTinh, finalUsr.getMaTinh()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaHuyen, finalUsr.getMaHuyen()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaPhuongXa, finalUsr.getMaPhuongXa()+""));
+                                        USRdao.insert(new UserData(AppConfigString.MaApKhuPho, finalUsr.getMaApKhuPho()+""));
+                                        USRdao.insert(new UserData(AppConfigString.SoNha, finalUsr.getSoNha()));
+                                        USRdao.insert(new UserData(AppConfigString.QuocTich, finalUsr.getQuocTich()+""));
+                                        USRdao.insert(new UserData(AppConfigString.HoChieu, finalUsr.getHoChieu()));
+                                        USRdao.insert(new UserData(AppConfigString.MaTheBHYT, finalUsr.getMaTheBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhBHYT, finalUsr.getHinhBHYT()));
+                                        USRdao.insert(new UserData(AppConfigString.HinhAnh, finalUsr.getHinhAnh()));
+                                        USRdao.insert(new UserData(AppConfigString.DanToc, finalUsr.getDanToc()));
                                     }
                                 }).start();
                                 txtHoTen.setText(usr.getHoTen());
@@ -702,7 +696,6 @@ public class UpdateUserActivity extends BaseActivity {
                                     }
                                 }
 
-                                dialog_loading.dismiss();
                                 if(!usr.getHinhAnh().isEmpty()){
                                     Picasso.get().load(usr.getHinhAnh()).into(imgUserAVT);
                                     Picasso.get().load(usr.getHinhAnh()).into(
@@ -730,105 +723,116 @@ public class UpdateUserActivity extends BaseActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String sdt = USRdao.getConfig(AppConfigString.Username).getConfigInfo();
-                            String hoten = USRdao.getConfig(AppConfigString.HoTen).getConfigInfo();
-                            String ngaysinh = USRdao.getConfig(AppConfigString.NgaySinh).getConfigInfo();
-                            gioitinh = USRdao.getConfig(AppConfigString.GioiTinh).getConfigInfo();
-                            String matinh = USRdao.getConfig(AppConfigString.MaTinh).getConfigInfo();
-                            String mahuyen = USRdao.getConfig(AppConfigString.MaHuyen).getConfigInfo();
-                            String maphuong = USRdao.getConfig(AppConfigString.MaPhuongXa).getConfigInfo();
-                            String makp = USRdao.getConfig(AppConfigString.MaApKhuPho).getConfigInfo();
-                            String sonha = USRdao.getConfig(AppConfigString.SoNha).getConfigInfo();
-                            String maquoctichL = USRdao.getConfig(AppConfigString.QuocTich).getConfigInfo();
-                            String hochieu = USRdao.getConfig(AppConfigString.HoChieu).getConfigInfo();
-                            String soBHYT = USRdao.getConfig(AppConfigString.MaTheBHYT).getConfigInfo();
-                            String HinhBH = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
-                            String hinhanh = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
-                            String dantoc = USRdao.getConfig(AppConfigString.DanToc).getConfigInfo();
-                            imgUserURL = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
-                            imgBHYTURL = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
-                            token = USRdao.getConfig(AppConfigString.Token).getConfigInfo();
-                            if(!sdt.isEmpty()){
+                            try{
+                                String sdt = USRdao.getConfig(AppConfigString.Username).getConfigInfo();
+                                String hoten = USRdao.getConfig(AppConfigString.HoTen).getConfigInfo();
+                                String ngaysinh = USRdao.getConfig(AppConfigString.NgaySinh).getConfigInfo();
+                                gioitinh = USRdao.getConfig(AppConfigString.GioiTinh).getConfigInfo();
+                                String matinh = USRdao.getConfig(AppConfigString.MaTinh).getConfigInfo();
+                                String mahuyen = USRdao.getConfig(AppConfigString.MaHuyen).getConfigInfo();
+                                String maphuong = USRdao.getConfig(AppConfigString.MaPhuongXa).getConfigInfo();
+                                String makp = USRdao.getConfig(AppConfigString.MaApKhuPho).getConfigInfo();
+                                String sonha = USRdao.getConfig(AppConfigString.SoNha).getConfigInfo();
+                                String maquoctichL = USRdao.getConfig(AppConfigString.QuocTich).getConfigInfo();
+                                String hochieu = USRdao.getConfig(AppConfigString.HoChieu).getConfigInfo();
+                                String soBHYT = USRdao.getConfig(AppConfigString.MaTheBHYT).getConfigInfo();
+                                String HinhBH = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
+                                String hinhanh = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
+                                String dantoc = USRdao.getConfig(AppConfigString.DanToc).getConfigInfo();
+                                imgUserURL = USRdao.getConfig(AppConfigString.HinhAnh).getConfigInfo();
+                                imgBHYTURL = USRdao.getConfig(AppConfigString.HinhBHYT).getConfigInfo();
+                                token = USRdao.getConfig(AppConfigString.Token).getConfigInfo();
+                                if(!sdt.isEmpty()){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            txtHoTen.setText(hoten);
+                                            try{
+                                                txtNgaySinh.setText(ngaysinh.split("/")[0]);
+                                                txtThangSinh.setText(ngaysinh.split("/")[1]);
+                                                txtNamSinh.setText(ngaysinh.split("/")[2]);
+                                            }catch (Exception ex){
+                                                txtNgaySinh.setText("");
+                                                txtThangSinh.setText("");
+                                                txtNamSinh.setText("");
+                                            }
+                                            switch (gioitinh){
+                                                case "0" :
+                                                    chkNam.setChecked(true);
+                                                    break;
+                                                case "1":
+                                                    chkNu.setChecked(true);
+                                                    break;
+                                                case "2":
+                                                    chkKhac.setChecked(true);
+                                                    break;
+                                            }
+                                            for(TinhThanh a : listTinhThanh){
+                                                if(a.getMa() == Integer.parseInt(matinh)){
+                                                    txtTinhThanh.setText(a.getTen());
+                                                    break;
+                                                }
+                                            }
+                                            matinhthanh = matinh;
+                                            maquanhuyen = mahuyen;
+                                            maphuongxa = maphuong;
+                                            maapkhupho = makp;
+                                            maquoctich = maquoctichL;
+                                            DoDuLieuQuanHuyen(Integer.parseInt(matinh));
+                                            DoDuLieuXaPhuong(Integer.parseInt(mahuyen));
+                                            DoDuLieuApKhuPho(Integer.parseInt(maphuong));
+                                            if(maapkhupho.equals("")){
+                                                txtApKhuPho.setEnabled(false);
+                                                txtApKhuPho.setText("---");
+                                            }
+                                            txtDiaChi.setText(sonha);
+                                            for(QuocGia q : listQuocGia){
+                                                if(maquoctichL.equals(q.getMa()+"")){
+                                                    txtQuocTich.setText(q.getTen());
+                                                }
+                                            }
+                                            txtCMND.setText(hochieu);
+                                            txtMaBHYT.setText(soBHYT);
+                                            txtSDT.setText(sdt);
+
+                                            for(int i=0;i<listDanToc.size();i++){
+                                                if(dantoc.equals(listDanToc.get(i).getMa()+"")){
+                                                    txtDanToc.select(i);
+                                                }
+                                            }
+
+                                            ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                                            File directory = cw.getDir(AppConfigString.ImageDIR, Context.MODE_PRIVATE);
+                                            File UserImage,BHYTImage;
+                                            try{
+                                                UserImage = new File(directory, AppConfigString.UserImageName);
+                                                BHYTImage = new File(directory, AppConfigString.BHYTImageName);
+
+                                            }catch (Exception ex){
+                                                UserImage = null;
+                                                BHYTImage = null;
+                                            }
+                                            Picasso.get().load(UserImage).placeholder(R.drawable.avatar_user_empty).into(imgUserAVT);
+                                            Picasso.get().load(BHYTImage).placeholder(R.drawable.bhyt).into(imgBHYT);
+                                        }
+                                    });
+                                }
+                            }catch (Exception e){
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        txtHoTen.setText(hoten);
-                                        try{
-                                            txtNgaySinh.setText(ngaysinh.split("/")[0]);
-                                            txtThangSinh.setText(ngaysinh.split("/")[1]);
-                                            txtNamSinh.setText(ngaysinh.split("/")[2]);
-                                        }catch (Exception ex){
-                                            txtNgaySinh.setText("");
-                                            txtThangSinh.setText("");
-                                            txtNamSinh.setText("");
-                                        }
-                                        switch (gioitinh){
-                                            case "0" :
-                                                chkNam.setChecked(true);
-                                                break;
-                                            case "1":
-                                                chkNu.setChecked(true);
-                                                break;
-                                            case "2":
-                                                chkKhac.setChecked(true);
-                                                break;
-                                        }
-                                        for(TinhThanh a : listTinhThanh){
-                                            if(a.getMa() == Integer.parseInt(matinh)){
-                                                txtTinhThanh.setText(a.getTen());
-                                                break;
-                                            }
-                                        }
-                                        matinhthanh = matinh;
-                                        maquanhuyen = mahuyen;
-                                        maphuongxa = maphuong;
-                                        maapkhupho = makp;
-                                        maquoctich = maquoctichL;
-                                        DoDuLieuQuanHuyen(Integer.parseInt(matinh));
-                                        DoDuLieuXaPhuong(Integer.parseInt(mahuyen));
-                                        DoDuLieuApKhuPho(Integer.parseInt(maphuong));
-                                        if(maapkhupho.equals("")){
-                                            txtApKhuPho.setEnabled(false);
-                                            txtApKhuPho.setText("---");
-                                        }
-                                        txtDiaChi.setText(sonha);
-                                        for(QuocGia q : listQuocGia){
-                                            if(maquoctichL.equals(q.getMa()+"")){
-                                                txtQuocTich.setText(q.getTen());
-                                            }
-                                        }
-                                        txtCMND.setText(hochieu);
-                                        txtMaBHYT.setText(soBHYT);
-                                        txtSDT.setText(sdt);
-
-                                        for(int i=0;i<listDanToc.size();i++){
-                                            if(dantoc.equals(listDanToc.get(i).getMa()+"")){
-                                                txtDanToc.select(i);
-                                            }
-                                        }
-
-                                        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-                                        File directory = cw.getDir(AppConfigString.ImageDIR, Context.MODE_PRIVATE);
-                                        File UserImage,BHYTImage;
-                                        try{
-                                            UserImage = new File(directory, AppConfigString.UserImageName);
-                                            BHYTImage = new File(directory, AppConfigString.BHYTImageName);
-
-                                        }catch (Exception ex){
-                                            UserImage = null;
-                                            BHYTImage = null;
-                                        }
-                                        Picasso.get().load(UserImage).placeholder(R.drawable.avatar_user_empty).into(imgUserAVT);
-                                        Picasso.get().load(BHYTImage).placeholder(R.drawable.bhyt).into(imgBHYT);
+                                        Toast.makeText(UpdateUserActivity.this, "Lỗi " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
+
+
                         }
                     }).start();
                     dialog_loading.dismiss();
                 }
             }
-        }, 500);
+        }, 1000);
     }
 
     private void initView() {
