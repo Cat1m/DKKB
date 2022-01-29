@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +43,7 @@ import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getUser;
 import com.hungduy.honghunghospital.Model.setModel.updateUser;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.ApiUtils;
 import com.hungduy.honghunghospital.Utility.AppConfigString;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
@@ -50,6 +53,7 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -59,7 +63,10 @@ import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -707,10 +714,26 @@ public class UpdateUserActivity extends BaseActivity {
                                                     , AppConfigString.UserImageName));
                                 }
                                 if(!usr.getHinhBHYT().isEmpty()){
-                                    Picasso.get().load(usr.getHinhBHYT()).into(imgBHYT);
-                                    Picasso.get().load(usr.getHinhBHYT()).into(
-                                            UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
-                                                    , AppConfigString.BHYTImageName));
+                                    try{
+                                        mAPIService.getBHYT(token).enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                byte[] bytes = new byte[0];
+                                                try {
+                                                    bytes = response.body().bytes();
+                                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                    imgBHYT.setImageBitmap(bitmap);
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }catch (Exception e){
+                                    }
                                 }else{
                                     Picasso.get().load(R.drawable.bhyt).into(
                                             UtilityHHH.picassoImageTarget(getApplicationContext(), AppConfigString.ImageDIR
