@@ -13,11 +13,14 @@ public class updateUser {
     private String bhyt;
     private String imgUser;
     private String imgBHYT;
+    private String hoten;
+    private String ngaysinh;
+    private String gioitinh;
 
     public updateUser() {
     }
 
-    public updateUser(String tinh, String quanhuyen, String xaphuong, String apkhupho, String quoctich, String password, String oldPassword, String sonha, String hochieu, String bhyt, String imgUser, String imgBHYT) {
+    public updateUser(String tinh, String quanhuyen, String xaphuong, String apkhupho, String quoctich, String password, String oldPassword, String sonha, String hochieu, String bhyt, String imgUser, String imgBHYT, String hoten, String ngaysinh, String gioitinh) {
         this.tinh = tinh;
         this.quanhuyen = quanhuyen;
         this.xaphuong = xaphuong;
@@ -30,6 +33,33 @@ public class updateUser {
         this.bhyt = bhyt;
         this.imgUser = imgUser;
         this.imgBHYT = imgBHYT;
+        this.hoten = hoten;
+        this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
+    }
+
+    public String getHoten() {
+        return hoten;
+    }
+
+    public void setHoten(String hoten) {
+        this.hoten = hoten;
+    }
+
+    public String getNgaysinh() {
+        return ngaysinh;
+    }
+
+    public void setNgaysinh(String ngaysinh) {
+        this.ngaysinh = ngaysinh;
+    }
+
+    public String getGioitinh() {
+        return gioitinh;
+    }
+
+    public void setGioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
     }
 
     public String getTinh() {

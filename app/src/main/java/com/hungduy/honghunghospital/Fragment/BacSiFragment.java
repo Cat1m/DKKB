@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Database.Model.BacSi;
 import com.hungduy.honghunghospital.Model.ResponseModel;
+import com.hungduy.honghunghospital.Model.extModel.getBSCoHinh;
 import com.hungduy.honghunghospital.Model.extModel.getListLichLamViecBS;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getLichLamViecBS;
@@ -38,13 +40,14 @@ import retrofit2.Response;
 
 public class BacSiFragment extends BaseFragment {
     private JRSpinner txtHoTen;
-    private ArrayList<getMaTen> listBS;
-    private TextView txtInfoBS,txtDoctorName,txtXemThem;
+    private ArrayList<getBSCoHinh> listBS;
+    private TextView txtInfoBS,txtDoctorName,txtXemThem,textDangNhapXemLich;
     private ConstraintLayout LayoutDoctor;
     private ImageView imgDoctor;
     private RadioButton btnTuanNay,btnTuanSau;
     private getThongTinBS bs;
     private getListLichLamViecBS llvBS;
+    private LinearLayout viewLLV;
     private TextView txtT2S,txtT3S,txtT4S,txtT5S,txtT6S,txtT7S,txtT8S,txtT2C,txtT3C,txtT4C,txtT5C,txtT6C,txtT7C,txtT8C;
 
     public BacSiFragment() {
@@ -53,9 +56,6 @@ public class BacSiFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
 
@@ -66,6 +66,11 @@ public class BacSiFragment extends BaseFragment {
         mapView(view);
         listBS = new ArrayList<>();
         llvBS = new getListLichLamViecBS();
+
+        if(token != null && !token.isEmpty()){
+            viewLLV.setVisibility(View.VISIBLE);
+            textDangNhapXemLich.setVisibility(View.GONE);
+        }
 
         LayoutDoctor.setVisibility(View.GONE);
         txtXemThem.setVisibility(View.GONE);
@@ -107,14 +112,15 @@ public class BacSiFragment extends BaseFragment {
                 }
             }
         });
+
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(getActivity()){
             @Override
             public void success(Response<ResponseModel> response) {
-                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                getBSCoHinh[] dsBS = new Gson().fromJson(response.body().getData(),getBSCoHinh[].class);
                 if(dsBS.length > 0){
                     String[] tenBS = new String[dsBS.length];
                     int i=0;
-                    for (getMaTen bs: dsBS ) {
+                    for (getBSCoHinh bs: dsBS ) {
                         if(txtHoTen.getText().toString().equals(bs.getTen())){
                             getDetai(bs.getMa());
                         }
@@ -128,6 +134,16 @@ public class BacSiFragment extends BaseFragment {
             }
 
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(token != null && !token.isEmpty()){
+            viewLLV.setVisibility(View.VISIBLE);
+            textDangNhapXemLich.setVisibility(View.GONE);
+        }
     }
 
     private void getDetai(String ma){
@@ -156,27 +172,31 @@ public class BacSiFragment extends BaseFragment {
             }
         });
 
-        mAPIService.getLichLamViecBS(APIKey,new baseGetClass(ma)).enqueue(new CallbackResponse(getActivity()){
+        if(token != null && !token.isEmpty()){
+            mAPIService.getLichLamViecBS(APIKey,new baseGetClass(ma)).enqueue(new CallbackResponse(getActivity()){
 
-            @Override
-            public void success(Response<ResponseModel> response) {
-                getListLichLamViecBS llvs = new Gson().fromJson(response.body().getData(),getListLichLamViecBS.class);
-                if(llvs.getTuannay().size()>0){
-                    ArrayList<getLichLamViecBS> a = new ArrayList<>();
-                    ArrayList<getLichLamViecBS> b = new ArrayList<>();
-                    for (getLichLamViecBS llv : llvs.getTuannay()) {
-                        a.add(llv);
-                        setLichLamViec(llv);
+                @Override
+                public void success(Response<ResponseModel> response) {
+                    getListLichLamViecBS llvs = new Gson().fromJson(response.body().getData(),getListLichLamViecBS.class);
+                    if(llvs.getTuannay().size()>0){
+                        ArrayList<getLichLamViecBS> a = new ArrayList<>();
+                        ArrayList<getLichLamViecBS> b = new ArrayList<>();
+                        for (getLichLamViecBS llv : llvs.getTuannay()) {
+                            a.add(llv);
+                            setLichLamViec(llv);
+                        }
+                        for (getLichLamViecBS llv : llvs.getTuanSau()) {
+                            b.add(llv);
+                        }
+                        llvBS.setTuannay(a);
+                        llvBS.setTuanSau(b);
                     }
-                    for (getLichLamViecBS llv : llvs.getTuanSau()) {
-                        b.add(llv);
-                    }
-                    llvBS.setTuannay(a);
-                    llvBS.setTuanSau(b);
                 }
-            }
 
-        });
+            });
+        }
+
+
     }
 
     private void setLichLamViec(getLichLamViecBS llv){
@@ -235,6 +255,8 @@ public class BacSiFragment extends BaseFragment {
         btnTuanNay = view.findViewById(R.id.btnTuanNay);
         btnTuanSau = view.findViewById(R.id.btnTuanSau);
         txtXemThem = view.findViewById(R.id.txtXemThem);
+        textDangNhapXemLich = view.findViewById(R.id.textDangNhapXemLich);
+        viewLLV = view.findViewById(R.id.viewLLV);
     }
 
     @Override

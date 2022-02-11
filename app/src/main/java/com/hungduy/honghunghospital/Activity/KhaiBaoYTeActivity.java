@@ -1,40 +1,45 @@
 package com.hungduy.honghunghospital.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
-import com.hungduy.honghunghospital.Database.Model.BacSi;
 import com.hungduy.honghunghospital.Database.Model.CauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
+import com.hungduy.honghunghospital.Model.extModel.getBSCoHinh;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
@@ -47,6 +52,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
     private getMaTen bacSi;
     private getMaTen chuyenKhoa;
     private getMaTen dichVu;
+    private String date;
 
 
     @Override
@@ -112,224 +118,21 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
         btnChonBS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog;
-                dialog = new Dialog(KhaiBaoYTeActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                if (dialog.getWindow() != null)
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.dang_ky_kham);
-                TextView title = dialog.findViewById(R.id.title);
-                TextView txt1 = dialog.findViewById(R.id.txt1);
-                Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
-                Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
-                JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-
-                mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
-                    @Override
-                    public void success(Response<ResponseModel> response) {
-                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                        if(dsBS.length > 0){
-                            listBS.clear();
-                            String[] tenBS = new String[dsBS.length];
-                            int i=0;
-                            for (getMaTen bs: dsBS ) {
-                                listBS.add(bs);
-                                tenBS[i] = bs.getTen();
-                                i++;
-                            }
-                            txtBS.setItems(tenBS);
-                            Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
-                        }
-                    }
-                });
-
-                txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        bacSi = listBS.get(position);
-                        btnChonBS.setText("Chọn bác sĩ "+listBS.get(position).getTen());
-                        btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
-                        btnChonBS.setTextColor(getResources().getColor(R.color.white));
-                    }
-                });
-                title.setText("Chọn bác sĩ bạn muốn khám");
-                txt1.setText("Bác sĩ");
-                negativeBtn.setText("Hủy");
-                positiveBtn.setText("Đồng ý");
-                negativeBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnChonBS.setText(R.string.txt_toi_muon_kham_bac_si);
-                        btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
-                        btnChonBS.setTextColor(getResources().getColor(R.color.textColorGreen));
-                        btnChonChuyenKhoa.setEnabled(true);
-                        btnDichVuKhac.setEnabled(true);
-                        btnDuaNguoiThan.setEnabled(true);
-                        bacSi = null;
-                        dialog.dismiss();
-                    }
-                });
-                positiveBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnChonChuyenKhoa.setEnabled(false);
-                        btnDichVuKhac.setEnabled(false);
-                        btnDuaNguoiThan.setEnabled(false);
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                handleSelectDoctor();
             }
         });
 
         btnChonChuyenKhoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog;
-                dialog = new Dialog(KhaiBaoYTeActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                if (dialog.getWindow() != null)
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.dang_ky_kham);
-                TextView title = dialog.findViewById(R.id.title);
-                TextView txt1 = dialog.findViewById(R.id.txt1);
-                Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
-                Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
-                JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                txtBS.setTitle("Chọn chuyên khoa");
-                mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
-                    @Override
-                    public void success(Response<ResponseModel> response) {
-                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                        if(dsBS.length > 0){
-                            listDMCK.clear();
-                            String[] tenBS = new String[dsBS.length];
-                            int i=0;
-                            for (getMaTen bs: dsBS ) {
-                                listDMCK.add(bs);
-                                tenBS[i] = bs.getTen();
-                                i++;
-                            }
-                            txtBS.setItems(tenBS);
-                            Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
-                        }
-                    }
-                });
-                txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        chuyenKhoa = listDMCK.get(position);
-                        btnChonChuyenKhoa.setText("Chọn khoa "+listDMCK.get(position).getTen());
-                        btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
-                        btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.white));
-                    }
-                });
-                title.setText("Chọn chuyên khoa bạn muốn khám");
-                txt1.setText("Chuyên khoa");
-                negativeBtn.setText("Hủy");
-                positiveBtn.setText("Đồng ý");
-                negativeBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnChonChuyenKhoa.setText(R.string.txt_toi_muon_kham_chuyen_khoa);
-                        btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
-                        btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.textColorGreen));
-                        btnChonBS.setEnabled(true);
-                        btnDichVuKhac.setEnabled(true);
-                        btnDuaNguoiThan.setEnabled(true);
-                        chuyenKhoa = null;
-                        dialog.dismiss();
-                    }
-                });
-                positiveBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnChonBS.setEnabled(false);
-                        btnDichVuKhac.setEnabled(false);
-                        btnDuaNguoiThan.setEnabled(false);
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                handleChonKhoa();
             }
         });
 
         btnDichVuKhac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog;
-                dialog = new Dialog(KhaiBaoYTeActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                if (dialog.getWindow() != null)
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.dang_ky_kham);
-                TextView title = dialog.findViewById(R.id.title);
-                TextView txt1 = dialog.findViewById(R.id.txt1);
-                Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
-                Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
-                JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-                txtBS.setTitle("Chọn dịch vụ");
-                mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
-                    @Override
-                    public void success(Response<ResponseModel> response) {
-                        try{
-                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                            if(dsBS.length > 0){
-                                listDV.clear();
-                                String[] tenBS = new String[dsBS.length];
-                                int i=0;
-                                for (getMaTen bs: dsBS ) {
-                                    listDV.add(bs);
-                                    tenBS[i] = bs.getTen();
-                                    i++;
-                                }
-                                txtBS.setItems(tenBS);
-                                Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
-                            }
-                        }catch (Exception e){
-                            Toast.makeText(KhaiBaoYTeActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        dichVu = listDV.get(position);
-                        btnDichVuKhac.setText("Chọn dịch vụ "+listDV.get(position).getTen());
-                        btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
-                        btnDichVuKhac.setTextColor(getResources().getColor(R.color.white));
-                    }
-                });
-                title.setText("Chọn dịch vụ bạn muốn");
-                txt1.setText("Dịch vụ");
-                negativeBtn.setText("Hủy");
-                positiveBtn.setText("Đồng ý");
-                negativeBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnDichVuKhac.setText(R.string.txt_toi_muon_dang_ky_dich_vu_khac);
-                        btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
-                        btnDichVuKhac.setTextColor(getResources().getColor(R.color.textColorGreen));
-                        btnChonBS.setEnabled(true);
-                        btnChonChuyenKhoa.setEnabled(true);
-                        btnDuaNguoiThan.setEnabled(true);
-                        dichVu = null;
-                        dialog.dismiss();
-                    }
-                });
-                positiveBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        btnChonBS.setEnabled(false);
-                        btnChonChuyenKhoa.setEnabled(false);
-                        btnDuaNguoiThan.setEnabled(false);
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                handleDVK();
             }
         });
 
@@ -417,6 +220,243 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
             }
         });
 
+    }
+
+    private void handleDVK() {
+        Dialog dialog;
+        dialog = new Dialog(KhaiBaoYTeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dang_ky_kham);
+        TextView title = dialog.findViewById(R.id.title);
+        TextView txt1 = dialog.findViewById(R.id.txt1);
+        Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
+        Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
+        JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+        txtBS.setTitle("Chọn dịch vụ");
+        EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
+        edtNgayKham.setEnabled(true);
+        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham);
+        mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
+            @Override
+            public void success(Response<ResponseModel> response) {
+                try{
+                    getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                    if(dsBS.length > 0){
+                        listDV.clear();
+                        String[] tenBS = new String[dsBS.length];
+                        int i=0;
+                        for (getMaTen bs: dsBS ) {
+                            listDV.add(bs);
+                            tenBS[i] = bs.getTen();
+                            i++;
+                        }
+                        txtBS.setItems(tenBS);
+                        Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                    }
+                }catch (Exception e){
+                    Toast.makeText(KhaiBaoYTeActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                dichVu = listDV.get(position);
+                btnDichVuKhac.setText("Chọn dịch vụ "+listDV.get(position).getTen());
+                btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
+                btnDichVuKhac.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+        title.setText("Chọn dịch vụ bạn muốn");
+        txt1.setText("Dịch vụ");
+        negativeBtn.setText("Hủy");
+        positiveBtn.setText("Đồng ý");
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnDichVuKhac.setText(R.string.txt_toi_muon_dang_ky_dich_vu_khac);
+                btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
+                btnDichVuKhac.setTextColor(getResources().getColor(R.color.textColorGreen));
+                btnChonBS.setEnabled(true);
+                btnChonChuyenKhoa.setEnabled(true);
+                btnDuaNguoiThan.setEnabled(true);
+                dichVu = null;
+                dialog.dismiss();
+            }
+        });
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtNgayKham.getText().toString().equals("Chọn ngày") || dichVu == null){
+                    Toast.makeText(KhaiBaoYTeActivity.this, "Vui lòng chọn đầy đủ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                date = edtNgayKham.getText().toString();
+                btnChonBS.setEnabled(false);
+                btnChonChuyenKhoa.setEnabled(false);
+                btnDuaNguoiThan.setEnabled(false);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void handleChonKhoa() {
+        Dialog dialog;
+        dialog = new Dialog(KhaiBaoYTeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dang_ky_kham);
+        TextView title = dialog.findViewById(R.id.title);
+        TextView txt1 = dialog.findViewById(R.id.txt1);
+        Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
+        Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
+        JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+        txtBS.setTitle("Chọn chuyên khoa");
+        EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
+        edtNgayKham.setEnabled(true);
+        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham);
+        mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
+            @Override
+            public void success(Response<ResponseModel> response) {
+                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                if(dsBS.length > 0){
+                    listDMCK.clear();
+                    String[] tenBS = new String[dsBS.length];
+                    int i=0;
+                    for (getMaTen bs: dsBS ) {
+                        listDMCK.add(bs);
+                        tenBS[i] = bs.getTen();
+                        i++;
+                    }
+                    txtBS.setItems(tenBS);
+                    Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                }
+            }
+        });
+        txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                chuyenKhoa = listDMCK.get(position);
+                btnChonChuyenKhoa.setText("Chọn khoa "+listDMCK.get(position).getTen());
+                btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
+                btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+        title.setText("Chọn chuyên khoa bạn muốn khám");
+        txt1.setText("Chuyên khoa");
+        negativeBtn.setText("Hủy");
+        positiveBtn.setText("Đồng ý");
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnChonChuyenKhoa.setText(R.string.txt_toi_muon_kham_chuyen_khoa);
+                btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
+                btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.textColorGreen));
+                btnChonBS.setEnabled(true);
+                btnDichVuKhac.setEnabled(true);
+                btnDuaNguoiThan.setEnabled(true);
+                chuyenKhoa = null;
+                dialog.dismiss();
+            }
+        });
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtNgayKham.getText().toString().equals("Chọn ngày") || chuyenKhoa == null){
+                    Toast.makeText(KhaiBaoYTeActivity.this, "Vui lòng chọn đầy đủ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                date = edtNgayKham.getText().toString();
+                btnChonBS.setEnabled(false);
+                btnDichVuKhac.setEnabled(false);
+                btnDuaNguoiThan.setEnabled(false);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void handleSelectDoctor() {
+        Dialog dialog;
+        dialog = new Dialog(KhaiBaoYTeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dang_ky_kham);
+        TextView title = dialog.findViewById(R.id.title);
+        TextView txt1 = dialog.findViewById(R.id.txt1);
+        EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
+        Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
+        Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
+        JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+
+        mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
+            @Override
+            public void success(Response<ResponseModel> response) {
+                getBSCoHinh[] dsBS = new Gson().fromJson(response.body().getData(), getBSCoHinh[].class);
+                if(dsBS.length > 0){
+                    listBS.clear();
+                    String[] tenBS = new String[dsBS.length];
+                    int i=0;
+                    for (getBSCoHinh bs: dsBS ) {
+                        listBS.add(bs);
+                        tenBS[i] = bs.getTen();
+                        i++;
+                    }
+                    txtBS.setItems(tenBS);
+                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                }
+            }
+        });
+
+        txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                bacSi = listBS.get(position);
+                btnChonBS.setText("Chọn bác sĩ "+listBS.get(position).getTen());
+                btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
+                btnChonBS.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+        title.setText("Chọn bác sĩ bạn muốn khám");
+        txt1.setText("Bác sĩ");
+        negativeBtn.setText("Hủy");
+        positiveBtn.setText("Đồng ý");
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnChonBS.setText(R.string.txt_toi_muon_kham_bac_si);
+                btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
+                btnChonBS.setTextColor(getResources().getColor(R.color.textColorGreen));
+                btnChonChuyenKhoa.setEnabled(true);
+                btnDichVuKhac.setEnabled(true);
+                btnDuaNguoiThan.setEnabled(true);
+                bacSi = null;
+                dialog.dismiss();
+            }
+        });
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtNgayKham.getText().toString().equals("Chọn ngày") || bacSi == null){
+                    Toast.makeText(KhaiBaoYTeActivity.this, "Vui lòng chọn đầy đủ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                date = edtNgayKham.getText().toString();
+                btnChonChuyenKhoa.setEnabled(false);
+                btnDichVuKhac.setEnabled(false);
+                btnDuaNguoiThan.setEnabled(false);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void mapView() {

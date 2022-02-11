@@ -7,6 +7,8 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.R;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 
+import org.jetbrains.annotations.NotNull;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +24,7 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
         this.a = a;
     }
 
-    public CallbackResponse(Activity a) {
+    public CallbackResponse(@NotNull Activity a) {
         this.a = a;
     }
 

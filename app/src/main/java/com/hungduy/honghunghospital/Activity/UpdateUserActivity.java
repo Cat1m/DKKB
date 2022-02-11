@@ -1,8 +1,8 @@
 package com.hungduy.honghunghospital.Activity;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,6 +49,7 @@ import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +57,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
 import kotlin.Unit;
@@ -572,11 +574,14 @@ public class UpdateUserActivity extends BaseActivity {
                             usrUpdate.setSonha(txtDiaChi.getText().toString());
                             usrUpdate.setHochieu(txtCMND.getText().toString());
                             usrUpdate.setBhyt(txtMaBHYT.getText().toString());
+                            usrUpdate.setHoten(txtHoTen.getText().toString());
+                            usrUpdate.setGioitinh(gioitinh);
+                            usrUpdate.setNgaysinh(txtNgaySinh.getText().toString() +"/"+txtThangSinh.getText().toString()+"/"+txtNamSinh.getText().toString());
                             mAPIService.updateUser(token, usrUpdate).enqueue(new CallbackResponse(UpdateUserActivity.this) {
                                 @Override
                                 public void success(Response<ResponseModel> response) {
                                     if (response.body().getStatus().equals("OK")) {
-                                        ThongBao(UpdateUserActivity.this, "Thành công", "", R.drawable.connection_error, new FancyGifDialogListener() {
+                                        ThongBao(UpdateUserActivity.this, "Thành công", response.body().getMessenge(), R.drawable.connection_error, new FancyGifDialogListener() {
                                             @Override
                                             public void OnClick() {
                                                 finish();
@@ -660,11 +665,17 @@ public class UpdateUserActivity extends BaseActivity {
                                 switch (usr.getGioiTinh()){
                                     case 0 :
                                         chkNam.setChecked(true);
+                                        chkNu.setChecked(false);
+                                        chkKhac.setChecked(false);
                                         break;
                                     case 1:
+                                        chkNam.setChecked(false);
                                         chkNu.setChecked(true);
+                                        chkKhac.setChecked(false);
                                         break;
                                     case 2:
+                                        chkNam.setChecked(false);
+                                        chkNu.setChecked(false);
                                         chkKhac.setChecked(true);
                                         break;
                                 }
@@ -718,13 +729,15 @@ public class UpdateUserActivity extends BaseActivity {
                                         mAPIService.getBHYT(token).enqueue(new Callback<ResponseBody>() {
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                byte[] bytes = new byte[0];
-                                                try {
-                                                    bytes = response.body().bytes();
-                                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                    imgBHYT.setImageBitmap(bitmap);
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
+                                                if(response.isSuccessful()){
+                                                    byte[] bytes = new byte[0];
+                                                    try {
+                                                        bytes = response.body().bytes();
+                                                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                        imgBHYT.setImageBitmap(bitmap);
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
                                             }
                                             @Override
@@ -782,11 +795,17 @@ public class UpdateUserActivity extends BaseActivity {
                                             switch (gioitinh){
                                                 case "0" :
                                                     chkNam.setChecked(true);
+                                                    chkNu.setChecked(false);
+                                                    chkKhac.setChecked(false);
                                                     break;
                                                 case "1":
+                                                    chkNam.setChecked(false);
                                                     chkNu.setChecked(true);
+                                                    chkKhac.setChecked(false);
                                                     break;
                                                 case "2":
+                                                    chkNam.setChecked(false);
+                                                    chkNu.setChecked(false);
                                                     chkKhac.setChecked(true);
                                                     break;
                                             }
@@ -859,13 +878,13 @@ public class UpdateUserActivity extends BaseActivity {
     }
 
     private void initView() {
-        txtHoTen.setEnabled(false);
+      /*  txtHoTen.setEnabled(false);
         txtNgaySinh.setEnabled(false);
         txtThangSinh.setEnabled(false);
         txtNamSinh.setEnabled(false);
         chkKhac.setEnabled(false);
         chkNam.setEnabled(false);
-        chkNu.setEnabled(false);
+        chkNu.setEnabled(false);*/
         txtSDT.setEnabled(false);
         txtDanToc.setEnabled(false);
         ViewUpdate.setVisibility(View.VISIBLE);
@@ -887,7 +906,34 @@ public class UpdateUserActivity extends BaseActivity {
 
     private void NgaySinhPicker(){
         Calendar c = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(UpdateUserActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+        int mYear=2022;
+        int mMonth=0;
+        int mDay=1;
+        try{
+
+            mYear = UtilityHHH.toInt(txtNamSinh.getText().toString());
+            mMonth = UtilityHHH.toInt(txtThangSinh.getText().toString()) - 1;
+            mDay = UtilityHHH.toInt(txtNgaySinh.getText().toString());
+        }catch (Exception e){
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+        }
+
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                txtNamSinh.setText(year+"");
+                txtNgaySinh.setText(dayOfMonth+"");
+                txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.setOkText("Chọn");
+        datePickerDialog.setCancelText("Hủy");
+        datePickerDialog.setLocale(new Locale("vi"));
+        datePickerDialog.show(getSupportFragmentManager(), "Chọn ngày sinh");
+
+      /*  DatePickerDialog datePickerDialog = new DatePickerDialog(UpdateUserActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 txtNamSinh.setText(year+"");
@@ -896,8 +942,7 @@ public class UpdateUserActivity extends BaseActivity {
             }
         }, 1997, 0, 26);
         datePickerDialog.setTitle("Chọn ngày");
-
-        datePickerDialog.show();
+        datePickerDialog.show();*/
     }
 
     private void DoDuLieuQuanHuyen(int matinhthanh){

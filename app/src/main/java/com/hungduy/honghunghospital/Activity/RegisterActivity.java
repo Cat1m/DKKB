@@ -1,6 +1,5 @@
 package com.hungduy.honghunghospital.Activity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,14 +32,17 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.setModel.setUserModel;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
 import kotlin.Unit;
@@ -598,7 +599,33 @@ public class RegisterActivity extends BaseActivity {
 
     private void NgaySinhPicker(){
         Calendar c = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+        int mYear=2022;
+        int mMonth=0;
+        int mDay=1;
+        try{
+            mYear = UtilityHHH.toInt(txtNamSinh.getText().toString());
+            mMonth = UtilityHHH.toInt(txtThangSinh.getText().toString()) - 1;
+            mDay = UtilityHHH.toInt(txtNgaySinh.getText().toString());
+        }catch (Exception e){
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+        }
+
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                txtNamSinh.setText(year+"");
+                txtNgaySinh.setText(dayOfMonth+"");
+                txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.setOkText("Chọn");
+        datePickerDialog.setCancelText("Hủy");
+        datePickerDialog.setLocale(new Locale("vi"));
+        datePickerDialog.show(getSupportFragmentManager(), "Chọn ngày sinh");
+
+      /*  DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 txtNamSinh.setText(year+"");
@@ -608,7 +635,7 @@ public class RegisterActivity extends BaseActivity {
         }, 1997, 0, 26);
         datePickerDialog.setTitle("Chọn ngày");
 
-        datePickerDialog.show();
+        datePickerDialog.show();*/
     }
 
     private void DoDuLieuQuanHuyen(int matinhthanh){

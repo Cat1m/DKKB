@@ -203,7 +203,7 @@
                 android:background="@color/textColorGreen"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
                 android:gravity="center"
-                android:text="@string/txt_title_khai_bao_y_te_cong_tac"
+                android:text="@string/txt_title_khai_bao_y_te"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
