@@ -89,6 +89,19 @@ public class MainActivity extends BaseActivity {
             FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
         }
 
+        try{
+            String url = bundle.getString("url");
+            if(url.contains("https")){
+                Intent i = new Intent(this,WebviewActivity.class);
+                i.putExtras(bundle);
+                startActivity(i);
+            }else{
+
+            }
+        }catch (Exception e){
+
+        }
+
         initButtonImage();// load Image to memory for quick response
     }
 

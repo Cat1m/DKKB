@@ -139,46 +139,28 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
-
-                new Thread(new Runnable() {
+                mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
                     @Override
-                    public void run() {
-                        if(bacSiDAO.getAll().size() > 0){
-                            String[] tenBS = new String[bacSiDAO.getAll().size()];
-                            int i=0;
-                            for(BacSi bs : bacSiDAO.getAll()){
-                                listBS.add(new getMaTen(bs.getID()+"", bs.getTen()));
-                                tenBS[i] = bs.getTen();
-                                i++;
-                            }
-                            txtBS.setItems(tenBS);
-                            Log.d(TAG,"localData");
-                        }else{
-                            mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
-                                @Override
-                                public void success(Response<ResponseModel> response) {
-                                    try{
-                                        getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                                        if(dsBS.length > 0){
-                                            listBS.clear();
-                                            String[] tenBS = new String[dsBS.length];
-                                            int i=0;
-                                            for (getMaTen bs: dsBS ) {
-                                                listBS.add(bs);
-                                                tenBS[i] = bs.getTen();
-                                                i++;
-                                            }
-                                            txtBS.setItems(tenBS);
-                                        }
-                                    }catch (Exception e){
-                                        Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
+                    public void success(Response<ResponseModel> response) {
+                        try{
+                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                            if(dsBS.length > 0){
+                                listBS.clear();
+                                String[] tenBS = new String[dsBS.length];
+                                int i=0;
+                                for (getMaTen bs: dsBS ) {
+                                    listBS.add(bs);
+                                    tenBS[i] = bs.getTen();
+                                    i++;
                                 }
-                            });
+                                txtBS.setItems(tenBS);
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Đã có lỗi xảy ra " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+
                     }
-                }).start();
+                });
                 txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
@@ -231,6 +213,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+                txtBS.setTitle("Chọn chuyên khoa");
                 mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                     @Override
                     public void success(Response<ResponseModel> response) {
@@ -305,6 +288,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
                 Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
                 JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+                txtBS.setTitle("Chọn dịch vụ");
                 mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                     @Override
                     public void success(Response<ResponseModel> response) {

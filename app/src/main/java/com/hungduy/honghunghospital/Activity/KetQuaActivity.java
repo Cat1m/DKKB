@@ -45,8 +45,6 @@ public class KetQuaActivity extends BaseActivity {
         setContentView(R.layout.activity_ket_qua);
         mapView();
 
-        Intent LoginIntent= getIntent();
-        Bundle bundle = LoginIntent.getExtras();
         if(bundle!=null)
         {
             try{
@@ -68,7 +66,6 @@ public class KetQuaActivity extends BaseActivity {
             }
 
         }
-
 
         if(!noidungkham.isEmpty()){
             try {

@@ -386,7 +386,6 @@ public class SplashActivity extends BaseActivity {
                     }
                 }
                 if (!DataApKhuPho) {
-                    Log.d(TAG, "5");
                     while (SizeDataApKhuPho == 0) {
                         if (BreakPoint) {
                             break;
@@ -398,14 +397,22 @@ public class SplashActivity extends BaseActivity {
                         }
                     }
                 }
-                Log.d(TAG, "Tỉnh thành " + TTdao.getAll().size() + " - Quốc gia " + QGdao.getAll().size() + " - Quận huyện " +
-                        QHdao.getAll().size() + " - Phường Xã " + PXdao.getAll().size() + " - Ấp Khu Phố " + KPdao.getAll().size());
+                //Log.d(TAG, "Tỉnh thành " + TTdao.getAll().size() + " - Quốc gia " + QGdao.getAll().size() + " - Quận huyện " + QHdao.getAll().size() + " - Phường Xã " + PXdao.getAll().size() + " - Ấp Khu Phố " + KPdao.getAll().size());
                 if (!BreakPoint) {
                     BreakPoint = true;
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            try{
+                                Bundle b =  getIntent().getExtras();
+                                String url  = b.getString("url");
+                                if(url != null){
+                                    intent.putExtras(b);
+                                    Toast.makeText(SplashActivity.this, url, Toast.LENGTH_SHORT).show();
+                                }
+                            }catch (Exception e){
+                            }
                             intent.putExtra("OfflineMode", false);
                             startActivity(intent);
                             finish();
@@ -415,14 +422,6 @@ public class SplashActivity extends BaseActivity {
             }
         });
         getData.start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "Tỉnh thành " + TTdao.getAll().size() + " - Quốc gia " + QGdao.getAll().size() + " - Quận huyện " +
-                        QHdao.getAll().size() + " - Phường Xã " + PXdao.getAll().size() + " - Ấp Khu Phố " + KPdao.getAll().size());
-            }
-        }).start();
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override

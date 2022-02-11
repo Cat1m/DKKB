@@ -94,6 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean noibo;
     protected Dialog dialog_loading;
     protected static MainActivity mContext;
+    protected Bundle bundle;
 
     private ConnectivityStatusReceiver connectivityStatusReceiver;
 
@@ -174,7 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         TAG = this.getClass().getSimpleName();
         getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Intent LoginIntent= getIntent();
-        Bundle BundleLogin = LoginIntent.getExtras();
+        bundle = LoginIntent.getExtras();
 
         database = LocalDB.getInstance(getApplicationContext());
         TTdao = database.tinhThanhDAO();
@@ -191,15 +192,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         CreateDialogLoading();
 
-        if(BundleLogin!=null)
+        if(bundle!=null)
         {
             try{
-                username =(String) BundleLogin.get("username");
-                password =(String) BundleLogin.get("password");
-                FullName =(String) BundleLogin.get("FullName");
-                urlImage =(String) BundleLogin.get("urlImage");
-                token =(String) BundleLogin.get("token");
-                isConnected =(boolean) BundleLogin.get("connected");
+                username =(String) bundle.get("username");
+                password =(String) bundle.get("password");
+                FullName =(String) bundle.get("FullName");
+                urlImage =(String) bundle.get("urlImage");
+                token =(String) bundle.get("token");
+                isConnected =(boolean) bundle.get("connected");
               //  isConnected = (Boolean) BundleLogin.get("isConnected");
             }catch (Exception ex){
 

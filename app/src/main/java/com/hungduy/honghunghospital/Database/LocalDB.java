@@ -3,6 +3,7 @@ package com.hungduy.honghunghospital.Database;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -40,7 +41,8 @@ import com.hungduy.honghunghospital.Database.Model.UserData;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {
+@Database(
+        entities = {
         TinhThanh.class,
         QuocGia.class,
         QuanHuyen.class,
@@ -55,7 +57,12 @@ import java.util.concurrent.Executors;
         DichVu.class,
         KetQuaLuu.class,
         BacSiDetail.class
-}, version = 1)
+        },
+        version = 2,
+        autoMigrations = {
+                @AutoMigration(from = 1, to = 2)
+        },
+        exportSchema = true)
 public abstract class LocalDB extends RoomDatabase {
     private static volatile LocalDB INSTANCE;
 

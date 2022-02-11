@@ -90,7 +90,7 @@ public class BacSiFragment extends BaseFragment {
         btnTuanSau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btnTuanSau.isChecked()){
+                if(btnTuanSau.isChecked() && llvBS.getTuanSau() != null){
                     for (getLichLamViecBS llv : llvBS.getTuanSau()) {
                         setLichLamViec(llv);
                     }
@@ -100,55 +100,34 @@ public class BacSiFragment extends BaseFragment {
         btnTuanNay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(btnTuanNay.isChecked()){
+                if(btnTuanNay.isChecked() && llvBS.getTuannay() != null){
                     for (getLichLamViecBS llv : llvBS.getTuannay()) {
                         setLichLamViec(llv);
                     }
                 }
             }
         });
-
-        new Thread(new Runnable() {
+        mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(getActivity()){
             @Override
-            public void run() {
-                if(bacSiDAO.getAll().size()>0){
-                    String[] tenBS = new String[bacSiDAO.getAll().size()];
+            public void success(Response<ResponseModel> response) {
+                getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                if(dsBS.length > 0){
+                    String[] tenBS = new String[dsBS.length];
                     int i=0;
-                    for(BacSi bs : bacSiDAO.getAll()){
+                    for (getMaTen bs: dsBS ) {
                         if(txtHoTen.getText().toString().equals(bs.getTen())){
-                            getDetai(bs.getID()+"");
+                            getDetai(bs.getMa());
                         }
-                        listBS.add(new getMaTen(bs.getID()+"",bs.getTen()));
+                        listBS.add(bs);
                         tenBS[i] = bs.getTen();
                         i++;
                     }
                     txtHoTen.setItems(tenBS);
-                    Log.d(TAG,"LocalDATA");
-                }else{
-                    mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(getActivity()){
-                        @Override
-                        public void success(Response<ResponseModel> response) {
-                            getMaTen[] dsBS = new Gson().fromJson(response.body().getData(),getMaTen[].class);
-                            if(dsBS.length > 0){
-                                String[] tenBS = new String[dsBS.length];
-                                int i=0;
-                                for (getMaTen bs: dsBS ) {
-                                    if(txtHoTen.getText().toString().equals(bs.getTen())){
-                                        getDetai(bs.getMa());
-                                    }
-                                    listBS.add(bs);
-                                    tenBS[i] = bs.getTen();
-                                    i++;
-                                }
-                                txtHoTen.setItems(tenBS);
-                                Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
-                            }
-                        }
-
-                    });
+                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                 }
             }
-        }).start();
+
+        });
     }
 
     private void getDetai(String ma){
