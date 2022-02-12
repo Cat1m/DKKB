@@ -59,7 +59,6 @@ public interface APIService {
     @POST("getApKhuPho")
     Call<ResponseModel> getApKhuPho(@Header("token") String s,@Body baseGetClass x);
 
-
     @Headers("Content-Type: application/json")
     @POST("setUser")
     Call<ResponseModel> setUser(@Header("token") String s,@Body setUserModel x);
@@ -148,4 +147,12 @@ public interface APIService {
 
     @POST("getBHYT")
     Call<ResponseBody> getBHYT(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getLichLamViecDKK")
+    Call<ResponseModel> getLichLamViecDKK(@Header("token") String s,@Body baseGetClass x);
+
+
+
+
 }

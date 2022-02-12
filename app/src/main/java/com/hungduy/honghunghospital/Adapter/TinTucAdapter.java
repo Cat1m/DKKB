@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.hungduy.honghunghospital.Activity.BaseKhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.Activity.LogoActivity;
 import com.hungduy.honghunghospital.Activity.WebviewActivity;
@@ -38,24 +39,28 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
     // Lưu Context để dễ dàng truy cập
     private Context mContext;
     private Activity activity;
-
-    public TinTucAdapter(ArrayList<getTinTuc> tintuc, Context mContent, Activity activity){
+    private ArrayList<String> readed;
+    private updateViewed x;
+    public TinTucAdapter(ArrayList<getTinTuc> tintuc, Context mContent, Activity activity,ArrayList<String> m,updateViewed x){
         this.tinTucs = tintuc;
         this.mContext = mContent;
         this.activity = activity;
+        readed =m;
+        this.x = x;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private View itemview;
         public TextView txtNoiDung;
         public View ItemView;
-        public ImageView img;
+        public ImageView img,img2;
         public ViewHolder(View itemView) {
             super(itemView);
             itemview = itemView;
             txtNoiDung = itemView.findViewById(R.id.txtNoiDung);
             img = itemView.findViewById(R.id.img);
             ItemView = itemView.findViewById(R.id.ItemView);
+            img2 = itemView.findViewById(R.id.img2);
         }
     }
 
@@ -74,6 +79,9 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
 
         holder.ItemView.setTag(tintuc.getMa());
 
+        if(readed.contains(tintuc.getMa()+"")){
+            holder.img2.setVisibility(View.GONE);
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,7 +98,8 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            Picasso.get().load(finalImg).into(holder.img);
+                            Glide.with(activity).load(finalImg).into(holder.img);
+                            //Picasso.get().load(finalImg).into(holder.img);
                         }
                     });
                 }catch (Exception e){
@@ -102,6 +111,7 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 if(v.getTag().equals(tintuc.getMa())){
+                    x.onViewed(tintuc.getMa()+"");
                     Intent intent = new Intent(activity, WebviewActivity.class);
                     intent.putExtra("url",tintuc.getUrl());
                     activity.startActivity(intent);
@@ -114,6 +124,8 @@ public class TinTucAdapter extends RecyclerView.Adapter<TinTucAdapter.ViewHolder
     public int getItemCount() {
         return tinTucs.size();
     }
-
+    public interface updateViewed{
+        void onViewed(String ma);
+    }
 
 }

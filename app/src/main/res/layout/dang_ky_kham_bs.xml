@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="16dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/myriadpro_semiboldsemiext"
+                        android:gravity="center"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorGreen"
+                        android:textSize="16dp"
+                        tools:text="Granny eating chocolate dialog box" />
+
+                    <TextView
+                        android:id="@+id/txt1"
+                        android:layout_width="47dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:text="TextView"
+                        android:textColor="@color/textColorGreen" />
+
+                    <com.hungduy.honghunghospital.Utility.CSJRSpinner.BSSpinner
+                        android:id="@+id/txtBS"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/txt1"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_border_color"
+                        android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:inputType="text"
+                        android:minWidth="600dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:translationZ="10dp"
+                        app:jrs_multiple="false"
+                        app:jrs_title="Chọn bác sĩ"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:id="@+id/txt2"
+                        android:layout_width="47dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtBS"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:text="Ngày dự kiến khám"
+                        android:textColor="@color/textColorGreen" />
+
+                    <EditText
+                        android:id="@+id/edtNgayKham"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/txt2"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_border_color"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:inputType="text"
+                        android:minWidth="600dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="Chọn ngày"
+                        android:translationZ="10dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <LinearLayout
+                        android:id="@+id/te"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edtNgayKham"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:clipToPadding="false"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:weightSum="100">
+
+                        <Button
+                            android:id="@+id/negativeBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="50"
+                            android:background="@drawable/curved_shape2"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:translationZ="5dp"
+                            tools:text="Rate" />
+
+                        <Button
+                            android:id="@+id/positiveBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="50"
+                            android:background="@drawable/curved_shape"
+                            android:fontFamily="@font/myriadpro_semiext"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:translationZ="5dp"
+                            tools:text="Ok" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

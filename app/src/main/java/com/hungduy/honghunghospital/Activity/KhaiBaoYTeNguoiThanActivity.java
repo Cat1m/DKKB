@@ -33,10 +33,13 @@ import com.hungduy.honghunghospital.Database.Model.TinhThanh;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.extModel.getBSCoHinh;
+import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
+import com.hungduy.honghunghospital.Model.getModel.getNgayLamViecDKK;
 import com.hungduy.honghunghospital.Model.setModel.setNguoiThanDangKyKham;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CSJRSpinner.BSSpinner;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -58,7 +61,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
     private TextView txtNgaySinh,txtThangSinh,txtNamSinh;
     private LinearLayout viewDiaChi;
     private RadioButton btnCo,btnKhong;
-    private ArrayList<getMaTen> listBS;
+    private ArrayList<getBSCoHinh> listBS;
     private ArrayList<getMaTen> listDMCK;
     private ArrayList<getMaTen> listDV;
     private getMaTen bacSi;
@@ -414,6 +417,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                     ngthan.setSoNha(txtDiaChi.getText().toString());
                     ngthan.setSoTheBH(txtMaBHYT.getText().toString());
                     ngthan.setMaDanToc(madantoc);
+                    ngthan.setNgaydukien(date);
                     mAPIService.setDangKyKhamNguoiThan(token,ngthan).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                         @Override
                         public void success(Response<ResponseModel> response) {
@@ -429,7 +433,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             }
                             Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                             i.putExtra("isTestCovid",kq);
-                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " <br/>khám thành công");
+                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " khám thành công <br/>Dự kiến khám ngày: "+date);
                             i.putExtra("FullName",FullName);
                             i.putExtra("urlImage",urlImage);
                             i.putExtra("loai",3);
@@ -472,7 +476,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         txtBS.setTitle("Chọn dịch vụ");
         EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
         edtNgayKham.setEnabled(true);
-        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham);
+        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham,true);
         mAPIService.getDichVu(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
             @Override
             public void success(Response<ResponseModel> response) {
@@ -517,6 +521,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnChonBS.setEnabled(true);
                 btnChonChuyenKhoa.setEnabled(true);
                 dichVu = null;
+                date = "";
                 dialog.dismiss();
             }
         });
@@ -552,7 +557,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         txtBS.setTitle("Chọn chuyên khoa");
         EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
         edtNgayKham.setEnabled(true);
-        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham);
+        UtilityHHH.edtDate(getSupportFragmentManager(),edtNgayKham,true);
         mAPIService.getDmChuyenKhoa(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
             @Override
             public void success(Response<ResponseModel> response) {
@@ -593,6 +598,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnChonBS.setEnabled(true);
                 btnDichVuKhac.setEnabled(true);
                 chuyenKhoa = null;
+                date = "";
                 dialog.dismiss();
             }
         });
@@ -619,13 +625,13 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         if (dialog.getWindow() != null)
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dang_ky_kham);
+        dialog.setContentView(R.layout.dang_ky_kham_bs);
         TextView title = dialog.findViewById(R.id.title);
         TextView txt1 = dialog.findViewById(R.id.txt1);
         EditText edtNgayKham = dialog.findViewById(R.id.edtNgayKham);
         Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
         Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
-        JRSpinner txtBS = dialog.findViewById(R.id.txtBS);
+        BSSpinner txtBS = dialog.findViewById(R.id.txtBS);
 
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
             @Override
@@ -633,23 +639,44 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 getBSCoHinh[] dsBS = new Gson().fromJson(response.body().getData(), getBSCoHinh[].class);
                 if(dsBS.length > 0){
                     listBS.clear();
-                    String[] tenBS = new String[dsBS.length];
-                    int i=0;
                     for (getBSCoHinh bs: dsBS ) {
                         listBS.add(bs);
-                        tenBS[i] = bs.getTen();
-                        i++;
                     }
-                    txtBS.setItems(tenBS);
+                    txtBS.setItems(listBS);
                     Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                 }
             }
         });
-
-        txtBS.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+        txtBS.setOnItemClickListener(new BSSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 bacSi = listBS.get(position);
+                mAPIService.getLichLamViecDKK(APIKey, new baseGetClass(bacSi.getMa())).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
+                    @Override
+                    public void success(Response<ResponseModel> response) {
+                        try{
+                            getNgayLamViecDKK[] ngayLamViecDKKS = new Gson().fromJson(response.body().getData(),getNgayLamViecDKK[].class);
+                            if(ngayLamViecDKKS.length > 0){
+                                Calendar[] date = new Calendar[ngayLamViecDKKS.length];
+                                for(int i=0;i<ngayLamViecDKKS.length;i++){
+                                    Calendar x = Calendar.getInstance();
+                                    x.set(Calendar.DAY_OF_MONTH, UtilityHHH.toInt(ngayLamViecDKKS[i].getNgay()));
+                                    date[i] = x;
+                                }
+                                UtilityHHH.edtDateWithEnableDate(getSupportFragmentManager(), edtNgayKham,date);
+                                edtNgayKham.setEnabled(true);
+                            }else{
+                                edtNgayKham.setText("Chọn ngày");
+                                edtNgayKham.setEnabled(false);
+                                date = "";
+                                Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Bác sĩ bạn chọn không có lịch làm việc. Vui lòng chọn bác sĩ khác !!!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+                });
                 btnChonBS.setText("Chọn bác sĩ "+listBS.get(position).getTen());
                 btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green));
                 btnChonBS.setTextColor(getResources().getColor(R.color.white));
@@ -668,6 +695,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnChonChuyenKhoa.setEnabled(true);
                 btnDichVuKhac.setEnabled(true);
                 bacSi = null;
+                date = "";
                 dialog.dismiss();
             }
         });

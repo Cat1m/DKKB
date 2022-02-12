@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -99,7 +100,7 @@ public class UtilityHHH {
     static String ngaybatdau;
 
     @SuppressLint("ClickableViewAccessibility")
-    public static void edtDateWithEnableDate(FragmentManager a, EditText edt, List<Calendar> calendar){
+    public static void edtDateWithEnableDate(FragmentManager a, EditText edt, Calendar[] calendar){
         edt.setKeyListener(null);
         edt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -119,9 +120,6 @@ public class UtilityHHH {
                     mMonth = c.get(Calendar.MONTH);
                     mDay = c.get(Calendar.DAY_OF_MONTH);
                 }
-                List<Calendar> dates = new ArrayList<>();
-                dates.addAll(calendar);
-                Calendar[] enableDate = dates.toArray(new Calendar[dates.size()]);
                 com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
@@ -130,7 +128,7 @@ public class UtilityHHH {
                         edt.setEnabled(true);
                     }
                 }, mYear, mMonth, mDay);
-                datePickerDialog.setSelectableDays(enableDate);
+                datePickerDialog.setSelectableDays(calendar);
                 datePickerDialog.setOkText("Chọn");
                 datePickerDialog.setCancelText("Hủy");
                 datePickerDialog.setLocale(new Locale("vi"));
@@ -140,8 +138,33 @@ public class UtilityHHH {
         });
     }
 
+    public static String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     @SuppressLint("ClickableViewAccessibility")
-    public static void edtDate(FragmentManager a, EditText edt){
+    public static void edtDate(FragmentManager a, EditText edt,boolean nextdayisMin){
         edt.setKeyListener(null);
         edt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -169,6 +192,18 @@ public class UtilityHHH {
                         edt.setEnabled(true);
                     }
                 }, mYear, mMonth, mDay);
+                if(nextdayisMin){
+                    if(c.get(Calendar.HOUR_OF_DAY) > 17){
+                        c.add(Calendar.DATE,1);
+                    }
+                    datePickerDialog.setMinDate(c);
+                }
+                datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        edt.setEnabled(true);
+                    }
+                });
                 datePickerDialog.setOkText("Chọn");
                 datePickerDialog.setCancelText("Hủy");
                 datePickerDialog.setLocale(new Locale("vi"));

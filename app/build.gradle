@@ -10,7 +10,7 @@ android {
         apply plugin: 'com.google.gms.google-services'  // Google Services plugin
         minSdk 21
         targetSdk 31
-        versionCode 3
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -43,6 +43,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.room:room-runtime:2.4.1"
+    implementation 'com.google.firebase:firebase-database:20.0.3'
     annotationProcessor "androidx.room:room-compiler:2.4.1"
     androidTestImplementation "androidx.room:room-testing:2.4.1"
 

@@ -4,7 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 
-public class getBSCoHinh extends getMaTen {
+import java.io.Serializable;
+
+public class getBSCoHinh extends getMaTen implements Serializable {
     @SerializedName("url")
     @Expose
     private String url;

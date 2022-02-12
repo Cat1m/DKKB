@@ -12,8 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Database.Model.UserData;
 import com.hungduy.honghunghospital.Fragment.BacSiFragment;
@@ -64,9 +69,12 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mapView();
         btnMainClick();
         super.setMainActivity(this);
+
 
         loginFM = new LoginFragment();
         BacSiFM = new BacSiFragment();
@@ -77,7 +85,6 @@ public class MainActivity extends BaseActivity {
         String passwordPreferences = getStringPreferences(preferences,"password");
         if(!(usernamePreferences.isEmpty() || passwordPreferences.isEmpty())){
             HomeLoginedFragment logined = new HomeLoginedFragment();
-            Bundle bundle = new Bundle();
             bundle.putString("FullName", FullName);
             bundle.putString("urlImage", urlImage);
             bundle.putString("token", token);

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -146,11 +147,12 @@ public class HomeLoginedFragment extends BaseFragment {
         btn_home_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), TraCuuActivity.class);
+                Toast.makeText(getActivity(),"Chức năng này hiện đang trong quá trình cập nhật !!!", Toast.LENGTH_SHORT).show();
+               /* Intent i = new Intent(getContext(), TraCuuActivity.class);
                 i.putExtra("FullName",FullName);
                 i.putExtra("urlImage",urlImage);
                 i.putExtra("token",token);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
 

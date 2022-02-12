@@ -16,11 +16,12 @@ public class setNguoiThanDangKyKham {
     private String SoNha;
     private String SoTheBH;
     private String MaDanToc;
+    private String ngaydukien;
 
     public setNguoiThanDangKyKham() {
     }
 
-    public setNguoiThanDangKyKham(String hoten, String ngaysinh, String gioitinh, String tinh, String quanhuyen, String xaphuong, String apkhupho, String cungDiaChi, String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String soNha, String soTheBH, String maDanToc) {
+    public setNguoiThanDangKyKham(String hoten, String ngaysinh, String gioitinh, String tinh, String quanhuyen, String xaphuong, String apkhupho, String cungDiaChi, String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String soNha, String soTheBH, String maDanToc, String ngaydukien) {
         this.hoten = hoten;
         this.ngaysinh = ngaysinh;
         this.gioitinh = gioitinh;
@@ -36,6 +37,15 @@ public class setNguoiThanDangKyKham {
         SoNha = soNha;
         SoTheBH = soTheBH;
         MaDanToc = maDanToc;
+        this.ngaydukien = ngaydukien;
+    }
+
+    public String getNgaydukien() {
+        return ngaydukien;
+    }
+
+    public void setNgaydukien(String ngaydukien) {
+        this.ngaydukien = ngaydukien;
     }
 
     public String getMaDanToc() {

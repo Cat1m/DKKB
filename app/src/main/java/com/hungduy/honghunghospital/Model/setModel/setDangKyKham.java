@@ -7,17 +7,27 @@ public class setDangKyKham {
     private String MaDangKyKham;
     private String KhaiBaoYTeNguoiThan;
     private String KetLuan;
+    private String ngaydukien;
 
     public setDangKyKham() {
     }
 
-    public setDangKyKham(String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String khaiBaoYTeNguoiThan, String ketLuan) {
+    public setDangKyKham(String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String khaiBaoYTeNguoiThan, String ketLuan, String ngaydukien) {
         MaMucDich = maMucDich;
         KhaiBaoYTe = khaiBaoYTe;
         MaLoaiDangKy = maLoaiDangKy;
         MaDangKyKham = maDangKyKham;
         KhaiBaoYTeNguoiThan = khaiBaoYTeNguoiThan;
         KetLuan = ketLuan;
+        this.ngaydukien = ngaydukien;
+    }
+
+    public String getNgaydukien() {
+        return ngaydukien;
+    }
+
+    public void setNgaydukien(String ngaydukien) {
+        this.ngaydukien = ngaydukien;
     }
 
     public String getMaMucDich() {

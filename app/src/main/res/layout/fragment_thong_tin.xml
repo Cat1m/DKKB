@@ -68,16 +68,16 @@
                         <TextView
                             android:id="@+id/textView31"
                             android:layout_width="0dp"
+                            android:layout_marginTop="8dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/utm_gods_word_b"
                             android:text="Chương trình ưu đãi từ BVĐK Hồng Hưng"
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/txtThongBao" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcChuongTrinh"
@@ -112,12 +112,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:fontFamily="@font/utm_gods_word_b"
                             android:text="Thông báo &amp; Quy định đang được áp dụng"
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView111" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoQuyDinh"
@@ -158,7 +159,7 @@
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/txtThongBao" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoKhac"

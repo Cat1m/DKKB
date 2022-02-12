@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.InstallationTokenResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Database.DAO.KhuPhoDAO;
@@ -431,11 +433,22 @@ public class SplashActivity extends BaseActivity {
                     return;
                 }
                 String token = task.getResult();
-                Log.d(TAG, token);
+                Log.d(TAG, "FCM: "+token);
+                setStringPreferences(preferences,"fcm",token);
             }
         });
-
-
+        FirebaseInstallations.getInstance().getId()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e(TAG, "Unable to get Installation ID");
+                        }
+                        String token = task.getResult();
+                        Log.d(TAG, "FIAM: " + token);
+                        setStringPreferences(preferences,"fiam",token);
+                    }
+                });
     }
 
 }

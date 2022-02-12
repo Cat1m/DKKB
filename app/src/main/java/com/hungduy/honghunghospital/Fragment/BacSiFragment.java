@@ -27,6 +27,7 @@ import com.hungduy.honghunghospital.Model.getModel.getLichLamViecBS;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.getModel.getThongTinBS;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.CSJRSpinner.BSSpinner;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.squareup.picasso.Picasso;
 
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class BacSiFragment extends BaseFragment {
-    private JRSpinner txtHoTen;
+    private BSSpinner txtHoTen;
     private ArrayList<getBSCoHinh> listBS;
     private TextView txtInfoBS,txtDoctorName,txtXemThem,textDangNhapXemLich;
     private ConstraintLayout LayoutDoctor;
@@ -74,7 +75,7 @@ public class BacSiFragment extends BaseFragment {
 
         LayoutDoctor.setVisibility(View.GONE);
         txtXemThem.setVisibility(View.GONE);
-        txtHoTen.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+        txtHoTen.setOnItemClickListener(new BSSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 getDetai(listBS.get(position).getMa());
@@ -118,18 +119,14 @@ public class BacSiFragment extends BaseFragment {
             public void success(Response<ResponseModel> response) {
                 getBSCoHinh[] dsBS = new Gson().fromJson(response.body().getData(),getBSCoHinh[].class);
                 if(dsBS.length > 0){
-                    String[] tenBS = new String[dsBS.length];
-                    int i=0;
                     for (getBSCoHinh bs: dsBS ) {
                         if(txtHoTen.getText().toString().equals(bs.getTen())){
                             getDetai(bs.getMa());
                         }
                         listBS.add(bs);
-                        tenBS[i] = bs.getTen();
-                        i++;
                     }
-                    txtHoTen.setItems(tenBS);
-                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                    txtHoTen.setItems(listBS);
+                   // Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                 }
             }
 

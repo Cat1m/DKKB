@@ -1,5 +1,7 @@
 package com.hungduy.honghunghospital.Fragment;
 
+import static com.hungduy.honghunghospital.Utility.UtilityHHH.md5;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.RegisterActivity;
@@ -32,6 +36,7 @@ import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.UserModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
+import com.hungduy.honghunghospital.Model.getModel.dataBaseToken;
 import com.hungduy.honghunghospital.Model.getModel.getUser;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.AppConfigString;
@@ -51,21 +56,11 @@ public class LoginFragment extends BaseFragment {
     private TextView txtRegister,txtForgetPassword;
     private EditText txtUsername,txtPassword;
     private Button btnLogin;
-
+    private String tokenFCM,tokenFiAM;
     private String usernamePreferences,passwordPreferences;
+
     public LoginFragment() {
     }
-
-
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-       // args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +74,8 @@ public class LoginFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mapView(view);
-
+        tokenFCM = getStringPreferences(preferences,"fcm");
+        tokenFiAM = getStringPreferences(preferences,"fiam");
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,10 +125,10 @@ public class LoginFragment extends BaseFragment {
 
     private void Login(String username,String password){
         mAPIService.login(APIKey,new LoginModel(username,password)).enqueue(new CallbackResponse(getActivity()){
-
             @Override
             public void success(Response<ResponseModel> response) {
                 if (response.body().getStatus().equals("OK")){
+                    handleWriteDB(username);
                     dialog_loading.show();
                     MainActivity activity = (MainActivity) getActivity();
                     UserModel u = new Gson().fromJson(response.body().getData(), UserModel.class);
@@ -171,6 +167,12 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private void handleWriteDB(String id) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        dataBaseToken data = new dataBaseToken(id,tokenFCM,tokenFiAM);
+        mDatabase.child("DKKB_User").child(md5(id)).setValue(data);
     }
 
     private void mapView(View v) {
