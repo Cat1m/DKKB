@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -77,7 +79,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
 
     private EditText txtHoTen,txtDiaChi,txtMaBHYT;
 
-    private String gioitinh = "0";
+    private String gioitinh = "0",buoi ="";
     private RadioButton chkNam,chkNu,chkKhac;
 
     private ArrayList<TinhThanh> listTinhThanh  = new ArrayList<>();
@@ -183,6 +185,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 CauTL.clear();
                 if (KBYTdao.getAll().size() > 0) {
                     for(CauHoiKhaiBaoYTe ch : KBYTdao.getAll()){
+                        ch.setCauHoi(ch.getCauHoi().replaceAll("Anh/Chị","Người thân của anh/chị"));
                         cauHoiKhaiBaoYTes.add(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""));
                         CauTL.add(new CauHoiKhaiBaoYTeEXT(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""), "Không"));
                     }
@@ -384,12 +387,14 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 if(chuyenKhoa != null){
                     found =true;
                     maloaidangky = 2;
+                    buoi = "";
                     madangky = chuyenKhoa;
                     Log.d(TAG,chuyenKhoa.getTen());
                 }
                 if(dichVu != null){
                     found =true;
                     maloaidangky = 3;
+                    buoi = "";
                     madangky = dichVu;
                     Log.d(TAG,dichVu.getTen());
                 }
@@ -433,7 +438,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             }
                             Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                             i.putExtra("isTestCovid",kq);
-                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký " + dv.getTen() + " khám thành công <br/>Dự kiến khám ngày: "+date);
+                            i.putExtra("noidungkham","Người thân của anh/chị đã đăng ký " + dv.getTen() + " khám thành công <br/>Dự kiến khám ngày: "+date);
                             i.putExtra("FullName",FullName);
                             i.putExtra("urlImage",urlImage);
                             i.putExtra("loai",3);
@@ -508,14 +513,14 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnDichVuKhac.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn dịch vụ bạn muốn");
+        title.setText("Chọn dịch vụ");
         txt1.setText("Dịch vụ");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDichVuKhac.setText(R.string.txt_toi_muon_dang_ky_dich_vu_khac);
+                btnDichVuKhac.setText("Người thân tôi muốn đăng ký dịch vụ khác");
                 btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
                 btnDichVuKhac.setTextColor(getResources().getColor(R.color.textColorGreen));
                 btnChonBS.setEnabled(true);
@@ -585,14 +590,14 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn chuyên khoa bạn muốn khám");
+        title.setText("Chọn chuyên khoa");
         txt1.setText("Chuyên khoa");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnChonChuyenKhoa.setText(R.string.txt_toi_muon_kham_chuyen_khoa);
+                btnChonChuyenKhoa.setText("Người thân tôi muốn khám/tái khám Chuyên khoa");
                 btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
                 btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.textColorGreen));
                 btnChonBS.setEnabled(true);
@@ -632,7 +637,28 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
         Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
         BSSpinner txtBS = dialog.findViewById(R.id.txtBS);
-
+        CheckBox cbxSang = dialog.findViewById(R.id.cbxSang);
+        CheckBox cbxChieu = dialog.findViewById(R.id.cbxChieu);
+        cbxSang.setEnabled(false);
+        cbxChieu.setEnabled(false);
+        cbxChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(cbxSang.isEnabled()){
+                    cbxSang.setChecked(!b);
+                    buoi = "c";
+                }
+            }
+        });
+        cbxSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(cbxSang.isEnabled()) {
+                    cbxChieu.setChecked(!b);
+                    buoi = "s";
+                }
+            }
+        });
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this){
             @Override
             public void success(Response<ResponseModel> response) {
@@ -647,6 +673,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 }
             }
         });
+        ArrayList<getNgayLamViecDKK> arngayLamViecDKKS = new ArrayList<>();
         txtBS.setOnItemClickListener(new BSSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -654,6 +681,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 mAPIService.getLichLamViecDKK(APIKey, new baseGetClass(bacSi.getMa())).enqueue(new CallbackResponse(KhaiBaoYTeNguoiThanActivity.this) {
                     @Override
                     public void success(Response<ResponseModel> response) {
+                        arngayLamViecDKKS.clear();
                         try{
                             getNgayLamViecDKK[] ngayLamViecDKKS = new Gson().fromJson(response.body().getData(),getNgayLamViecDKK[].class);
                             if(ngayLamViecDKKS.length > 0){
@@ -662,13 +690,40 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                                     Calendar x = Calendar.getInstance();
                                     x.set(Calendar.DAY_OF_MONTH, UtilityHHH.toInt(ngayLamViecDKKS[i].getNgay()));
                                     date[i] = x;
+                                    arngayLamViecDKKS.add(ngayLamViecDKKS[i]);
                                 }
-                                UtilityHHH.edtDateWithEnableDate(getSupportFragmentManager(), edtNgayKham,date);
+                                UtilityHHH.edtDateWithEnableDate(getSupportFragmentManager(), edtNgayKham, date, new UtilityHHH.DateSetCallback() {
+                                    @Override
+                                    public void CalllBack(Calendar c) {
+                                        cbxChieu.setChecked(false);
+                                        cbxChieu.setEnabled(false);
+                                        cbxSang.setChecked(false);
+                                        cbxSang.setEnabled(false);
+                                        buoi = "";
+                                        String ngay = c.get(Calendar.DAY_OF_MONTH) +"";
+                                        for(getNgayLamViecDKK u : arngayLamViecDKKS){
+                                            if(u.getNgay().equals(ngay)){
+                                                if(u.getC().equals("c")){
+                                                    cbxChieu.setEnabled(true);
+                                                    cbxChieu.setChecked(true);
+                                                }
+                                                if(u.getS().equals("s")){
+                                                    cbxSang.setEnabled(true);
+                                                    cbxSang.setChecked(true);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                });
                                 edtNgayKham.setEnabled(true);
                             }else{
+                                cbxSang.setEnabled(false);
+                                cbxChieu.setEnabled(false);
                                 edtNgayKham.setText("Chọn ngày");
                                 edtNgayKham.setEnabled(false);
                                 date = "";
+                                buoi = "";
                                 Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Bác sĩ bạn chọn không có lịch làm việc. Vui lòng chọn bác sĩ khác !!!",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -682,7 +737,8 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnChonBS.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn bác sĩ bạn muốn khám");
+
+        title.setText("Chọn bác sĩ");
         txt1.setText("Bác sĩ");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
@@ -696,13 +752,14 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                 btnDichVuKhac.setEnabled(true);
                 bacSi = null;
                 date = "";
+                buoi = "";
                 dialog.dismiss();
             }
         });
         positiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(edtNgayKham.getText().toString().equals("Chọn ngày") || bacSi == null){
+                if(edtNgayKham.getText().toString().equals("Chọn ngày") || bacSi == null || buoi.isEmpty()){
                     Toast.makeText(KhaiBaoYTeNguoiThanActivity.this, "Vui lòng chọn đầy đủ", Toast.LENGTH_SHORT).show();
                     return;
                 }

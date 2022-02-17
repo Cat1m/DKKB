@@ -17,6 +17,7 @@ import com.hungduy.honghunghospital.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BSAdapter extends RecyclerView.Adapter<BSAdapter.ViewHolder>  {
     private List<Pair<Integer, getBSCoHinh>> items = new ArrayList<>();
@@ -70,7 +71,7 @@ public class BSAdapter extends RecyclerView.Adapter<BSAdapter.ViewHolder>  {
     }
     public void update(String query) {
         for (Pair<Integer, getBSCoHinh> item : allItems) {
-            if (item.second.getTen().contains(query.toLowerCase())) {
+            if (item.second.getTen().toLowerCase().contains(query.toLowerCase())) {
                 tempItems.add(item);
             }
         }

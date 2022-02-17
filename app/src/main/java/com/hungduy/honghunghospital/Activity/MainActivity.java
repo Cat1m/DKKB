@@ -3,6 +3,7 @@ package com.hungduy.honghunghospital.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        showDialogLoading(2000);
 
         mapView();
         btnMainClick();
@@ -96,18 +97,41 @@ public class MainActivity extends BaseActivity {
             FragmentUtils.addFragmentToLayout(R.id.svTrangChu,getSupportFragmentManager(),loginFM,"");
         }
 
-        try{
-            String url = bundle.getString("url");
-            if(url.contains("https")){
-                Intent i = new Intent(this,WebviewActivity.class);
-                i.putExtras(bundle);
-                startActivity(i);
-            }else{
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    String url = bundle.getString("url");
+                    //String url = "https://docs.google.com/spreadsheets/d/18aKuIO17eLaoDyRBKtv0BgKU34JXicah/edit#gid=1133855387";
+                    if(url.contains("https")){
+                        Intent i = new Intent(MainActivity.this,WebviewActivity.class);
+                        i.putExtras(bundle);
+                        i.putExtra("noc",true);
+                        startActivity(i);
+                    }else{
 
+                    }
+                }catch (Exception e){
+                }
+                try{
+                    String url = bundle.getString("fb");
+                    if(!url.isEmpty()){
+                        Intent intent;
+                        try {
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            intent = new Intent(MainActivity.this,WebviewActivity.class);
+                            intent.putExtra("url",url);
+                            intent.putExtra("noc",true);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }catch (Exception e){
+                }
             }
-        }catch (Exception e){
-
-        }
+        },1000);
 
         initButtonImage();// load Image to memory for quick response
     }

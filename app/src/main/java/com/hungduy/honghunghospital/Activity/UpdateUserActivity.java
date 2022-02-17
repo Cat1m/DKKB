@@ -905,7 +905,7 @@ public class UpdateUserActivity extends BaseActivity {
     }
 
     private void NgaySinhPicker(){
-        Calendar c = Calendar.getInstance();
+          Calendar c = Calendar.getInstance();
         int mYear=2022;
         int mMonth=0;
         int mDay=1;
@@ -924,7 +924,7 @@ public class UpdateUserActivity extends BaseActivity {
             @Override
             public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                 txtNamSinh.setText(year+"");
-                txtNgaySinh.setText(dayOfMonth+"");
+                txtNgaySinh.setText(dayOfMonth < 10  ?"0"+ dayOfMonth :dayOfMonth+"");
                 txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
             }
         }, mYear, mMonth, mDay);
@@ -932,15 +932,28 @@ public class UpdateUserActivity extends BaseActivity {
         datePickerDialog.setCancelText("Hủy");
         datePickerDialog.setLocale(new Locale("vi"));
         datePickerDialog.show(getSupportFragmentManager(), "Chọn ngày sinh");
+       /* Calendar c = Calendar.getInstance();
+        int mYear=2022;
+        int mMonth=0;
+        int mDay=1;
+        try{
 
-      /*  DatePickerDialog datePickerDialog = new DatePickerDialog(UpdateUserActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+            mYear = UtilityHHH.toInt(txtNamSinh.getText().toString());
+            mMonth = UtilityHHH.toInt(txtThangSinh.getText().toString()) - 1;
+            mDay = UtilityHHH.toInt(txtNgaySinh.getText().toString());
+        }catch (Exception e){
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+        }
+      android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(UpdateUserActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new android.app.DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 txtNamSinh.setText(year+"");
-                txtNgaySinh.setText(dayOfMonth+"");
+                txtNgaySinh.setText(dayOfMonth < 10  ?"0"+ dayOfMonth :dayOfMonth+"");
                 txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
             }
-        }, 1997, 0, 26);
+        }, mYear, mMonth, mDay);
         datePickerDialog.setTitle("Chọn ngày");
         datePickerDialog.show();*/
     }

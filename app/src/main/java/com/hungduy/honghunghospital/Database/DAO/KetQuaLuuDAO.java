@@ -22,7 +22,7 @@ public interface KetQuaLuuDAO {
     @Query("DELETE FROM KetQuaLuu")
     void deleteAll();
 
-    @Query("SELECT * FROM KetQuaLuu Order by ma ")
+    @Query("SELECT * FROM KetQuaLuu Order by ma desc")
     List<KetQuaLuu> getAll();
 
 

@@ -33,8 +33,14 @@ public class WebviewActivity extends BaseActivity {
         imgUser = findViewById(R.id.imgUser);
         imgUser.setEnabled(false);
 
-        Intent intent= getIntent();
-        Bundle bundle = intent.getExtras();
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         if(bundle!=null)
         {
             try{
@@ -42,6 +48,24 @@ public class WebviewActivity extends BaseActivity {
                 //  isConnected = (Boolean) BundleLogin.get("isConnected");
             }catch (Exception ex){
                 url = "https://honghunghospital.com.vn";
+            }
+            try{
+                boolean noc = bundle.getBoolean("noc");
+                if(noc){
+                    btnThoat.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try{
+                                mContext.viewNum = 4;
+                                finish();
+                            }catch (Exception e){
+
+                            }
+                        }
+                    });
+                }
+            }catch (Exception e){
+
             }
         }
         if(url==null || url.isEmpty()){
@@ -66,12 +90,7 @@ public class WebviewActivity extends BaseActivity {
         });
 
         webView.loadUrl(url);
-        btnThoat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
     }
 
 

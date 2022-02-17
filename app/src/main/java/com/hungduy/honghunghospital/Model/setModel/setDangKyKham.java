@@ -8,11 +8,12 @@ public class setDangKyKham {
     private String KhaiBaoYTeNguoiThan;
     private String KetLuan;
     private String ngaydukien;
+    private String buoi;
 
     public setDangKyKham() {
     }
 
-    public setDangKyKham(String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String khaiBaoYTeNguoiThan, String ketLuan, String ngaydukien) {
+    public setDangKyKham(String maMucDich, String khaiBaoYTe, String maLoaiDangKy, String maDangKyKham, String khaiBaoYTeNguoiThan, String ketLuan, String ngaydukien, String buoi) {
         MaMucDich = maMucDich;
         KhaiBaoYTe = khaiBaoYTe;
         MaLoaiDangKy = maLoaiDangKy;
@@ -20,6 +21,15 @@ public class setDangKyKham {
         KhaiBaoYTeNguoiThan = khaiBaoYTeNguoiThan;
         KetLuan = ketLuan;
         this.ngaydukien = ngaydukien;
+        this.buoi = buoi;
+    }
+
+    public String getBuoi() {
+        return buoi;
+    }
+
+    public void setBuoi(String buoi) {
+        this.buoi = buoi;
     }
 
     public String getNgaydukien() {

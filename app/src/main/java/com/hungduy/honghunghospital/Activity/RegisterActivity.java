@@ -616,7 +616,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                 txtNamSinh.setText(year+"");
-                txtNgaySinh.setText(dayOfMonth+"");
+                txtNgaySinh.setText(dayOfMonth < 10  ?"0"+ dayOfMonth :dayOfMonth+"");
                 txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
             }
         }, mYear, mMonth, mDay);

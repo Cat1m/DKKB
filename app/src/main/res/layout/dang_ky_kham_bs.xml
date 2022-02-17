@@ -123,12 +123,37 @@
                         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                     <LinearLayout
-                        android:id="@+id/te"
+                        android:id="@+id/x"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/edtNgayKham"
+                        android:layout_marginTop="8dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <CheckBox
+                            android:id="@+id/cbxSang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:text="Buổi sáng" />
+
+                        <CheckBox
+                            android:id="@+id/cbxChieu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:text="Buổi chiều" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/te"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/x"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="0dp"
                         android:clipToPadding="false"
                         android:gravity="center_horizontal"

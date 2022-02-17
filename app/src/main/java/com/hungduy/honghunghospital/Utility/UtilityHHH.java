@@ -93,6 +93,10 @@ public class UtilityHHH {
         void CalllBack();
     }
 
+    public interface DateSetCallback {
+        void CalllBack(Calendar c);
+    }
+
     static DateFormat dateFormatwithTime = new SimpleDateFormat("MM/dd/yyyy hh:mm");
     static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static DateFormat dateFormatForUser = new SimpleDateFormat("dd/MM/yyyy");
@@ -101,6 +105,11 @@ public class UtilityHHH {
 
     @SuppressLint("ClickableViewAccessibility")
     public static void edtDateWithEnableDate(FragmentManager a, EditText edt, Calendar[] calendar){
+        edtDateWithEnableDate(a,edt,calendar,null);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public static void edtDateWithEnableDate(FragmentManager a, EditText edt, Calendar[] calendar, DateSetCallback callback){
         edt.setKeyListener(null);
         edt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -126,10 +135,27 @@ public class UtilityHHH {
                         String date = (dayOfMonth < 10 ? "0"+dayOfMonth : dayOfMonth+"" )+ "/" + (monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"") + "/" +  year;
                         edt.setText(date);
                         edt.setEnabled(true);
+                        if(callback != null){
+                            try {
+                                Calendar s = Calendar.getInstance();
+                                s.set(Calendar.YEAR,year);
+                                s.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                                s.set(Calendar.MONTH,monthOfYear);
+                                callback.CalllBack(s);
+                            }catch (Exception e){
+
+                            }
+                        }
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.setSelectableDays(calendar);
                 datePickerDialog.setOkText("Chọn");
+                datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        edt.setEnabled(true);
+                    }
+                });
                 datePickerDialog.setCancelText("Hủy");
                 datePickerDialog.setLocale(new Locale("vi"));
                 datePickerDialog.show(a , "1");

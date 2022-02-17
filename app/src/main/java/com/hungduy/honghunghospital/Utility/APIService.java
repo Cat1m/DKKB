@@ -5,6 +5,7 @@ package com.hungduy.honghunghospital.Utility;
 import com.hungduy.honghunghospital.Model.LoginModel;
 import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
+import com.hungduy.honghunghospital.Model.getModel.getDVTheoNhom;
 import com.hungduy.honghunghospital.Model.getModel.getOTPModel;
 import com.hungduy.honghunghospital.Model.setModel.setDangKyKham;
 import com.hungduy.honghunghospital.Model.setModel.setKhaiBao;
@@ -151,6 +152,14 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("getLichLamViecDKK")
     Call<ResponseModel> getLichLamViecDKK(@Header("token") String s,@Body baseGetClass x);
+
+    @Headers("Content-Type: application/json")
+    @POST("getNhomDichVu")
+    Call<ResponseModel> getNhomDichVu(@Header("token") String s);
+
+    @Headers("Content-Type: application/json")
+    @POST("getDichVuTheoNhom")
+    Call<ResponseModel> getDichVuTheoNhom(@Header("token") String s,@Body getDVTheoNhom x);
 
 
 

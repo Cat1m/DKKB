@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,7 +59,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
     private getMaTen chuyenKhoa;
     private getMaTen dichVu;
     private String date;
-
+    private String buoi="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                         CauTL.add(new CauHoiKhaiBaoYTeEXT(new getCauHoiKhaiBaoYTe(ch.getID()+"",ch.getCauHoi(),""), "Không"));
                     }
                     KhaiBaoYTeADT.notifyDataSetChanged();
-                    Log.d(TAG,"Data local !!!");
+                  //  Log.d(TAG,"Data local !!!");
                 } else {
                     mAPIService.getCauHoiKBYT(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
                         @Override
@@ -167,11 +169,13 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 if(chuyenKhoa != null){
                     found =true;
                     maloaidangky = 2;
+                    buoi = "";
                     madangky = chuyenKhoa;
                 }
                 if(dichVu != null){
                     found =true;
                     maloaidangky = 3;
+                    buoi = "";
                     madangky = dichVu;
                 }
                 if(found){
@@ -181,9 +185,10 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                         khaibaoyte += c.getCauhoi() +" : " + c.getCautraloi() + "|";
                     }
                     setDangKyKham dkkb = new setDangKyKham("1", khaibaoyte, maloaidangky + "",
-                            madangky.getMa(),"", "", date);
+                            madangky.getMa(),"", "", date,buoi);
                     final getMaTen dv = madangky;
                     final int maloai = maloaidangky;
+                    Log.d(TAG, "onClick: "+ new Gson().toJson(dkkb));
                     mAPIService.setDangKyKham(token,dkkb).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
                         @Override
                         public void success(Response<ResponseModel> response) {
@@ -258,7 +263,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                             i++;
                         }
                         txtBS.setItems(tenBS);
-                        Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                      //  Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
                     }
                 }catch (Exception e){
                     Toast.makeText(KhaiBaoYTeActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -274,7 +279,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 btnDichVuKhac.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn dịch vụ bạn muốn");
+        title.setText("Chọn dịch vụ");
         txt1.setText("Dịch vụ");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
@@ -340,7 +345,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                         i++;
                     }
                     txtBS.setItems(tenBS);
-                    Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
+                  //  Log.d(TAG,"Nhận DS "+ dsBS.length +" danh mục chuyên khoa");
                 }
             }
         });
@@ -353,7 +358,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn chuyên khoa bạn muốn khám");
+        title.setText("Chọn chuyên khoa");
         txt1.setText("Chuyên khoa");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
@@ -402,7 +407,28 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
         Button negativeBtn = dialog.findViewById(R.id.negativeBtn);
         Button positiveBtn = dialog.findViewById(R.id.positiveBtn);
         BSSpinner txtBS = dialog.findViewById(R.id.txtBS);
-
+        CheckBox cbxSang = dialog.findViewById(R.id.cbxSang);
+        CheckBox cbxChieu = dialog.findViewById(R.id.cbxChieu);
+        cbxSang.setEnabled(false);
+        cbxChieu.setEnabled(false);
+        cbxChieu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(cbxSang.isEnabled()){
+                    cbxSang.setChecked(!b);
+                    buoi = "c";
+                }
+            }
+        });
+        cbxSang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(cbxSang.isEnabled()) {
+                    cbxChieu.setChecked(!b);
+                    buoi = "s";
+                }
+            }
+        });
         mAPIService.getAllActiveDoctor(APIKey).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this){
             @Override
             public void success(Response<ResponseModel> response) {
@@ -413,10 +439,11 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                         listBS.add(bs);
                     }
                     txtBS.setItems(listBS);
-                    Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
+                  //  Log.d(TAG,"Nhận DS "+ dsBS.length +" bs");
                 }
             }
         });
+        ArrayList<getNgayLamViecDKK> arngayLamViecDKKS = new ArrayList<>();
         txtBS.setOnItemClickListener(new BSSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -424,6 +451,7 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 mAPIService.getLichLamViecDKK(APIKey, new baseGetClass(bacSi.getMa())).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
                     @Override
                     public void success(Response<ResponseModel> response) {
+                        arngayLamViecDKKS.clear();
                         try{
                             getNgayLamViecDKK[] ngayLamViecDKKS = new Gson().fromJson(response.body().getData(),getNgayLamViecDKK[].class);
                             if(ngayLamViecDKKS.length > 0){
@@ -432,12 +460,39 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                                     Calendar x = Calendar.getInstance();
                                     x.set(Calendar.DAY_OF_MONTH, UtilityHHH.toInt(ngayLamViecDKKS[i].getNgay()));
                                     date[i] = x;
+                                    arngayLamViecDKKS.add(ngayLamViecDKKS[i]);
                                 }
-                                UtilityHHH.edtDateWithEnableDate(getSupportFragmentManager(), edtNgayKham,date);
+                                UtilityHHH.edtDateWithEnableDate(getSupportFragmentManager(), edtNgayKham, date, new UtilityHHH.DateSetCallback() {
+                                    @Override
+                                    public void CalllBack(Calendar c) {
+                                        cbxChieu.setChecked(false);
+                                        cbxChieu.setEnabled(false);
+                                        cbxSang.setChecked(false);
+                                        cbxSang.setEnabled(false);
+                                        buoi = "";
+                                        String ngay = c.get(Calendar.DAY_OF_MONTH) +"";
+                                        for(getNgayLamViecDKK u : arngayLamViecDKKS){
+                                            if(u.getNgay().equals(ngay)){
+                                                if(u.getC().equals("c")){
+                                                    cbxChieu.setEnabled(true);
+                                                    cbxChieu.setChecked(true);
+                                                }
+                                                if(u.getS().equals("s")){
+                                                    cbxSang.setEnabled(true);
+                                                    cbxSang.setChecked(true);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                });
                                 edtNgayKham.setEnabled(true);
                             }else{
+                                cbxSang.setEnabled(false);
+                                cbxChieu.setEnabled(false);
                                 edtNgayKham.setText("Chọn ngày");
                                 edtNgayKham.setEnabled(false);
+                                buoi = "";
                                 date = "";
                                 Toast.makeText(KhaiBaoYTeActivity.this, "Bác sĩ bạn chọn không có lịch làm việc. Vui lòng chọn bác sĩ khác !!!",
                                         Toast.LENGTH_SHORT).show();
@@ -452,7 +507,8 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 btnChonBS.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        title.setText("Chọn bác sĩ bạn muốn khám");
+
+        title.setText("Chọn bác sĩ");
         txt1.setText("Bác sĩ");
         negativeBtn.setText("Hủy");
         positiveBtn.setText("Đồng ý");
@@ -467,13 +523,14 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                 btnDuaNguoiThan.setEnabled(true);
                 bacSi = null;
                 date = "";
+                buoi = "";
                 dialog.dismiss();
             }
         });
         positiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(edtNgayKham.getText().toString().equals("Chọn ngày") || bacSi == null){
+                if(edtNgayKham.getText().toString().equals("Chọn ngày") || bacSi == null || buoi.isEmpty()){
                     Toast.makeText(KhaiBaoYTeActivity.this, "Vui lòng chọn đầy đủ", Toast.LENGTH_SHORT).show();
                     return;
                 }

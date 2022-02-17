@@ -28,10 +28,14 @@ import com.hungduy.honghunghospital.Model.ResponseModel;
 import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
 import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
 import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
+import com.hungduy.honghunghospital.Model.getModel.getDVTheoNhom;
 import com.hungduy.honghunghospital.Model.getModel.getDichVu;
+import com.hungduy.honghunghospital.Model.getModel.getGiaDV;
+import com.hungduy.honghunghospital.Model.getModel.getMaTen;
 import com.hungduy.honghunghospital.Model.getModel.getTinTuc;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,8 +51,8 @@ import retrofit2.Response;
 public class DichVuFragment extends BaseFragment {
     private JRSpinner txtNhomDV,txtDichVu;
     private EditText txtGiaDichVu;
-    private ArrayList<LoaiDichVu> loaiDichVus;
-    private ArrayList<DichVu> dichVus;
+    private ArrayList<getMaTen> loaiDichVus;
+    private ArrayList<getGiaDV> dichVus;
     private boolean connected = true;
     private String donvi = "";
 
@@ -74,7 +78,7 @@ public class DichVuFragment extends BaseFragment {
         loaiDichVus = new ArrayList<>();
         dichVus = new ArrayList<>();
 
-        new Thread(new Runnable() {
+      /*  new Thread(new Runnable() {
             @Override
             public void run() {
                 if(loaiDichVuDAO.getAll().size() > 0){
@@ -121,7 +125,6 @@ public class DichVuFragment extends BaseFragment {
                 }).start();
             }
         });
-      //  txtDichVu.setText("");
         txtDichVu.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -171,12 +174,74 @@ public class DichVuFragment extends BaseFragment {
                     }
                 });
             }
+        });*/
+        txtNhomDV.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String mandv = loaiDichVus.get(position).getMa();
+                mAPIService.getDichVuTheoNhom(APIKey,new getDVTheoNhom(mandv)).enqueue(new CallbackResponse(getActivity()) {
+                    @Override
+                    public void success(Response<ResponseModel> response) {
+                        dichVus.clear();
+                        try{
+                            getGiaDV[] dv = new Gson().fromJson(response.body().getData(),getGiaDV[].class);
+                            if(dv != null){
+                                String[] dvs = new String[dv.length];
+                                for(int i=0;i<dv.length;i++){
+                                    dichVus.add(dv[i]);
+                                    dvs[i] = dv[i].getTen();
+                                }
+                                txtDichVu.setItems(dvs);
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(getActivity(), "Đã có lỗi xảy ra "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         });
+
+        txtDichVu.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String money = "";
+                NumberFormat formatter = new DecimalFormat("#,###");
+                try {
+                    Log.d(TAG, "onItemClick: "+dichVus.get(position).getGia());
+                    money =  formatter.format(UtilityHHH.toDouble(dichVus.get(position).getGia()));
+                }catch (Exception e){
+                    money = dichVus.get(position).getGia();
+                }
+                txtGiaDichVu.setText(money+ "VNĐ");
+                //txtGiaDichVu.setText(dichVus.get(position).getGia());
+            }
+        });
+
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mAPIService.getNhomDichVu(APIKey).enqueue(new CallbackResponse(getActivity()) {
+            @Override
+            public void success(Response<ResponseModel> response) {
+                loaiDichVus.clear();
+                try{
+                    getMaTen[] nhomdvs = new Gson().fromJson(response.body().getData(),getMaTen[].class);
+                    if(nhomdvs != null){
+                        String[] ndv = new String[nhomdvs.length];
+                        for(int i=0;i<nhomdvs.length;i++){
+                            loaiDichVus.add(nhomdvs[i]);
+                            ndv[i] = nhomdvs[i].getTen();
+                        }
+                        txtNhomDV.setItems(ndv);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+        });
         txtNhomDV.setInputType(txtNhomDV.getInputType()| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         txtDichVu.setInputType(txtDichVu.getInputType()| InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         txtNhomDV.setText("Vui lòng chọn nhóm dịch vụ\nbạn quan tâm");

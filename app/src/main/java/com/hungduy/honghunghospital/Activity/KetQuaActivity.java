@@ -52,6 +52,13 @@ public class KetQuaActivity extends BaseActivity {
                 noidungkham =(String) bundle.get("noidungkham");
                 QR = (String) bundle.get("QR");
                 loai = (int) bundle.get("loai");
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ketQuaLuuDAO.insert(new KetQuaLuu(QR,noidungkham,isTestCovid? 1:0,loai));
+                    }
+                }).start();
             }catch (Exception exx){
 
             }
@@ -79,21 +86,11 @@ public class KetQuaActivity extends BaseActivity {
             }
         }
         Layout_Sang_Loc.setVisibility( isTestCovid ? View.VISIBLE : View.GONE);
+        btnLuu.setText("Đồng ý");
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ketQuaLuuDAO.insert(new KetQuaLuu(QR,noidungkham,isTestCovid? 1:0,loai));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        });
-                    }
-                }).start();
+                finish();
             }
         });
 
