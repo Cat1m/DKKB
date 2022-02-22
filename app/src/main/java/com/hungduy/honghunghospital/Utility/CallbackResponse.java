@@ -43,6 +43,7 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
             }catch (Exception ex){
                 Log.d("CallBack",ex.getMessage());
             }
+            fail();
         }else {
             if(!response.body().getStatus().equals("OK")){
                 try{
@@ -56,6 +57,7 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
                 }catch (Exception ex){
                     Log.d("CallBack",ex.getMessage());
                 }
+                fail();
             }else{
                 success(response);
             }
@@ -63,6 +65,9 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
     }
 
     abstract public void success(Response<ResponseModel> response);
+    public void fail(){
+
+    }
 
     @Override
     public void onFailure(Call<ResponseModel> call, Throwable t) {
@@ -77,6 +82,7 @@ public abstract class CallbackResponse implements Callback<ResponseModel> {
         }catch (Exception ex){
             Log.d("CallBack",ex.getMessage());
         }
+        fail();
     }
 
 }

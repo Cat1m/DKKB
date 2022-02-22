@@ -15,8 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BVHồngHưngĐăngKýKhámBệnhOnline">
-        <service android:enabled="true" android:name=".ServiceSyncDATA">
-        </service>
+        <activity
+            android:name=".Activity.ChiTietToaThuocActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LinkHISActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".ServiceSyncDATA"
+            android:enabled="true" />
+
         <activity
             android:name=".Activity.KhaiBaoYTeActivity"
             android:exported="false"
@@ -71,10 +80,10 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
 
 </manifest>
-    <!-- android:screenOrientation="portrait" -->

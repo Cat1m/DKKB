@@ -22,6 +22,7 @@ import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeCongTacActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNguoiThanActivity;
 import com.hungduy.honghunghospital.Activity.KhaiBaoYTeNoiBoActivity;
+import com.hungduy.honghunghospital.Activity.LinkHISActivity;
 import com.hungduy.honghunghospital.Activity.MainActivity;
 import com.hungduy.honghunghospital.Activity.SplashActivity;
 import com.hungduy.honghunghospital.Activity.TraCuuActivity;
@@ -147,12 +148,12 @@ public class HomeLoginedFragment extends BaseFragment {
         btn_home_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"Chức năng này hiện đang trong quá trình cập nhật !!!", Toast.LENGTH_SHORT).show();
-               /* Intent i = new Intent(getContext(), TraCuuActivity.class);
+               // Toast.makeText(getActivity(),"Chức năng này hiện đang trong quá trình cập nhật !!!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getContext(), TraCuuActivity.class);
                 i.putExtra("FullName",FullName);
                 i.putExtra("urlImage",urlImage);
                 i.putExtra("token",token);
-                startActivity(i);*/
+                startActivity(i);
             }
         });
 

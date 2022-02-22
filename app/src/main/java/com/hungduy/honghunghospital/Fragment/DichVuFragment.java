@@ -4,12 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,20 +14,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.hungduy.honghunghospital.Activity.KhaiBaoYTeActivity;
-import com.hungduy.honghunghospital.Adapter.KhaiBaoYTeAdapter;
-import com.hungduy.honghunghospital.Adapter.TinTucAdapter;
-import com.hungduy.honghunghospital.Database.Model.DichVu;
-import com.hungduy.honghunghospital.Database.Model.LoaiDichVu;
 import com.hungduy.honghunghospital.Model.ResponseModel;
-import com.hungduy.honghunghospital.Model.extModel.CauHoiKhaiBaoYTeEXT;
-import com.hungduy.honghunghospital.Model.getModel.baseGetClass;
-import com.hungduy.honghunghospital.Model.getModel.getCauHoiKhaiBaoYTe;
 import com.hungduy.honghunghospital.Model.getModel.getDVTheoNhom;
-import com.hungduy.honghunghospital.Model.getModel.getDichVu;
 import com.hungduy.honghunghospital.Model.getModel.getGiaDV;
 import com.hungduy.honghunghospital.Model.getModel.getMaTen;
-import com.hungduy.honghunghospital.Model.getModel.getTinTuc;
 import com.hungduy.honghunghospital.R;
 import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
@@ -44,8 +29,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import jrizani.jrspinner.JRSpinner;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DichVuFragment extends BaseFragment {

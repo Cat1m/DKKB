@@ -54,7 +54,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -63,21 +63,70 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView44">
 
                 <TextView
+                    android:id="@+id/textView45"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="end"
+                    android:paddingLeft="10dp"
+                    android:text="Mã bệnh nhân"
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="16sp" />
+
+                <jrizani.jrspinner.JRSpinner
+                    android:id="@+id/spMaBenhNhan"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edttext_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiextit"
+                    android:inputType="text"
+                    android:lineSpacingMultiplier="1.3"
+                    android:maxLines="2"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorGreen"
+                    android:textColorHint="@color/textColorGreen"
+                    android:textSize="14sp"
+                    android:translationZ="5dp"
+                    app:jrs_multiple="false"
+                    app:jrs_title="Chọn mã bệnh nhân"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                <TextView
                     android:id="@+id/textView42"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="end"
                     android:paddingLeft="10dp"
                     android:text="Từ ngày"
                     android:textColor="@color/textColorGreen"
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/txtGiaDichVu"
+                    android:id="@+id/edtTuNgay"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
@@ -110,17 +159,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="end"
                     android:paddingLeft="10dp"
                     android:text="Đến ngày"
                     android:textColor="@color/textColorGreen"
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/txtDenNgay"
+                    android:id="@+id/edtDenNgay"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
@@ -142,7 +192,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnTimKiem"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -155,6 +205,24 @@
                 android:textColor="@color/white"
                 android:translationZ="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <Button
+                android:id="@+id/btnLienKet"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/btn_shape_blue"
+                android:fontFamily="@font/myriadpro_semiboldsemiext"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="Nhập mã bệnh nhân"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:translationZ="5dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <TextView
@@ -172,7 +240,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/imageView21"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/btnTimKiem" />
 
             <ImageView
                 android:id="@+id/imageView21"
@@ -184,7 +252,7 @@
                 android:src="@drawable/canh_chim_mot_ben"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/btnTimKiem" />
 
             <TextView
                 android:id="@+id/textView44"
@@ -211,32 +279,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ScrollView
-                android:id="@+id/scrollView2"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/viewLink"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="-10dp"
-                android:background="@android:color/transparent"
+                android:layout_marginBottom="-8dp"
                 android:overScrollMode="never"
-                android:scrollbarStyle="@null"
                 android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/include20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView46"
-                tools:ignore="SpeakableTextPresentCheck">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </ScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
             <include
                 android:id="@+id/include20"

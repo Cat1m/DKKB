@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.LinkHISActivity">
+
+    <include
+        android:id="@+id/include7"
+        layout="@layout/item_logo_helo_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-14dp"
+        android:layout_marginBottom="-15dp"
+        android:background="@drawable/logo_nen"
+        android:paddingBottom="15dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_nen" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/viewLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:text="Mã bệnh nhân"
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtMaBenhNhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="5"
+                        android:background="@drawable/shape_edittext_have_focus"
+                        android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:translationZ="5dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <Button
+                        android:id="@+id/btnTimMaBenhNhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/btn_shape_green"
+                        android:minWidth="130dp"
+                        android:text="Tìm mã"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:inputType="textCapCharacters"
+                    android:text="Nhập mã OTP"
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtOTP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="5"
+                        android:background="@drawable/shape_edittext_have_focus"
+                        android:ems="10"
+                        android:fontFamily="@font/myriadpro_semiext"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:translationZ="5dp"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                    <Button
+                        android:id="@+id/btnGuiOTP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginBottom="40dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/btn_shape_green"
+                        android:minWidth="130dp"
+                        android:text="Nhận mã OTP"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnThoat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_shape_green"
+                        android:minWidth="130dp"
+                        android:text="Thoát"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnLienKet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_shape_blue"
+                        android:minWidth="130dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Liên kết tài khoản"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewSearch"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="-10dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/include19"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:text="Họ tên: "
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtHoTen"
+                    app:layout_constraintEnd_toEndOf="@+id/textView49"
+                    app:layout_constraintTop_toTopOf="@+id/edtHoTen" />
+
+                <EditText
+                    android:id="@+id/edtHoTen"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_edittext_have_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:hint="Họ và tên"
+                    android:inputType="text|textCapCharacters"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:translationZ="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/edtNgaySinh"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/edtNgaySinh"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView47"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="right"
+                    android:text="Ngày sinh: "
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtNgaySinh"
+                    app:layout_constraintEnd_toEndOf="@+id/textView49"
+                    app:layout_constraintTop_toTopOf="@+id/edtNgaySinh" />
+
+                <EditText
+                    android:id="@+id/edtNgaySinh"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="10"
+                    android:background="@drawable/shape_edittext_have_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:hint="dd/MM/yyyy"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:translationZ="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView47"
+                    app:layout_constraintTop_toBottomOf="@+id/edtHoTen"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView51"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:gravity="right"
+                    android:text="Số CMND: "
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtSoChungMinh"
+                    app:layout_constraintEnd_toEndOf="@+id/textView49"
+                    app:layout_constraintTop_toTopOf="@+id/edtSoChungMinh" />
+
+                <EditText
+                    android:id="@+id/edtSoChungMinh"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_edittext_have_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:hint="Số CMND/CCCD"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:translationZ="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/edtNgaySinh"
+                    app:layout_constraintStart_toStartOf="@+id/edtNgaySinh"
+                    app:layout_constraintTop_toBottomOf="@+id/edtNgaySinh"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:text="Số điện thoại: "
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtSDT"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edtSDT" />
+
+                <EditText
+                    android:id="@+id/edtSDT"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_edittext_have_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:hint="Số điện thoại"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:translationZ="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/edtNgaySinh"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/edtNgaySinh"
+                    app:layout_constraintTop_toBottomOf="@+id/edtSoChungMinh"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/myriadpro_semiboldsemiext"
+                    android:text="Số BHYT: "
+                    android:textColor="@color/textColorGreen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtSoBHYT"
+                    app:layout_constraintEnd_toEndOf="@+id/textView49"
+                    app:layout_constraintTop_toBottomOf="@+id/edtSDT" />
+
+                <EditText
+                    android:id="@+id/edtSoBHYT"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_edittext_have_focus"
+                    android:ems="10"
+                    android:fontFamily="@font/myriadpro_semiext"
+                    android:hint="Số bảo hiểm y tế"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:translationZ="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/edtNgaySinh"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/edtNgaySinh"
+                    app:layout_constraintTop_toBottomOf="@+id/edtSDT"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtSoBHYT">
+
+                    <Button
+                        android:id="@+id/btnHuy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_shape_green"
+                        android:minWidth="130dp"
+                        android:text="Quay lại"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnTim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_shape_blue"
+                        android:minWidth="130dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tìm kiếm"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:translationZ="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnLuu"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/include19"
+                layout="@layout/item_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:translationZ="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
