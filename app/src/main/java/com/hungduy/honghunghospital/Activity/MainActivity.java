@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,6 +65,7 @@ public class MainActivity extends BaseActivity {
 
     private boolean Connected = true;
     public int viewNum = 0;
+    public boolean exitToMain = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,6 @@ public class MainActivity extends BaseActivity {
         mapView();
         btnMainClick();
         super.setMainActivity(this);
-
 
         loginFM = new LoginFragment();
         BacSiFM = new BacSiFragment();
@@ -334,6 +335,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        exitToMain = false;
         super.onResume();
         String usernamePreferences = getStringPreferences(preferences,"username");
         String passwordPreferences = getStringPreferences(preferences,"password");

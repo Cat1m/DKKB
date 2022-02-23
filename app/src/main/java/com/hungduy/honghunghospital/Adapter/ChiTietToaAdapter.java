@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hungduy.honghunghospital.Model.extModel.getMaBN;
 import com.hungduy.honghunghospital.Model.getModel.getChiTietToa;
 import com.hungduy.honghunghospital.R;
+import com.hungduy.honghunghospital.Utility.UtilityHHH;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,8 +60,9 @@ public class ChiTietToaAdapter extends RecyclerView.Adapter<ChiTietToaAdapter.Vi
         holder.txtTitle.setText("Tên thuốc: "+ toa.getTen());
         holder.txtNoiDung.setMaxLines(10);
         holder.txtNoiDung.setLineSpacing(1f,1.3f);
-        holder.txtNoiDung.setText("Số lượng: " +toa.getSoluong()+ " ("+toa.getDonvi()+")"+
-                "\nNgày uống: " +toa.getSoluong()+ " ("+toa.getDonvi()+")"+
+        holder.txtNoiDung.setText("Số lượng: " +toa.getSoluong()+ " "+toa.getDonvi()+
+              // "\nNgày : " +toa.getNgayuong()+
+                "\nSố ngày uống: " + toa.getNgayuong()+
                 (toa.getGhichu().isEmpty() ? "" : "\nGhi chú: "+toa.getGhichu() ));
         holder.btnChiTiet.setVisibility(View.GONE);
     }

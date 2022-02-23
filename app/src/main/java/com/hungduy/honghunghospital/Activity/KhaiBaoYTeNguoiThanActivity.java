@@ -370,6 +370,10 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
             }
         });
 
+        btnDichVuKhac.setText(R.string.txt_nguoi_than_toi_muon_dang_ky_dich_vu_khac);
+        btnChonChuyenKhoa.setText(R.string.txt_nguoi_than_toi_muon_kham_tai_kham_chuyen_khoa);
+        btnChonBS.setText(R.string.txt_nguoi_than_toi_muon_kham_bac_si);
+
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -435,6 +439,16 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             }
                             if(maloai == 3 && dv.getMa().equals("9") ){
                                 kq=true;
+                            }
+                            String noidung=" Người thân của anh/chị đã đăng ký " + dv.getTen() +
+                                    " thành công <br/>Dự kiến ngày khám: " + date;
+                            if (buoi.equals("c"))
+                            {
+                                noidung += "<br/>Thời gian: buổi chiều";
+                            }
+                            if (buoi.equals("s"))
+                            {
+                                noidung = "<br/>Thời gian: buổi sáng";
                             }
                             Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                             i.putExtra("isTestCovid",kq);
@@ -520,7 +534,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDichVuKhac.setText("Người thân tôi muốn đăng ký dịch vụ khác");
+                btnDichVuKhac.setText(R.string.txt_nguoi_than_toi_muon_dang_ky_dich_vu_khac);
                 btnDichVuKhac.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
                 btnDichVuKhac.setTextColor(getResources().getColor(R.color.textColorGreen));
                 btnChonBS.setEnabled(true);
@@ -597,7 +611,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnChonChuyenKhoa.setText("Người thân tôi muốn khám/tái khám Chuyên khoa");
+                btnChonChuyenKhoa.setText(R.string.txt_nguoi_than_toi_muon_kham_tai_kham_chuyen_khoa);
                 btnChonChuyenKhoa.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
                 btnChonChuyenKhoa.setTextColor(getResources().getColor(R.color.textColorGreen));
                 btnChonBS.setEnabled(true);
@@ -745,7 +759,7 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnChonBS.setText(R.string.txt_toi_muon_kham_bac_si);
+                btnChonBS.setText(R.string.txt_nguoi_than_toi_muon_kham_bac_si);
                 btnChonBS.setBackground(getResources().getDrawable(R.drawable.btn_shape_green_light));
                 btnChonBS.setTextColor(getResources().getColor(R.color.textColorGreen));
                 btnChonChuyenKhoa.setEnabled(true);

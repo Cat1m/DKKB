@@ -202,9 +202,19 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                             if(maloai == 3 && dv.getMa().equals("9") ){
                                 kq=true;
                             }
+                            String noidung=" Anh/Chị đã đăng ký khám " + dv.getTen() +
+                                    " thành công <br/>Dự kiến ngày khám: " + date;
+                            if (buoi.equals("c"))
+                            {
+                                noidung += "<br/>Thời gian: buổi chiều";
+                            }
+                            if (buoi.equals("s"))
+                            {
+                                noidung = "<br/>Thời gian: buổi sáng";
+                            }
                             Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                             i.putExtra("isTestCovid",kq);
-                            i.putExtra("noidungkham"," Anh/Chị đã đăng ký khám " + dv.getTen() + " thành công <br/>Dự kiến ngày khám: "+date);
+                            i.putExtra("noidungkham", noidung);
                             i.putExtra("dv",dv.getTen());
                             i.putExtra("loai",1);
                             i.putExtra("FullName",FullName);

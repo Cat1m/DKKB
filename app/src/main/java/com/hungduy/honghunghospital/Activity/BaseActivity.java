@@ -192,6 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         CreateDialogLoading();
 
+
         if(bundle!=null)
         {
             try{
@@ -332,6 +333,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         mContext.viewNum = 1;
+                        mContext.exitToMain = true;
                         finish();
                     }
                 });
@@ -340,6 +342,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         try {
                             mContext.viewNum = 2;
+                            mContext.exitToMain = true;
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -351,6 +354,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         try {
                             mContext.viewNum = 3;
+                            mContext.exitToMain = true;
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -362,6 +366,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         try {
                             mContext.viewNum = 4;
+                            mContext.exitToMain = true;
                         } catch (Exception e) {
                             Log.d(TAG, e.getMessage());
                         }
@@ -382,7 +387,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(connectivityStatusReceiver, intentFilter);
+        try{
+            if(mContext.exitToMain){
+                finish();
+            }
+        }catch (Exception ignored){
 
+        }
     }
 
     @Override

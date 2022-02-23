@@ -52,6 +52,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -449,6 +450,9 @@ public class SplashActivity extends BaseActivity {
                         setStringPreferences(preferences,"fiam",token);
                     }
                 });
+
+        int badgeCount = 1;
+        ShortcutBadger.applyCount(this, badgeCount); //for 1.1.4+
     }
 
 }

@@ -44,6 +44,7 @@ public class TraCuuActivity extends BaseActivity {
     private Date today = calendar.getTime();
     private DateFormat dateFormatForUser = new SimpleDateFormat("dd/MM/yyyy");
     private Date ThreeMonth;
+    private int vitri = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class TraCuuActivity extends BaseActivity {
         spMaBenhNhan.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                vitri = position;
                 try{
                     mahoSo = hosokham.get(position).getMa();
                 }catch (Exception ignored){  }
@@ -130,7 +132,12 @@ public class TraCuuActivity extends BaseActivity {
                             hs[i] = list[i].getMa() + " - "+ list[i].getTen();
                         }
                         spMaBenhNhan.setItems(hs);
-                        spMaBenhNhan.select(0);
+                        if(vitri > list.length -1){
+                            spMaBenhNhan.select(vitri);
+                        }else{
+                            vitri = 0;
+                            spMaBenhNhan.select(0);
+                        }
                     }
                 }catch (Exception e){
                     Toast.makeText(TraCuuActivity.this, "Đã có lỗi xảy ra "+ e.getMessage(), Toast.LENGTH_SHORT).show();

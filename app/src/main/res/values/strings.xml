@@ -50,5 +50,8 @@
     <string name="txt_chon_khoan_thoi_gian_tra_cuu_lich_su_kham">Chọn khoảng thời gian\ntra cứu lịch sử khám bệnh</string>
     <string name="txt_thong_tin_lich_su_kham_chua_benh">Thông tin: Lịch sử khám chữa bệnh</string>
     <string name="txt_chon_1_trong_4_hinh_thuc_sau">Phần đăng kí khám bệnh<br />\n<i><small>(Chọn 1 trong 4 hình thức sau)</small></i></string>
+    <string name="txt_nguoi_than_toi_muon_dang_ky_dich_vu_khac">Người thân tôi muốn đăng ký dịch vụ khác</string>
+    <string name="txt_nguoi_than_toi_muon_kham_bac_si">Người thân tôi muốn khám Bác sĩ</string>
+    <string name="txt_nguoi_than_toi_muon_kham_tai_kham_chuyen_khoa">Người thân tôi muốn khám/tái khám Chuyên khoa</string>
     <!-- uCrop string resource end -->
 </resources>
