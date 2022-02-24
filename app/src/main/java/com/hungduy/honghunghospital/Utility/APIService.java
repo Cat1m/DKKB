@@ -188,6 +188,10 @@ public interface APIService {
     @POST("getChiTietToaThuoc")
     Call<ResponseModel> getChiTietToaThuoc(@Header("token") String s, @Body baseGetClass x);
 
+    @Headers("Content-Type: application/json")
+    @POST("getDichVuSuDung")
+    Call<ResponseModel> getDichVuSuDung(@Header("token") String s, @Body baseGetClass x);
+
 
 
 }

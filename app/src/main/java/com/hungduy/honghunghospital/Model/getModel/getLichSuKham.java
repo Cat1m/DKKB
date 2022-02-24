@@ -25,11 +25,17 @@ public class getLichSuKham {
     @SerializedName("chuandoan")
     @Expose
     private String chuandoan;
+    @SerializedName("cotoathuoc")
+    @Expose
+    private String cotoathuoc;
+    @SerializedName("codv")
+    @Expose
+    private String codv;
 
     public getLichSuKham() {
     }
 
-    public getLichSuKham(String sttPcs, String mabn, String ten, String tenpk, String ngaysinh, String ngaykham, String chuandoan) {
+    public getLichSuKham(String sttPcs, String mabn, String ten, String tenpk, String ngaysinh, String ngaykham, String chuandoan, String cotoathuoc, String codv) {
         this.sttPcs = sttPcs;
         this.mabn = mabn;
         this.ten = ten;
@@ -37,6 +43,24 @@ public class getLichSuKham {
         this.ngaysinh = ngaysinh;
         this.ngaykham = ngaykham;
         this.chuandoan = chuandoan;
+        this.cotoathuoc = cotoathuoc;
+        this.codv = codv;
+    }
+
+    public String getCodv() {
+        return codv;
+    }
+
+    public void setCodv(String codv) {
+        this.codv = codv;
+    }
+
+    public String getCotoathuoc() {
+        return cotoathuoc;
+    }
+
+    public void setCotoathuoc(String cotoathuoc) {
+        this.cotoathuoc = cotoathuoc;
     }
 
     public String getSttPcs() {

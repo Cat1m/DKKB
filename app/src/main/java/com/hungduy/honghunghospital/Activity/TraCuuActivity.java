@@ -89,7 +89,7 @@ public class TraCuuActivity extends BaseActivity {
                     Toast.makeText(TraCuuActivity.this, "Vui lòng chọn hồ sơ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                showDialogLoading(2000);
+                showDialogLoading(15000);
                 setLichSuKham x = new setLichSuKham(edtTuNgay.getText().toString(),edtDenNgay.getText().toString(),mahoSo);
                 mAPIService.getLichSuKhamBenh(token,x)
                         .enqueue(new CallbackResponse(TraCuuActivity.this) {
@@ -105,6 +105,7 @@ public class TraCuuActivity extends BaseActivity {
 
                         }
                         lichSuKhamAdapter.notifyDataSetChanged();
+                        HideDialogLoading();
                     }
                 });
             }

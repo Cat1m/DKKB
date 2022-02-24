@@ -17,15 +17,20 @@
         android:theme="@style/Theme.BVHồngHưngĐăngKýKhámBệnhOnline">
         <activity
             android:name=".Activity.ChiTietToaThuocActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Activity.ChiTietDichVuSDActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".Activity.LinkHISActivity"
-            android:exported="false" />
-
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <service
             android:name=".ServiceSyncDATA"
-            android:enabled="true" />
-
+            android:enabled="true"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".Activity.KhaiBaoYTeActivity"
             android:exported="false"
@@ -80,7 +85,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

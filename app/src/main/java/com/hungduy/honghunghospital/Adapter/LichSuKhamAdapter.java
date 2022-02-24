@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hungduy.honghunghospital.Activity.ChiTietDichVuSDActivity;
 import com.hungduy.honghunghospital.Activity.ChiTietToaThuocActivity;
 import com.hungduy.honghunghospital.Activity.KetQuaActivity;
 import com.hungduy.honghunghospital.Database.Model.KetQuaLuu;
@@ -38,13 +39,14 @@ public class LichSuKhamAdapter extends RecyclerView.Adapter<LichSuKhamAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
         private View itemview;
         public TextView txtTitle,txtNoiDung;
-        public Button btnChiTiet;
+        public Button btnChiTiet,btnDichVu;
         public ViewHolder(View itemView) {
             super(itemView);
             itemview = itemView;
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtNoiDung = itemView.findViewById(R.id.txtNoiDung);
             btnChiTiet = itemView.findViewById(R.id.btnChiTiet);
+            btnDichVu = itemView.findViewById(R.id.btnDichVu);
         }
     }
 
@@ -66,20 +68,44 @@ public class LichSuKhamAdapter extends RecyclerView.Adapter<LichSuKhamAdapter.Vi
         holder.txtNoiDung.setText("Ngày khám: "+ls.getNgaykham()+
                 "\nNgày sinh: "+ls.getNgaysinh()+
                 "\nChuẩn đoán: "+ls.getChuandoan());
-        holder.btnChiTiet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, ChiTietToaThuocActivity.class);
-                i.putExtras(bundle);
-                i.putExtra("makham",ls.getSttPcs());
-                activity.startActivity(i);
-            }
-        });
+        if(ls.getCotoathuoc().equals("1"))
+        {
+            holder.btnChiTiet.setVisibility(View.VISIBLE);
+            holder.btnChiTiet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(activity, ChiTietToaThuocActivity.class);
+                    i.putExtras(bundle);
+                    i.putExtra("makham",ls.getSttPcs());
+                    activity.startActivity(i);
+                }
+            });
+        }else{
+            holder.btnChiTiet.setVisibility(View.GONE);
+        }
+        if(ls.getCodv() != null && ls.getCodv().equals("1")){ holder.btnDichVu.setVisibility(View.VISIBLE);
+            holder.btnDichVu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(activity, ChiTietDichVuSDActivity.class);
+                    i.putExtras(bundle);
+                    i.putExtra("makham",ls.getSttPcs());
+                    activity.startActivity(i);
+                }
+            });
+        }else{
+            holder.btnDichVu.setVisibility(View.GONE);
+        }
     }
     @Override
     public int getItemCount() {
         return lichSuKhams.size();
     }
 
-
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.btnChiTiet.setVisibility(View.VISIBLE);
+        holder.btnDichVu.setVisibility(View.GONE);
+    }
 }
