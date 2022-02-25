@@ -71,7 +71,7 @@
                     android:fontFamily="@font/myriadpro_semiboldsemiext"
                     android:gravity="end"
                     android:paddingLeft="10dp"
-                    android:text="Chọn bệnh nhân"
+                    android:text="Chọn hồ sơ"
                     android:textColor="@color/textColorGreen" />
 
                 <jrizani.jrspinner.JRSpinner
@@ -197,7 +197,7 @@
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:text="Tìm kiếm"
+                android:text="Lịch sử khám"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:translationZ="5dp"
@@ -215,7 +215,7 @@
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:text="Thêm bệnh nhân"
+                android:text="Tìm hồ sơ"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:translationZ="5dp"

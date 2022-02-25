@@ -72,7 +72,7 @@ public class ChiTietDichVuSDAdapter extends RecyclerView.Adapter<ChiTietDichVuSD
         holder.txtNoiDung.setMaxLines(10);
         holder.txtNoiDung.setLineSpacing(1f,1.3f);
         holder.txtNoiDung.setText("Số lượng: " +toa.getSoluong()+
-                "\nNgày : " + tt +"VNĐ"+
+                "\nĐơn giá: " + tt +"VNĐ"+
                 "\nThành tiền: " + dg+"VNĐ"+
                 (toa.getGhichu().isEmpty() ? "" : "\nGhi chú: "+toa.getGhichu() ));
         holder.btnChiTiet.setVisibility(View.GONE);
