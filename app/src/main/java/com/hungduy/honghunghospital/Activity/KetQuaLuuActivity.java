@@ -36,12 +36,8 @@ public class KetQuaLuuActivity extends BaseActivity {
                 viewRecycler.setAdapter(lichSuLuuKetQuaAdapter);
                 viewRecycler.setLayoutManager(linearLayoutManager);
                 Log.d(TAG, "size KetQuaLuu:"+ lichSuLuuKetQuaAdapter.getItemCount());
-
             }
         }).start();
-
-
-
     }
 
 

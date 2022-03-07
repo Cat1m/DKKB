@@ -188,7 +188,6 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                             madangky.getMa(),"", "", date,buoi);
                     final getMaTen dv = madangky;
                     final int maloai = maloaidangky;
-                    Log.d(TAG, "onClick: "+ new Gson().toJson(dkkb));
                     mAPIService.setDangKyKham(token,dkkb).enqueue(new CallbackResponse(KhaiBaoYTeActivity.this) {
                         @Override
                         public void success(Response<ResponseModel> response) {
@@ -206,11 +205,14 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                                     " thành công <br/>Dự kiến ngày khám: " + date;
                             if (buoi.equals("c"))
                             {
-                                noidung += "<br/>Thời gian: buổi chiều";
+                                noidung += "<br/>Thời gian: buổi chiều. Vui lòng đến trước 15:30";
                             }
                             if (buoi.equals("s"))
                             {
-                                noidung = "<br/>Thời gian: buổi sáng";
+                                noidung += "<br/>Thời gian: buổi sáng. Vui lòng đến trước 11:30 ";
+                            }
+                            if(buoi.equals("")){
+                                noidung += "<br/>Vui lòng đến trước 11g30 nếu khám buổi sáng HOẶC trước 15g30 nếu khám buổi chiều!";
                             }
                             Intent i = new Intent(getApplicationContext(), KetQuaActivity.class);
                             i.putExtra("isTestCovid",kq);
@@ -480,16 +482,18 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                                         cbxSang.setChecked(false);
                                         cbxSang.setEnabled(false);
                                         buoi = "";
-                                        String ngay = c.get(Calendar.DAY_OF_MONTH) +"";
+                                        int ngay = c.get(Calendar.DAY_OF_MONTH);
                                         for(getNgayLamViecDKK u : arngayLamViecDKKS){
-                                            if(u.getNgay().equals(ngay)){
+                                            if(ngay == UtilityHHH.toInt(u.getNgay())){
                                                 if(u.getC().equals("c")){
                                                     cbxChieu.setEnabled(true);
                                                     cbxChieu.setChecked(true);
+                                                    buoi = "c";
                                                 }
                                                 if(u.getS().equals("s")){
                                                     cbxSang.setEnabled(true);
                                                     cbxSang.setChecked(true);
+                                                    buoi = "s";
                                                 }
                                                 break;
                                             }
@@ -508,7 +512,6 @@ public class KhaiBaoYTeActivity extends BaseKhaiBaoYTeActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
-
                         }
                     }
                 });
