@@ -30,6 +30,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.hungduy.honghunghospital.Database.DAO.BacSiDAO;
 import com.hungduy.honghunghospital.Database.DAO.CauHoiKhaiBaoYTeDAO;
 import com.hungduy.honghunghospital.Database.DAO.DanTocDAO;
@@ -394,6 +395,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }catch (Exception ignored){
 
         }
+
     }
 
     @Override

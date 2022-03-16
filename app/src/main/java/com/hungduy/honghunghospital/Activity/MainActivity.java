@@ -19,6 +19,9 @@ import androidx.lifecycle.Lifecycle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
@@ -72,8 +75,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showDialogLoading(2000);
-
+      //  showDialogLoading(2000);
+        try{
+            FirebaseDatabase.getInstance().setPersistenceEnabled(false);
+            FirebaseInAppMessaging.getInstance().setAutomaticDataCollectionEnabled(true);
+            FirebaseInAppMessaging.getInstance().triggerEvent("app_launch");
+        }catch (Exception e){
+        }
         mapView();
         btnMainClick();
         super.setMainActivity(this);
@@ -347,6 +355,7 @@ public class MainActivity extends BaseActivity {
             svTrangChu.setBackgroundColor(getResources().getColor(R.color.ColorGreenLight));
         }
         setSvTrangChu(viewNum);
+
     }
 
     private void btnMainClick() {
