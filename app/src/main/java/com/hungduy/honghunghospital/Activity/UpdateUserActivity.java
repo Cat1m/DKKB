@@ -289,21 +289,18 @@ public class UpdateUserActivity extends BaseActivity {
         txtTinhThanh.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String code = listTinhThanh.get(position).getMa()+"";
-                if(!matinhthanh.equals(code)){
-                    matinhthanh = code;
-                    txtQuanHuyen.setItems(new String[0]);
-                    txtXaPhuong.setItems(new String[0]);
-                    txtApKhuPho.setItems(new String[0]);
-                    txtQuanHuyen.setText("----");
-                    txtXaPhuong.setText("----");
-                    txtApKhuPho.setText("----");
-                    maquanhuyen = "";
-                    maphuongxa = "";
-                    maapkhupho = "";
-                    DoDuLieuQuanHuyen(listTinhThanh.get(position).getMa());
-                    Log.d(TAG,  matinhthanh +" - " + listTinhThanh.get(position).getTen());
-                }
+                String code = listTinhThanh.get(position).getMa() + "";
+                matinhthanh = code;
+                txtQuanHuyen.setItems(new String[0]);
+                txtXaPhuong.setItems(new String[0]);
+                txtApKhuPho.setItems(new String[0]);
+                txtQuanHuyen.setText("----");
+                txtXaPhuong.setText("----");
+                txtApKhuPho.setText("----");
+                maquanhuyen = "";
+                maphuongxa = "";
+                maapkhupho = "";
+                DoDuLieuQuanHuyen(listTinhThanh.get(position).getMa());
             }
         });
 
@@ -311,17 +308,14 @@ public class UpdateUserActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 String code = listQuanHuyen.get(position).getMa()+"";
-                if(!maquanhuyen.equals(code)){
-                    maquanhuyen = code;
-                    txtXaPhuong.setItems(new String[0]);
-                    txtApKhuPho.setItems(new String[0]);
-                    txtXaPhuong.setText("----");
-                    txtApKhuPho.setText("----");
-                    maapkhupho = "";
-                    maphuongxa = "";
-                    DoDuLieuXaPhuong(listQuanHuyen.get(position).getMa());
-                    Log.d(TAG,  maquanhuyen +" - " + listQuanHuyen.get(position).getTen());
-                }
+                maquanhuyen = code;
+                txtXaPhuong.setItems(new String[0]);
+                txtApKhuPho.setItems(new String[0]);
+                txtXaPhuong.setText("----");
+                txtApKhuPho.setText("----");
+                maapkhupho = "";
+                maphuongxa = "";
+                DoDuLieuXaPhuong(listQuanHuyen.get(position).getMa());
             }
         });
 
@@ -329,14 +323,11 @@ public class UpdateUserActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 String code = listPhuongXa.get(position).getMa()+"";
-                if(!maphuongxa.equals(code)){
-                    maphuongxa = code;
-                    maapkhupho = "";
-                    txtApKhuPho.setItems(new String[0]);
-                    txtApKhuPho.setText("----");
-                    DoDuLieuApKhuPho(listPhuongXa.get(position).getMa());
-                    Log.d(TAG,  maphuongxa +" - " + listPhuongXa.get(position).getTen());
-                }
+                maphuongxa = code;
+                maapkhupho = "";
+                txtApKhuPho.setItems(new String[0]);
+                txtApKhuPho.setText("----");
+                DoDuLieuApKhuPho(listPhuongXa.get(position).getMa());
             }
         });
 
@@ -344,10 +335,7 @@ public class UpdateUserActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 String code = listApKhuPho.get(position).getMa()+"";
-                if(!maapkhupho.equals(code)){
-                    maapkhupho = code;
-                    Log.d(TAG,  maapkhupho +" - " + listApKhuPho.get(position).getTen());
-                }
+                maapkhupho = code;
             }
         });
 
