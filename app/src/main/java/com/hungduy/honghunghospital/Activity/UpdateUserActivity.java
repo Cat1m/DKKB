@@ -590,7 +590,7 @@ public class UpdateUserActivity extends BaseActivity {
                                     }else{
                                         btnLuu.setEnabled(true);
                                         btnLuu.setAlpha(1f);
-                                        dialog_loading.dismiss();
+                                        HideDialogLoading();
                                     }
                                 }
                             });
