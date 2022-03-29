@@ -7,6 +7,9 @@ public class getNgayLamViecDKK {
     @SerializedName("ngay")
     @Expose
     private String ngay;
+    @SerializedName("date")
+    @Expose
+    private String date;
     @SerializedName("s")
     @Expose
     private String s;
@@ -17,10 +20,19 @@ public class getNgayLamViecDKK {
     public getNgayLamViecDKK() {
     }
 
-    public getNgayLamViecDKK(String ngay, String s, String c) {
+    public getNgayLamViecDKK(String ngay, String date, String s, String c) {
         this.ngay = ngay;
+        this.date = date;
         this.s = s;
         this.c = c;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getS() {
