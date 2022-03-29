@@ -46,8 +46,11 @@ import com.hungduy.honghunghospital.Utility.CallbackResponse;
 import com.hungduy.honghunghospital.Utility.UtilityHHH;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import jrizani.jrspinner.JRSpinner;
@@ -703,9 +706,15 @@ public class KhaiBaoYTeNguoiThanActivity extends BaseKhaiBaoYTeActivity {
                             getNgayLamViecDKK[] ngayLamViecDKKS = new Gson().fromJson(response.body().getData(),getNgayLamViecDKK[].class);
                             if(ngayLamViecDKKS.length > 0){
                                 Calendar[] date = new Calendar[ngayLamViecDKKS.length];
+                                DateFormat dateFormatForUser = new SimpleDateFormat("dd/MM/yyyy");
                                 for(int i=0;i<ngayLamViecDKKS.length;i++){
                                     Calendar x = Calendar.getInstance();
-                                    x.set(Calendar.DAY_OF_MONTH, UtilityHHH.toInt(ngayLamViecDKKS[i].getNgay()));
+                                    Date d = dateFormatForUser.parse(ngayLamViecDKKS[i].getDate());
+                                    if(d != null){
+                                        x.setTime(d);
+                                    }else{
+                                        x.set(Calendar.DAY_OF_MONTH, UtilityHHH.toInt(ngayLamViecDKKS[i].getNgay()));
+                                    }
                                     date[i] = x;
                                     arngayLamViecDKKS.add(ngayLamViecDKKS[i]);
                                 }
