@@ -108,6 +108,11 @@
         <entry key="..\:/Users/nguye/Desktop/HongHungHospitalDKKB/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1685185185185185" />
         <entry key="..\:/Users/nguye/OneDrive/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua.xml" value="0.3015625" />
         <entry key="..\:/Users/nguye/OneDrive/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua_luu.xml" value="0.3015625" />
+        <entry key="app/src/main/res/layout/activity_khai_bao_yte.xml" value="0.39427083333333335" />
+        <entry key="app/src/main/res/layout/activity_khai_bao_yte_cong_tac.xml" value="0.39427083333333335" />
+        <entry key="app/src/main/res/layout/activity_khai_bao_yte_nguoi_than.xml" value="0.39427083333333335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.39427083333333335" />
+        <entry key="app/src/main/res/layout/fragment_logined_home.xml" value="0.39427083333333335" />
       </map>
     </option>
   </component>
