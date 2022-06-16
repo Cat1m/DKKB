@@ -32,6 +32,10 @@
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1365" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_chi_tiet_toa_thuoc.xml" value="0.37228260869565216" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_ket_qua_luu.xml" value="0.2953125" />
+        <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte.xml" value="0.41938405797101447" />
+        <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte_cong_tac.xml" value="0.41938405797101447" />
+        <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte_nguoi_than.xml" value="0.41938405797101447" />
+        <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_khai_bao_yte_noi_bo.xml" value="0.41938405797101447" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_link_his.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_main.xml" value="0.37228260869565216" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/activity_register.xml" value="0.37228260869565216" />
@@ -40,6 +44,7 @@
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/dang_ky_kham_bs.xml" value="0.37228260869565216" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/fragment_bac_si.xml" value="0.37228260869565216" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/fragment_dich_vu.xml" value="0.37228260869565216" />
+        <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/fragment_logined_home.xml" value="0.41938405797101447" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/item_footer.xml" value="0.67" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/item_ket_qua_luu.xml" value="0.37228260869565216" />
         <entry key="..\:/Users/nguye/Desktop/Github/HongHungHospitalDKKB/app/src/main/res/layout/item_lich_su_kham.xml" value="0.33" />

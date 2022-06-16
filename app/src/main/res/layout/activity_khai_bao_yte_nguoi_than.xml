@@ -349,7 +349,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
+                        android:paddingBottom="10dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/textView39"
@@ -387,7 +388,8 @@
                             android:layout_height="wrap_content"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
-                            android:paddingLeft="10dp">
+                            android:paddingLeft="10dp"
+                            android:visibility="gone">
 
                         </androidx.recyclerview.widget.RecyclerView>
                     </RelativeLayout>
