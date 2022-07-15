@@ -1,0 +1,468 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "147921936105c52904739dffa5e18629",
+    "entities": [
+      {
+        "tableName": "TinhThanh",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "QuocGia",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "QuanHuyen",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `MaTinhThanh` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaTinhThanh",
+            "columnName": "MaTinhThanh",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PhuongXa",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `MaTinhThanh` INTEGER NOT NULL, `MaQuanHuyen` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaTinhThanh",
+            "columnName": "MaTinhThanh",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaQuanHuyen",
+            "columnName": "MaQuanHuyen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "KhuPho",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `MaPhuongXa` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaPhuongXa",
+            "columnName": "MaPhuongXa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "UserData",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ConfigName` TEXT NOT NULL, `ConfigInfo` TEXT, PRIMARY KEY(`ConfigName`))",
+        "fields": [
+          {
+            "fieldPath": "ConfigName",
+            "columnName": "ConfigName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ConfigInfo",
+            "columnName": "ConfigInfo",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ConfigName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "CauHoiKhaiBaoYTe",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ID` INTEGER NOT NULL, `CauHoi` TEXT, PRIMARY KEY(`ID`))",
+        "fields": [
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CauHoi",
+            "columnName": "CauHoi",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TinTuc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ID` INTEGER NOT NULL, `Loai` INTEGER NOT NULL, `Title` TEXT, `URL` TEXT, `MoTa` TEXT, PRIMARY KEY(`ID`))",
+        "fields": [
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Loai",
+            "columnName": "Loai",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Title",
+            "columnName": "Title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "URL",
+            "columnName": "URL",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "MoTa",
+            "columnName": "MoTa",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "BacSi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ID` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`ID`))",
+        "fields": [
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DanToc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `Ten` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "LoaiDichVu",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `Ten` TEXT, `DonVi` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "DonVi",
+            "columnName": "DonVi",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DichVu",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `MaNhom` INTEGER NOT NULL, `Ten` TEXT, `Gia` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaNhom",
+            "columnName": "MaNhom",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Ten",
+            "columnName": "Ten",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Gia",
+            "columnName": "Gia",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "KetQuaLuu",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `MaQR` TEXT, `KetQua` TEXT, `TestNhanh` INTEGER NOT NULL, `Loai` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaQR",
+            "columnName": "MaQR",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "KetQua",
+            "columnName": "KetQua",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "TestNhanh",
+            "columnName": "TestNhanh",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Loai",
+            "columnName": "Loai",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ChiTietBacSi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Ma` INTEGER NOT NULL, `MaBS` INTEGER NOT NULL, `ChiTiet` TEXT, `LichLamViec` TEXT, PRIMARY KEY(`Ma`))",
+        "fields": [
+          {
+            "fieldPath": "Ma",
+            "columnName": "Ma",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MaBS",
+            "columnName": "MaBS",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ChiTiet",
+            "columnName": "ChiTiet",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LichLamViec",
+            "columnName": "LichLamViec",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Ma"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '147921936105c52904739dffa5e18629')"
+    ]
+  }
+}

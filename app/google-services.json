@@ -30,6 +30,13 @@
             {
               "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "270206841724-6g6bnit38qgn2c9vb8pejf84otosbi57.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hungduy.honghungdkkbios"
+              }
             }
           ]
         }
@@ -59,6 +66,49 @@
             {
               "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "270206841724-6g6bnit38qgn2c9vb8pejf84otosbi57.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hungduy.honghungdkkbios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270206841724:android:41d9771d424ced4805aaf9",
+        "android_client_info": {
+          "package_name": "com.hungduy.honghunghospitalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzy18u-3EnYmGZrtSpNtzT-hOt6z3FICM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "270206841724-6g6bnit38qgn2c9vb8pejf84otosbi57.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hungduy.honghungdkkbios"
+              }
             }
           ]
         }
@@ -96,6 +146,13 @@
             {
               "client_id": "270206841724-90toqov68qukmj91s3goj5lf9i80sve0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "270206841724-6g6bnit38qgn2c9vb8pejf84otosbi57.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hungduy.honghungdkkbios"
+              }
             }
           ]
         }

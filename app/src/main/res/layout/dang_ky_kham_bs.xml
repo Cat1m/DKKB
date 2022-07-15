@@ -60,7 +60,7 @@
                         android:text="TextView"
                         android:textColor="@color/textColorGreen" />
 
-                    <com.hungduy.honghunghospital.Utility.CSJRSpinner.BSSpinner
+                    <com.hungduy.honghunghospitalapp.Utility.CSJRSpinner.BSSpinner
                         android:id="@+id/txtBS"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

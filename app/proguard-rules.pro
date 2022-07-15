@@ -38,7 +38,7 @@
     public static *** v(...);
 }
 -keep class com.github.** { *; }
--keep class com.hungduy.honghunghospital.Model.** { *; }
+-keep class com.hungduy.honghunghospitalapp.Model.** { *; }
 -keep class com.facebook.** { *; }
 -keep class com.androidquery.** { *; }
 -keep class com.google.** { *; }

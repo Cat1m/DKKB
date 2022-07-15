@@ -1,0 +1,760 @@
+package com.hungduy.honghunghospitalapp.Activity;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
+import com.github.drjacky.imagepicker.ImagePicker;
+import com.google.gson.Gson;
+import com.hungduy.honghunghospitalapp.Database.Model.DanToc;
+import com.hungduy.honghunghospitalapp.Database.Model.KhuPho;
+import com.hungduy.honghunghospitalapp.Database.Model.PhuongXa;
+import com.hungduy.honghunghospitalapp.Database.Model.QuanHuyen;
+import com.hungduy.honghunghospitalapp.Database.Model.QuocGia;
+import com.hungduy.honghunghospitalapp.Database.Model.TinhThanh;
+import com.hungduy.honghunghospitalapp.Model.ResponseModel;
+import com.hungduy.honghunghospitalapp.Model.setModel.setUserModel;
+import com.hungduy.honghunghospitalapp.R;
+import com.hungduy.honghunghospitalapp.Utility.CallbackResponse;
+import com.hungduy.honghunghospitalapp.Utility.UtilityHHH;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
+import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
+import jrizani.jrspinner.JRSpinner;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegisterActivity extends BaseActivity {
+    private ImageView imgLogoBVHH,imgUserAVT,imgBHYT;
+    private TextView txtNgaySinh,txtThangSinh,txtNamSinh;
+    private EditText txtPassword,txtReEnterPassword,txtHoTen,txtDiaChi,txtSDT,txtCMND,txtMaBHYT;
+    private Button btnThoat,btnLuu;
+    private JRSpinner txtTinhThanh,txtQuanHuyen,txtXaPhuong,txtApKhuPho,txtQuocTich,txtDanToc;
+    private RadioButton chkNam,chkNu,chkKhac;
+    private LinearLayout ViewUpdate;
+    private ArrayList<TinhThanh> listTinhThanh = new ArrayList<>();
+    private ArrayList<QuanHuyen> listQuanHuyen = new ArrayList<>();
+    private ArrayList<PhuongXa> listPhuongXa = new ArrayList<>();
+    private ArrayList<KhuPho> listApKhuPho = new ArrayList<>();
+    private ArrayList<QuocGia> listQuocGia = new ArrayList<>();
+    private ArrayList<DanToc> listDanToc = new ArrayList<>();
+
+    private Uri URIimgUser,URIimgBHYT;
+
+
+    private String matinhthanh = "";
+    private String maquanhuyen = "";
+    private String maphuongxa = "";
+    private String maapkhupho = "";
+    private String maquoctich = "";
+    private String madantoc = "";
+
+    private String gioitinh = "0";
+
+    private String imgUserURL = "";
+    private String imgBHYTURL = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        
+        mapView();
+        ViewUpdate.setVisibility(View.GONE);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[TTdao.getAll().size()];
+                int i=0;
+                for (TinhThanh a: TTdao.getAll()) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listTinhThanh = (ArrayList<TinhThanh>) TTdao.getAll();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtTinhThanh.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listTinhThanh.size()+" tỉnh thành");
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[QGdao.getAll().size()];
+                int i=0;
+                int vitriVN = 0;
+                for (QuocGia a: QGdao.getAll()) {
+                    s[i]=a.getTen();
+                    if(a.getTen().equals("Việt Nam")){
+                        vitriVN = i;
+                        maquoctich = a.getMa()+"";
+                    }
+                    i++;
+                }
+                listQuocGia = (ArrayList<QuocGia>) QGdao.getAll();
+                int finalVitriVN = vitriVN;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuocTich.setItems(s);
+                        txtQuocTich.select(finalVitriVN);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listQuocGia.size()+" quốc gia");
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] s = new String[dantocDAO.getAll().size()];
+                int i=0;
+                int vitriKinh = 0;
+                for (DanToc a: dantocDAO.getAll()) {
+                    s[i]=a.getTen();
+                    if(a.getTen().equals("Kinh")){
+                        vitriKinh = i;
+                        madantoc = a.getMa()+"";
+                    }
+                    i++;
+                }
+                listDanToc = (ArrayList<DanToc>) dantocDAO.getAll();
+                int finalVitriKinh = vitriKinh;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtDanToc.setItems(s);
+                        txtDanToc.select(finalVitriKinh);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ listDanToc.size()+" dan toc");
+            }
+        }).start();
+
+        txtTinhThanh.setItems(new String[0]);
+        txtQuanHuyen.setItems(new String[0]);
+        txtXaPhuong.setItems(new String[0]);
+        txtApKhuPho.setItems(new String[0]);
+
+       // Picasso.get().load(R.drawable.icon_photo).resize(30,30).centerCrop().into(imgBHYT);
+        imgBHYT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(RegisterActivity.this)
+                        .crop()
+                        .cropFreeStyle()
+                        .maxResultSize(512, 512, true)
+                        .createIntentFromDialog((Function1) (new Function1() {
+                            public Object invoke(Object var1) {
+                                this.invoke((Intent) var1);
+                                return Unit.INSTANCE;
+                            }
+
+                            public final void invoke(@NotNull Intent it) {
+                                Intrinsics.checkNotNullParameter(it, "it");
+                                launcherImgBHYT.launch(it);
+                            }
+                        }));
+            }
+        });
+
+        imgUserAVT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(RegisterActivity.this)
+                        .crop()
+                        .cropOval()
+                        .maxResultSize(512, 512, true)
+                        .createIntentFromDialog((Function1) (new Function1() {
+                            public Object invoke(Object var1) {
+                                this.invoke((Intent) var1);
+                                return Unit.INSTANCE;
+                            }
+
+                            public final void invoke(@NotNull Intent it) {
+                                Intrinsics.checkNotNullParameter(it, "it");
+                                launcherImgUser.launch(it);
+                            }
+                        }));
+            }
+        });
+
+        imgLogoBVHH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        txtTinhThanh.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listTinhThanh.get(position).getMa()+"";
+                if(!matinhthanh.equals(code)){
+                    matinhthanh = code;
+                    txtQuanHuyen.setItems(new String[0]);
+                    txtXaPhuong.setItems(new String[0]);
+                    txtApKhuPho.setItems(new String[0]);
+                    txtQuanHuyen.setText("----");
+                    txtXaPhuong.setText("----");
+                    txtApKhuPho.setText("----");
+                    maquanhuyen = "";
+                    maphuongxa = "";
+                    maapkhupho = "";
+                    DoDuLieuQuanHuyen(listTinhThanh.get(position).getMa());
+                    Log.d(TAG,  matinhthanh +" - " + listTinhThanh.get(position).getTen());
+                }
+            }
+        });
+
+        txtQuanHuyen.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listQuanHuyen.get(position).getMa()+"";
+                if(!maquanhuyen.equals(code)){
+                    maquanhuyen = code;
+                    txtXaPhuong.setItems(new String[0]);
+                    txtApKhuPho.setItems(new String[0]);
+                    txtXaPhuong.setText("----");
+                    txtApKhuPho.setText("----");
+                    maapkhupho = "";
+                    maphuongxa = "";
+                    DoDuLieuXaPhuong(listQuanHuyen.get(position).getMa());
+                    Log.d(TAG,  maquanhuyen +" - " + listQuanHuyen.get(position).getTen());
+                }
+            }
+        });
+
+        txtXaPhuong.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listPhuongXa.get(position).getMa()+"";
+                if(!maphuongxa.equals(code)){
+                    maphuongxa = code;
+                    maapkhupho = "";
+                    txtApKhuPho.setItems(new String[0]);
+                    txtApKhuPho.setText("----");
+                    DoDuLieuApKhuPho(listPhuongXa.get(position).getMa());
+                    Log.d(TAG,  maphuongxa +" - " + listPhuongXa.get(position).getTen());
+                }
+            }
+        });
+
+        txtApKhuPho.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listApKhuPho.get(position).getMa()+"";
+                if(!maapkhupho.equals(code)){
+                    maapkhupho = code;
+                    Log.d(TAG,  maapkhupho +" - " + listApKhuPho.get(position).getTen());
+                }
+            }
+        });
+
+        txtQuocTich.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listQuocGia.get(position).getMa()+"";
+                if(!maquoctich.equals(code)){
+                    maquoctich = code;
+                    Log.d(TAG,  maquoctich +" - " + listQuocGia.get(position).getTen());
+                }
+
+            }
+        });
+
+        txtDanToc.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String code = listDanToc.get(position).getMa()+"";
+                if(!madantoc.equals(code)){
+                    madantoc = code;
+                    Log.d(TAG,  madantoc +" - " + listDanToc.get(position).getTen());
+                }
+            }
+        });
+
+        txtNgaySinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NgaySinhPicker();
+            }
+        });
+
+        txtThangSinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NgaySinhPicker();
+            }
+        });
+
+        txtNamSinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NgaySinhPicker();
+            }
+        });
+
+        chkKhac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                groupCheckBox(chkKhac);
+                gioitinh = "2";
+            }
+        });
+        chkNu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                groupCheckBox(chkNu);
+                gioitinh = "1";
+            }
+        });
+        chkNam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                groupCheckBox(chkNam);
+                gioitinh = "0";
+            }
+        });
+
+        txtReEnterPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!txtPassword.getText().toString().equals(txtReEnterPassword.getText().toString())){
+                    txtReEnterPassword.setBackground(shape_edittext_error);
+                }else{
+                    txtReEnterPassword.setBackground(shape_edittext_have_focus);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        txtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(txtPassword.getText().toString().isEmpty()){
+                    txtPassword.setBackground(shape_edittext_error);
+                }else{
+                    txtPassword.setBackground(shape_edittext_have_focus);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        txtSDT.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(txtSDT.getText().toString().isEmpty()){
+                    txtSDT.setBackground(shape_edittext_error);
+                }else{
+                    txtSDT.setBackground(shape_edittext_have_focus);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtHoTen.getText().toString().isEmpty() ||txtPassword.getText().toString().isEmpty()
+                        || txtPassword.getText().toString().length()<8 ||  txtReEnterPassword.getText().toString().length() <8
+                        || txtReEnterPassword.getText().toString().isEmpty()
+                        || txtSDT.getText().toString().isEmpty() || matinhthanh.isEmpty() || maquanhuyen.isEmpty()
+                        || maphuongxa.isEmpty()){
+                    if(txtHoTen.getText().toString().isEmpty()){
+                        txtHoTen.setBackground(shape_edittext_error);
+                    }else{
+                        txtHoTen.setBackground(shape_edittext_have_focus);
+                    }
+
+                    if(txtPassword.getText().toString().isEmpty()){
+                        txtPassword.setBackground(shape_edittext_error);
+                    }else{
+                        txtPassword.setBackground(shape_edittext_have_focus);
+                    }
+
+                    if(txtReEnterPassword.getText().toString().isEmpty()){
+                        txtReEnterPassword.setBackground(shape_edittext_error);
+                    }else{
+                        txtReEnterPassword.setBackground(shape_edittext_have_focus);
+                    }
+
+                    if(txtQuocTich.getText().toString().isEmpty()){
+                        txtQuocTich.setBackground(shape_edittext_error);
+                    }else{
+                        txtQuocTich.setBackground(shape_edittext_have_focus);
+                    }
+
+                    if(txtSDT.getText().toString().isEmpty()){
+                        txtSDT.setBackground(shape_edittext_error);
+                    }else{
+                        if(txtSDT.getText().toString().length() > 11){
+                            txtSDT.setBackground(shape_edittext_error);
+                            ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                    "Số điện thoại bạn nhập không đúng địng dạng !!!",R.drawable.connection_error);
+                            return;
+                        }
+                        if(txtSDT.getText().toString().length() < 10){
+                            txtSDT.setBackground(shape_edittext_error);
+                            ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                    "Số điện thoại bạn nhập không đúng địng dạng !!!",R.drawable.connection_error);
+                            return;
+                        }
+                        txtSDT.setBackground(shape_edittext_have_focus);
+                    }
+                    if(txtReEnterPassword.getText().toString().length() < 8 || txtPassword.getText().toString().length()<8){
+                        ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                "Mật khẩu phải từ 8 ký tự trở lên!",R.drawable.password_drbl);
+                        return;
+                    }
+                    ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                            "Bạn chưa nhập đủ thông tin. Những mục có dấu * là bắt buộc!",R.drawable.connection_error);
+                }else{
+                    if(!txtPassword.getText().toString().equals(txtReEnterPassword.getText().toString())){
+                        ThongBao(RegisterActivity.this,"Đã có lỗi xảy ra",
+                                "Mật khẩu Không khớp",R.drawable.password_drbl);
+                        return;
+                    }
+                    showDialogLoading(2000);
+                    btnLuu.setEnabled(false);
+
+                    if(URIimgUser != null)
+                    {
+                        File file = new File(URIimgUser.getPath());
+                        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                        MultipartBody.Part body = MultipartBody.Part.createFormData("files[0]", file.getName(), requestFile);
+                        mAPIService.ImageUploadFile(APIKey, body).enqueue(new Callback<ResponseModel>() {
+                            @Override
+                            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                try {
+                                    String[] url = new Gson().fromJson(response.body().getData(), String[].class);
+                                    imgUserURL = url[0];
+                                    Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception e){
+                                    imgUserURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                imgUserURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                            }
+                        });
+                    }
+
+                    if(URIimgBHYT != null)
+                    {
+                        File file = new File(URIimgBHYT.getPath());
+                        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                        MultipartBody.Part body = MultipartBody.Part.createFormData("files[0]", file.getName(), requestFile);
+                        mAPIService.ImageUploadFile(APIKey, body).enqueue(new Callback<ResponseModel>() {
+                            @Override
+                            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                try {
+                                    String[] url = new Gson().fromJson(response.body().getData(), String[].class);
+                                    imgBHYTURL = url[0];
+                                    Log.d(TAG, response.body().getStatus() + " " + response.body().getMessenge() + " " + url[0]);
+                                }catch (Exception e){
+                                    imgBHYTURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                imgBHYTURL = "https://honghunghospital.com.vn/wp-content/uploads/2020/03/Hong-Hung-Logo-FA-01-e1585021504155.png";
+                            }
+                        });
+                    }
+
+                    Thread setUser = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setUserModel u = new setUserModel(txtHoTen.getText().toString(),txtNgaySinh.getText().toString()+
+                                    "/"+txtThangSinh.getText().toString()+"/"+txtNamSinh.getText().toString(),gioitinh,matinhthanh
+                                    ,maquanhuyen,maphuongxa,maapkhupho,maquoctich,txtSDT.getText().toString(),txtPassword.getText().toString(),
+                                    txtDiaChi.getText().toString(),txtCMND.getText().toString(),txtMaBHYT.getText().toString(),imgUserURL,imgBHYTURL);
+                            u.setDantoc(madantoc);
+                            mAPIService.setUser(APIKey,u).enqueue(new CallbackResponse(RegisterActivity.this){
+                                @Override
+                                public void success(Response<ResponseModel> response) {
+                                    HideDialogLoading();
+                                    ThongBao(RegisterActivity.this, "Thành công", "Đăng kí thành công !!",
+                                            R.drawable.connection_error, new FancyGifDialogListener() {
+                                                @Override
+                                                public void OnClick() {
+                                                    finish();
+                                                }
+                                            });
+                                }
+                            });
+                        }
+                    });
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (URIimgUser != null && imgUserURL =="") {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (Exception e) {
+                                }
+                            }
+                            while (URIimgBHYT != null && imgBHYTURL =="") {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (Exception e) {
+                                }
+                            }
+                            setUser.start();
+                        }
+                    }).start();
+
+                }
+            }
+        });
+    }
+
+    private void groupCheckBox(RadioButton b){
+        if(b != chkKhac){
+            chkKhac.setChecked(false);
+        }
+        if(b != chkNam){
+            chkNam.setChecked(false);
+        }
+        if(b != chkNu){
+            chkNu.setChecked(false);
+        }
+    }
+
+    private void NgaySinhPicker(){
+        Calendar c = Calendar.getInstance();
+        int mYear=2022;
+        int mMonth=0;
+        int mDay=1;
+        try{
+            mYear = UtilityHHH.toInt(txtNamSinh.getText().toString());
+            mMonth = UtilityHHH.toInt(txtThangSinh.getText().toString()) - 1;
+            mDay = UtilityHHH.toInt(txtNgaySinh.getText().toString());
+        }catch (Exception e){
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+        }
+
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                txtNamSinh.setText(year+"");
+                txtNgaySinh.setText(dayOfMonth < 10  ?"0"+ dayOfMonth :dayOfMonth+"");
+                txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.setOkText("Chọn");
+        datePickerDialog.setCancelText("Hủy");
+        datePickerDialog.setLocale(new Locale("vi"));
+        datePickerDialog.show(getSupportFragmentManager(), "Chọn ngày sinh");
+
+      /*  DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterActivity.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                txtNamSinh.setText(year+"");
+                txtNgaySinh.setText(dayOfMonth+"");
+                txtThangSinh.setText(monthOfYear+1 < 10 ? "0"+(monthOfYear+1) : monthOfYear+1+"");
+            }
+        }, 1997, 0, 26);
+        datePickerDialog.setTitle("Chọn ngày");
+
+        datePickerDialog.show();*/
+    }
+
+    private void DoDuLieuQuanHuyen(int matinhthanh){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<QuanHuyen> qh = (ArrayList<QuanHuyen>) QHdao.getQuanHuyenByTinhThanh(matinhthanh);
+                String[] s = new String[qh.size()];
+                int i=0;
+                for (QuanHuyen a: qh) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listQuanHuyen = qh;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtQuanHuyen.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ qh.size()+" quận huyện");
+            }
+        }).start();
+    }
+
+    private void DoDuLieuXaPhuong(int maquanhuyen){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<PhuongXa> px = (ArrayList<PhuongXa>) PXdao.getPhuongXaByQuanHuyen(maquanhuyen);
+                String[] s = new String[px.size()];
+                int i=0;
+                for (PhuongXa a: px) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listPhuongXa = px;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtXaPhuong.setItems(s);
+                    }
+                });
+                Log.d(TAG,"Nhận "+ px.size()+" phường xã");
+            }
+        }).start();
+    }
+
+    private void DoDuLieuApKhuPho(int maqh){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<KhuPho> kp = (ArrayList<KhuPho>) KPdao.getKhuPhoByPhuongXa(maqh);
+                String[] s = new String[kp.size()];
+                int i=0;
+                for (KhuPho a: kp) {
+                    s[i]=a.getTen();
+                    i++;
+                }
+                listApKhuPho = kp;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(kp.size() > 0){
+                            txtApKhuPho.setItems(s);
+                        }else {
+                            txtApKhuPho.setEnabled(false);
+                        }
+                    }
+                });
+                Log.d(TAG,"Nhận "+ kp.size()+" phường xã");
+            }
+        }).start();
+    }
+
+    ActivityResultLauncher<Intent> launcherImgBHYT =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    URIimgBHYT = result.getData().getData();
+                    Picasso.get().load(URIimgBHYT).into(imgBHYT);
+                } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                    // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                }
+            });
+    ActivityResultLauncher<Intent> launcherImgUser =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    URIimgUser = result.getData().getData();
+                    Picasso.get().load(URIimgUser).into(imgUserAVT);
+                } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                    // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                }
+            });
+
+    private void mapView() {
+        imgLogoBVHH = findViewById(R.id.imgLogoBVHH);
+        imgUserAVT = findViewById(R.id.imgUserAVT);
+        txtNgaySinh = findViewById(R.id.txtNgaySinh);
+        txtThangSinh = findViewById(R.id.txtThangSinh);
+        txtNamSinh = findViewById(R.id.txtNamSinh);
+        imgBHYT = findViewById(R.id.imgBHYT);
+        btnThoat = findViewById(R.id.btnThoat);
+        txtTinhThanh = findViewById(R.id.txtTinhThanh);
+        txtQuanHuyen = findViewById(R.id.txtQuanHuyen);
+        txtXaPhuong = findViewById(R.id.txtXaPhuong);
+        txtApKhuPho = findViewById(R.id.txtApKhuPho);
+        txtQuocTich = findViewById(R.id.txtQuocTich);
+        txtDanToc = findViewById(R.id.txtDanToc);
+        chkNam = findViewById(R.id.chkNam);
+        chkNu = findViewById(R.id.chkNu);
+        chkKhac = findViewById(R.id.chkKhac);
+        txtPassword = findViewById(R.id.txtPassword);
+        txtReEnterPassword = findViewById(R.id.txtReEnterPassword);
+        btnLuu = findViewById(R.id.btnLuu);
+        txtHoTen = findViewById(R.id.txtNhomDV);
+        txtDiaChi = findViewById(R.id.txtDiaChi);
+        txtSDT = findViewById(R.id.txtSDT);
+        txtCMND = findViewById(R.id.txtCMND);
+        txtMaBHYT= findViewById(R.id.txtMaBHYT);
+        ViewUpdate = findViewById(R.id.ViewUpdate);
+    }
+}

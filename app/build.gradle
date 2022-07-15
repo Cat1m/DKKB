@@ -5,7 +5,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.hungduy.honghunghospital"
+        applicationId "com.hungduy.honghunghospitalapp"
         apply plugin: 'com.google.gms.google-services'  // Google Services plugin
         minSdk 21
         targetSdk 31
