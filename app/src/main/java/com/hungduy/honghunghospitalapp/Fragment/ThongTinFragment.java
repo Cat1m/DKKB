@@ -34,7 +34,7 @@ public class ThongTinFragment extends BaseFragment {
     private ArrayList<getTinTuc> getTinTucThongBaoQuyDinh= new ArrayList<>();
     private ArrayList<getTinTuc> getTinTucKhac= new ArrayList<>();
     private RecyclerView rcChuongTrinh,rcThongBaoQuyDinh,rcThongBaoKhac;
-    private TextView txtThongBao,txtTinKhac;
+    private TextView txtThongBao,txtTinKhac,txtCTUD;
     private ArrayList<String> ttdadoc;
     private TinTucAdapter QuyDinhADT,KhacADT;
     private TinTucHorizontalAdapter tinTucHoADT;
@@ -105,7 +105,14 @@ public class ThongTinFragment extends BaseFragment {
                 }
             }
         });*/ // code này đang lỗi
-
+        txtCTUD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                intent.putExtra("url","https://honghunghospital.com.vn/category/tin-tuc/tin-hong-hung/");
+                startActivity(intent);
+            }
+        });
 
         txtThongBao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,13 +157,13 @@ public class ThongTinFragment extends BaseFragment {
                         getTinTucThongBaoQuyDinh.clear();
                         getTinTucKhac.clear();
                         for (getTinTuc a: tinTucs) {
-                            if(a.getLoai() == 4){
+                            if(a.getLoai() == 4 && getTinTucChuongTrinhUuDai.size() < 3){
                                 getTinTucChuongTrinhUuDai.add(a);
                             }
-                            if(a.getLoai() == 1){
+                            if(a.getLoai() == 1 && getTinTucThongBaoQuyDinh.size() < 3){
                                 getTinTucThongBaoQuyDinh.add(a);
                             }
-                            if(a.getLoai() == 3){
+                            if(a.getLoai() == 3 && getTinTucKhac.size() < 5){
                                 getTinTucKhac.add(a);
                             }
                         }
@@ -201,6 +208,7 @@ public class ThongTinFragment extends BaseFragment {
         rcThongBaoQuyDinh = view.findViewById(R.id.rcThongBaoQuyDinh);
         txtThongBao = view.findViewById(R.id.txtThongBao);
         txtTinKhac = view.findViewById(R.id.txtTinKhac);
+        txtCTUD = view.findViewById(R.id.txtCTUD);
     }
 
     @Override

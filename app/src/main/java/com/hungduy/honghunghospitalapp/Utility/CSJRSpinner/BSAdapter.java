@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.hungduy.honghunghospitalapp.Model.extModel.getBSCoHinh;
 import com.hungduy.honghunghospitalapp.R;
+import com.hungduy.honghunghospitalapp.Utility.UtilityHHH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,9 @@ public class BSAdapter extends RecyclerView.Adapter<BSAdapter.ViewHolder>  {
     public void update(String query) {
         for (Pair<Integer, getBSCoHinh> item : allItems) {
             if (item.second.getTen().toLowerCase().contains(query.toLowerCase())) {
+                tempItems.add(item);
+            }
+            if (UtilityHHH.deAccent(item.second.getTen().toLowerCase()).contains(query.toLowerCase())) {
                 tempItems.add(item);
             }
         }

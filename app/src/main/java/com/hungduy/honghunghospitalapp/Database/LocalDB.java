@@ -58,7 +58,10 @@ import java.util.concurrent.Executors;
         KetQuaLuu.class,
         BacSiDetail.class
         },
-        version = 1,
+        version = 2,
+        autoMigrations = {
+                @AutoMigration(from = 1, to = 2)
+        },
         exportSchema = true)
 public abstract class LocalDB extends RoomDatabase {
     private static volatile LocalDB INSTANCE;

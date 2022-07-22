@@ -149,6 +149,18 @@
                             app:layout_constraintTop_toBottomOf="@+id/rcThongBaoQuyDinh" />
 
                         <TextView
+                            android:id="@+id/txtCTUD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/utm_gods_word_r_italic"
+                            android:padding="8dp"
+                            android:text="Xem thêm các tin khác"
+                            android:textColor="@android:color/holo_blue_dark"
+                            app:layout_constraintEnd_toEndOf="@+id/textView111"
+                            app:layout_constraintTop_toBottomOf="@+id/textView111" />
+
+                        <TextView
                             android:id="@+id/textView33"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -159,7 +171,7 @@
                             android:textColor="@color/textColorGreen"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView111" />
+                            app:layout_constraintTop_toBottomOf="@+id/txtCTUD" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoKhac"

@@ -32,10 +32,12 @@ import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class UtilityHHH {
     private static String TAG="Utility";
@@ -51,6 +53,16 @@ public class UtilityHHH {
 
     public static String getFileFromURI(String URI){
         return URI.split("/")[URI.split("/").length-1];
+    }
+
+    public static String deAccent(String str) {
+        try{
+            String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            return pattern.matcher(nfdNormalizedString).replaceAll("");
+        }catch (Exception ingored){
+            return "";
+        }
     }
 
     public static String Encrypt(String toEncrypt) {
