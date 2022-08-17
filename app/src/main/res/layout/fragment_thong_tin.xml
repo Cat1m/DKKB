@@ -65,16 +65,61 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="-4dp"
+                            android:layout_marginBottom="-4dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bg"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtCTUD"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/colorAccent"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/imageView14"
+                                android:layout_width="60px"
+                                android:layout_height="60px"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="5dp"
+                                android:src="@drawable/icon_speaker"
+                                app:srcCompat="@drawable/icon_speaker" />
+
+                            <TextView
+                                android:id="@+id/textView32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/utm_gods_word_b"
+                                android:text="Thông báo &amp; Quy định đang được áp dụng"
+                                android:textColor="@color/ic_launcher_background" />
+                        </LinearLayout>
+
                         <TextView
                             android:id="@+id/textView31"
                             android:layout_width="0dp"
-                            android:layout_marginTop="8dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/utm_gods_word_b"
                             android:text="Chương trình ưu đãi từ BVĐK Hồng Hưng"
-                            android:textColor="@color/textColorGreen"
+                            android:textColor="@color/ic_launcher_background"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/txtThongBao" />
@@ -89,7 +134,7 @@
                             android:overScrollMode="never"
                             android:scrollbars="none"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView31">
 
@@ -103,28 +148,15 @@
                             android:fontFamily="@font/myriadpro_semiext"
                             android:padding="8dp"
                             android:text="[Trượt ngang để xem thêm]"
-                            android:textColor="@android:color/holo_blue_dark"
+                            android:textColor="@android:color/background_light"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/rcChuongTrinh" />
-
-                        <TextView
-                            android:id="@+id/textView32"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/utm_gods_word_b"
-                            android:text="Thông báo &amp; Quy định đang được áp dụng"
-                            android:textColor="@color/textColorGreen"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoQuyDinh"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
+                            android:layout_marginTop="8dp"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
                             android:paddingLeft="10dp"
@@ -132,7 +164,7 @@
                             android:scrollbars="none"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView32">
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
@@ -156,22 +188,43 @@
                             android:fontFamily="@font/utm_gods_word_r_italic"
                             android:padding="8dp"
                             android:text="Xem thêm các tin khác"
-                            android:textColor="@android:color/holo_blue_dark"
+                            android:textColor="@android:color/background_light"
                             app:layout_constraintEnd_toEndOf="@+id/textView111"
                             app:layout_constraintTop_toBottomOf="@+id/textView111" />
 
-                        <TextView
-                            android:id="@+id/textView33"
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:layout_height="31dp"
                             android:layout_marginTop="8dp"
-                            android:fontFamily="@font/utm_gods_word_b"
-                            android:text="Các thông tin hữu ích khác:"
-                            android:textColor="@color/textColorGreen"
+                            android:background="@color/colorAccent"
+                            android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/txtCTUD" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageView13">
+
+                            <ImageView
+                                android:id="@+id/imageView22"
+                                android:layout_width="60px"
+                                android:layout_height="60px"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_weight="0"
+                                android:src="@drawable/icon_speaker"
+                                app:srcCompat="@drawable/icon_speaker" />
+
+                            <TextView
+                                android:id="@+id/textView33"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/utm_gods_word_b"
+                                android:text="Các thông tin hữu ích khác:"
+                                android:textColor="@color/ic_launcher_background" />
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcThongBaoKhac"
@@ -185,7 +238,7 @@
                             android:scrollbars="none"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView33">
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
                         </androidx.recyclerview.widget.RecyclerView>
 

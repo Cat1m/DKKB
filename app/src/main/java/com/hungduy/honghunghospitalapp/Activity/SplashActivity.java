@@ -1,8 +1,5 @@
 package com.hungduy.honghunghospitalapp.Activity;
 
-
-
-
 import androidx.annotation.NonNull;
 
 import android.content.Intent;

@@ -3,6 +3,7 @@ package com.hungduy.honghunghospitalapp.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class TinTucHorizontalAdapter extends RecyclerView.Adapter<TinTucHorizont
             super(itemView);
             itemview = itemView;
             txtNoiDung = itemView.findViewById(R.id.txtNoiDung);
+            txtNoiDung.setTextColor(Color.WHITE);
             img = itemView.findViewById(R.id.img);
             ItemView = itemView.findViewById(R.id.ItemView);
         }
