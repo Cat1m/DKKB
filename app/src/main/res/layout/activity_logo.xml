@@ -127,7 +127,7 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/myriadpro_semiboldsemiext"
                 android:padding="5dp"
-                android:text=" info@honghunghospital.com.vn"
+                android:text=" dichvukhachhang@honghunghospital.com.vn"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
@@ -147,7 +147,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgWeb" />
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgWeb"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -156,41 +156,41 @@
                 app:layout_constraintEnd_toStartOf="@+id/imgFacebook"
                 app:layout_constraintStart_toStartOf="@+id/textView36"
                 app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-                app:srcCompat="@drawable/icon_web" />
+                android:src="@drawable/icon_web_gif" />
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgFacebook"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/imgYoutube"
                 app:layout_constraintStart_toEndOf="@+id/imgWeb"
                 app:layout_constraintTop_toTopOf="@+id/imgWeb"
-                app:srcCompat="@drawable/icon_facebook" />
+                android:src="@drawable/icon_fb_gif" />
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgYoutube"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/imgZalo"
                 app:layout_constraintStart_toEndOf="@+id/imgFacebook"
                 app:layout_constraintTop_toTopOf="@+id/imgFacebook"
-                app:srcCompat="@drawable/icon_youtube" />
+                android:src="@drawable/icon_youtube_gif" />
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgZalo"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView36"
                 app:layout_constraintStart_toEndOf="@+id/imgYoutube"
                 app:layout_constraintTop_toTopOf="@+id/imgFacebook"
-                app:srcCompat="@drawable/icon_zalo" />
+                android:src="@drawable/icon_zalo_gif" />
 
             <include
                 android:id="@+id/include14"
