@@ -98,7 +98,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_home_2"
-                    tools:visibility="gone" />
+                    tools:visibility="gone"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/btn_home_4"
@@ -124,7 +125,6 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/btn_home_5"
                     android:fontFamily="@font/myriadpro_semiext"
-                    android:visibility="gone"
                     android:paddingLeft="5dp"
                     android:paddingBottom="5dp"
                     android:text="@string/btn_home_5"
@@ -133,7 +133,9 @@
                     android:textScaleX="0.9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_home_4" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_home_4"
+                    tools:visibility="gone"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/btn_home_6"
