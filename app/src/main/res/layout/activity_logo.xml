@@ -150,8 +150,8 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgWeb"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/imgFacebook"
@@ -161,8 +161,8 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgFacebook"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/imgYoutube"
@@ -172,10 +172,9 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgYoutube"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/imgZalo"
                 app:layout_constraintStart_toEndOf="@+id/imgFacebook"
@@ -184,8 +183,8 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgZalo"
-                android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/textView36"
